@@ -1,0 +1,97 @@
+#about {
+    position: relative;
+    padding: 78px 1px;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(67,90,113,1) 100%);
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensures it's behind all other content but above the section background if any */
+}
+
+.content-wrapper {
+    max-width: 100%;
+    position: relative;
+    border: 2px solid yellow;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 3em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.about-img {
+    width: 400px;
+    transition: 0.5s ease;
+}
+
+#about h1 {
+    color:white;
+    font-size:80px;
+    font-weight:bold;
+    text-transform: capitalize;
+    text-align: center;
+    margin:0 auto 10px;
+}
+
+#about h5{
+    color:white;
+    font-size:28px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.consultant-color{
+    color: yellow;
+}
+
+#about h2 {
+    text-align: center;
+    font-size: 40px;
+    color: darkgray;
+    font-weight: bold;
+}
+
+#about h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: ghostwhite;
+}
+
+#about p {
+    color:ghostwhite;
+    font-weight: bold;: ;
+    letter-spacing: 1px;
+    line-height: 30px;
+    font-size: 20px;
+    margin-bottom:45px;
+    text-align: center;
+}
+
+.info-block h2, .info-block h4 {
+    margin: 1px;
+}
+
+.info-block {
+    text-align: center;
+    min-width: 190px;
+}
+
+.info-block h2 {
+    font-size: 48px;
+    font-weight: bold;
+    visibility: hidden;
+    transition: visibility 0.3s linear;
+    color: yellow !important;
+}
+
+.info-block h4 {
+    color:rgba(255,236,236, 0.8)
+}
