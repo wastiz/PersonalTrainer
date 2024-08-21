@@ -1,14 +1,18 @@
 {
   "dependencies": {
     "air-datepicker": "^3.5.3",
+    "bootstrap": "^5.3.3",
     "ejs": "^3.1.10",
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "sass": "^1.77.8",
+    "sass-loader": "^16.0.1"
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build-css": "sass public/css:public/css"
   }
 }

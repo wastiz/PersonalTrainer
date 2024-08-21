@@ -8,8 +8,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-const cssFolderPath = path.join(__dirname, 'public', 'css');
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 app.get('/', (req, res) => {
     const lang = req.query.lang || 'et';
