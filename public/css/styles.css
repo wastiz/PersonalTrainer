@@ -1,0 +1,180 @@
+#carouselExampleIndicators {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.carousel-item {
+    height: 100vh;
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 1% 16%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none !important;
+    content: none !important;
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+    font-family: 'FontAwesome', serif;
+    content: '\f104';
+    font-weight: bold;
+    color: yellow;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.carousel-control-next-icon::before {
+    content: '\f105';
+}
+
+.carousel-indicators button {
+    background-color: transparent;
+    border: 5px solid yellow;
+}
+
+.carousel-indicators .active {
+    background-color: yellow;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 60%; /* Positioning the text a bit lower to align it visually appealing */
+    left: 10%; /* Giving some space from the left edge */
+    color: #fff; /* Ensures text is white */
+    text-align: left; /* Aligns text to the left */
+    max-width: 50%; /* Limits the width of the text block for better readability */
+    background: rgba(0, 0, 0, 0); /* Dark background with some opacity */
+    padding: 20px;
+    border-radius: 5px; /* Slightly rounded corners for the text background */
+}
+
+/* Headline Styling */
+.text-overlay h1 {
+    font-size: 2.5rem; /* Large size for the main headline */
+    font-weight: bold; /* Makes text bold */
+    text-transform: uppercase; /* Uppercase letters for emphasis */
+    margin-bottom: 15px; /* Space between headline and paragraph */
+}
+
+/* Paragraph Styling */
+.text-overlay p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.yellow-text {
+    color: yellow; /* Specifies the yellow color */
+}
+
+.white-text {
+    color: white; /* Specifies the white color */
+}
+
+.text-overlay h2 {
+    font-size: 2rem; /* Adjust size as needed */
+    font-weight: bold; /* Ensures text is bold */
+    text-align: left; /* Centers the text */
+}
+
+/* Adding Simple Animation for Text */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.text-overlay {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+#shop {
+    background-color: #f5f5f5;
+    background-image: url('../img/Picture/Epood.png'); /* Ensure the path is correct */
+    background-size: cover;
+    background-position: center; /* Adjusted to center for better focus */
+    background-repeat: no-repeat;
+    text-align: center;
+    color: #fff; /* Set text color to white in case you add text later */
+    margin-top: 1px !important;
+    margin-bottom: 15px;
+}
+
+#scrollTopBtn {
+    display: none; /* Initial state hidden */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    border: none; /* Remove any border */
+    background: none; /* Remove background */
+    padding: 0; /* Remove padding */
+}
+
+#scrollTopBtn img {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+}
+
+#scrollTopBtn:hover {
+    transform: scale(1.05); /* Subtly enlarge on hover */
+}
+
+#pricing {
+    margin-top: 15px !important;
+    background-color: #f5f5f5;
+    background-size: cover;
+    background-position: 0% 16%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#video-training {
+    margin-top: 15px !important;
+    background-color: #f5f5f5;
+    background-size: cover;
+    background-position: 0% 16%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#contact {
+    margin-top: 15px !important;
+    background-color: #f5f5f5;
+    background-size: cover;
+    background-position: 0% 16%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+

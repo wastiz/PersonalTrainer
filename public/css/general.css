@@ -1,0 +1,56 @@
+body {
+    font-family: Gill Sans, "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+label {
+    font-size: 19px; /* Adjust the size to your preference */
+    font-weight: bold; /* Optional: Makes the label text bold */
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-end {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.small-text {
+    font-size: 1.5rem;
+}
+
+.large-text {
+    font-size: 3rem;
+}
+
+.prefixed-text {
+    font-size: 0.8rem;
+    color: white;
+}
+
+.prefixed-text::before {
+    content: "- ";
+    color: yellow;
+    font-size: 1em;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-right: 10px;
+}
