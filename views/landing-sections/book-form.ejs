@@ -10,22 +10,23 @@
     <div class="book-form flex flex-center flex-column">
         <h2>Tule Trenni!</h2>
         <h5>Vaata lähim aeg, millal saaksid tulla trenni.</h5>
-        <form class='mb-3'>
+        <form class='mb-3' action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="833bcde2-470b-4729-ae1c-3a28d174b7b7">
             <div class="mb-3">
                 <label for="name" class="form-label">Nimi</label>
-                <input type="email" class="form-control" id="name" placeholder="Siseta oma nimi...">
+                <input name="Name" type="text" class="form-control" id="name" placeholder="Siseta oma nimi...">
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Siseta oma email...">
+                <input name="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Siseta oma email...">
             </div>
             <div class="mb-3">
                 <label for="telefon" class="form-label">Telefon</label>
-                <input type="tel" class="form-control" id="name" placeholder="Siseta oma telefoni numbrit...">
+                <input name="Phone" type="tel" class="form-control" id="name" placeholder="Siseta oma telefoni numbrit...">
             </div>
             <div class="mb-3">
                 <label class="form-label">Treenitüüp</label>
-                <select class="form-select" aria-label="Default select example">
+                <select name="Type" class="form-select" aria-label="Default select example">
                     <option selected>Vali treeni tüüp</option>
                     <option value="1">Toitutrenn</option>
                     <option value="2">Tavaline trenn</option>
@@ -34,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="el" class="form-label">Kuupäev</label>
-                <input type="text" class="form-control" id="el" placeholder="Vali kuupäev">
+                <input name="Date" type="text" class="form-control" id="el" placeholder="Vali kuupäev">
             </div>
             <div class="mb-3">
                 <label for="el" class="form-label">Eelistatud aeg</label>
@@ -43,6 +44,7 @@
                     <button type="button" class="btn btn-primary time-picker" data-bs-toggle="button">13-15</button>
                     <button type="button" class="btn btn-primary time-picker" data-bs-toggle="button">16-18</button>
                 </div>
+                <input name="Time" class="time-picker-input" type="hidden" value="">
             </div>
             <div class="flex flex-center">
                 <button type="submit" class="btn btn-primary">Saada</button>

@@ -1,6 +1,18 @@
 const API_KEY = 'AIzaSyCZA197_HDxlwuZfiFEe--K2GBg9g27o-w';
 const CALENDAR_ID = 'stanislavjagutkin@gmail.com';
 const timePickers = document.querySelectorAll('.time-picker')
+const timePickerInput = document.querySelector('.time-picker-input');
+
+timePickers.forEach((btn, index) => {
+    btn.addEventListener('click', (e) => {
+        timePickerInput.value = btn.innerHTML;
+        timePickers.forEach(btn => btn.classList.remove('active'));
+        timePickers.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+
+    })
+})
 
 function gapiLoaded () {
     gapi.load('client', initializeGapiClient);
