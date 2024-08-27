@@ -102,15 +102,4 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener('scroll', handleScroll);
 
     updateNavLinkHighlights();
-
-    $('#exampleModal').on('shown.bs.modal', function () {
-        calendar.updateSize();
-    });
-
-    document.querySelectorAll('.fc-daygrid-day-frame').forEach(item => {
-        item.addEventListener('click', function (e) {
-            console.log('clicked');
-        })
-    })
-
 });
