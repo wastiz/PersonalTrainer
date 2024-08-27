@@ -1,8 +1,9 @@
 #personal-training {
-    background: linear-gradient(to bottom, darkgrey 30%, #ffffff 70%) no-repeat center;
+    /*background: linear-gradient(to bottom, darkgrey 30%, #ffffff 70%) no-repeat center;*/
     height: auto;
     padding-top: 40px;
     padding-right: 40px;
+    background-size: cover;
 }
 
 .collage-container {
