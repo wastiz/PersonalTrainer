@@ -17,7 +17,7 @@
     <!--FlatPickr styles-->
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
     <!--AirDatePicker styles-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css" rel="stylesheet">
+    <link href="css/air-datepicker.css" rel="stylesheet">
 
     <!--Custom Styles-->
     <link rel="stylesheet" href="css/general.css">
@@ -60,11 +60,11 @@
     <%- include('partials/footer')%>
 
     <!--AirDatePickerCdn-->
-    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.js"></script>
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.js"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.js"></script>-->
 
-<!--&lt;!&ndash;    AirDatePicker&ndash;&gt;-->
-<!--    <script src="js/datepicker.min.js"></script>-->
+    <!--AirDatePicker-->
+    <script src="js/air-datepicker.js"></script>
 
     <!--???-->
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js"></script>
@@ -81,14 +81,44 @@
     <!--Particles-->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <!-- Google API -->
-    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script>
+        function loadScriptsSequentially(scripts, callback) {
+            let index = 0;
 
-    <!-- Custom JS -->
-    <script src="/js/script.js"></script>
-    <script src="/js/datePicker.js"></script>
-    <script src="/js/particles.js"></script>
+            function loadNextScript() {
+                if (index < scripts.length) {
+                    let script = document.createElement('script');
+                    script.src = scripts[index];
+                    script.onload = function() {
+                        index++;
+                        loadNextScript();
+                    };
+                    script.onerror = function() {
+                        console.error(`Failed to load script: ${scripts[index]}`);
+                    };
+                    document.head.appendChild(script);
+                } else {
+                    callback();
+                }
+            }
+
+            loadNextScript();
+        }
+
+        loadScriptsSequentially([
+            'https://accounts.google.com/gsi/client',
+            'https://apis.google.com/js/api.js',
+            '/js/script.js',
+            '/js/datePicker.js',
+            '/js/particles.js'
+        ], function() {
+            if (typeof gapiLoaded === 'function') {
+                gapiLoaded(); // Ensure gapiLoaded is defined and available
+            } else {
+                console.error('gapiLoaded function is not defined');
+            }
+        });
+    </script>
 
 </body>
 </html>
