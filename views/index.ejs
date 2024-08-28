@@ -57,28 +57,7 @@
     <!-- Footer -->
     <%- include('partials/footer')%>
 
-    <!--AirDatePickerCdn-->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.js"></script>-->
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.js"></script>-->
-
-    <!--AirDatePicker-->
-    <script src="js/air-datepicker.js"></script>
-
-    <!--???-->
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Include flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <!--Particles-->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
+    <!--Scripts by order-->
     <script>
         function loadScriptsSequentially(scripts, callback) {
             let index = 0;
@@ -104,6 +83,13 @@
         }
 
         loadScriptsSequentially([
+            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js',
+            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426',
+            'https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js',
+            'js/bootstrap.min.js', //Bootstrap JS
+            'https://cdn.jsdelivr.net/npm/flatpickr', //Flatpickr js
+            'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', //Particles
+            'js/air-datepicker.js', //AirDatePicker
             'https://accounts.google.com/gsi/client',
             'https://apis.google.com/js/api.js',
             '/js/script.js',
@@ -111,7 +97,7 @@
             '/js/particles.js'
         ], function() {
             if (typeof gapiLoaded === 'function') {
-                gapiLoaded(); // Ensure gapiLoaded is defined and available
+                gapiLoaded();
             } else {
                 console.error('gapiLoaded function is not defined');
             }
