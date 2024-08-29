@@ -1,9 +1,9 @@
 #personal-training {
-    /*background: linear-gradient(to bottom, darkgrey 30%, #ffffff 70%) no-repeat center;*/
     height: auto;
     padding-top: 40px;
     padding-right: 40px;
     background-size: cover;
+    background-image: url("../img/pictures/bookrightup.jpg");
 }
 
 .collage-container {
@@ -52,7 +52,6 @@
 }
 
 .book-form h5 {
-    color: black;
     font-size: 20px;
     padding-top: 15px;
     padding-bottom: 10px;

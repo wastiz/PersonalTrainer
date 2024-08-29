@@ -4,29 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personaalne Treener</title>
-    <!--Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <!--Bootstrap Styles-->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!--FontAwesome Styles-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="img/icons/logo-icon.png" type="image/x-icon">
+
     <!--FlatPickr styles-->
-    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+<!--    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">-->
+
+    <!--Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
     <!--AirDatePicker styles-->
     <link href="css/air-datepicker.css" rel="stylesheet">
 
     <!--Custom Styles-->
     <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/header-slider.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/book-form.css">
+    <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <%- include('landing-sections/header-slider') %>
     <%- include('partials/navbar')%>
+
+    <!--General Slider-->
+    <%- include('landing-sections/header-slider') %>
 
     <!-- About Section -->
     <%- include('landing-sections/about')%>
@@ -40,18 +45,12 @@
     <!-- Services and Pricing Section -->
     <%- include('landing-sections/services')%>
 
-    <!-- Shop Section -->
-    <%- include('landing-sections/shop')%>
-
-    <!-- Video Training Section -->
-    <%- include('landing-sections/video-training')%>
-
     <!-- Contact Section -->
     <%- include('landing-sections/contact')%>
 
     <!-- Scroll to Top Button -->
     <button id="scrollTopBtn">
-        <img src="img/FontButton/icon-arrow-up.png" alt="Scroll to Top">
+        <img src="img/icons/arrow-up-solid.svg" alt="Scroll to Top">
     </button>
 
     <!-- Footer -->

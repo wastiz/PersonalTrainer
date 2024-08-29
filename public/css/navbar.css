@@ -1,3 +1,10 @@
+.header-div {
+    width: 100%;
+    max-height: 20%;
+    z-index: 3;
+    position: absolute;
+}
+
 .navbar {
     transition: background-color 0.1s ease-in-out;
     background-color: transparent;
@@ -35,23 +42,14 @@
     margin-top: 10px; /* Adds top margin to move the text down */
 }
 
-.fixed-top .flag-est {
-    right: 230px; /* Originally -40px, moving 100px more to the left */
-}
-
-.fixed-top .flag-rus {
-    right: 200px; /* Originally -65px, moving 100px more to the left */
-}
-
 .styled-header {
     color: white;
     -webkit-text-stroke: 1px black;
     text-shadow: 2px 2px 0 black;
     display: inline-block;
-    align-middle: middle;
     margin-top: 10px;
     margin-left: 10px;
-    font-weight: bold;
+    font-weight: 1000;
     animation: rubberband 15s linear infinite;
     animation-delay: 5s; /* Delay the animation start by 5 seconds */
 }
@@ -87,13 +85,6 @@
     text-shadow: 2px 2px 0 black;
     margin-top: 20px;
     margin-left: 35px;
-}
-
-.header-div {
-    z-index: 3;
-    position: absolute;
-    left: 30%;
-    top: 20px;
 }
 
 .nav-link {
@@ -147,18 +138,4 @@
     background-position: center;
     position: absolute;
     margin-right: 10px;
-}
-
-.flag-est {
-    background-image: url('../img/Flag/flag1.png');
-    top: 50%;
-    transform: translateY(-50%);
-    right: -35px;
-}
-
-.flag-rus {
-    background-image: url('../img/Flag/flag2.png');
-    top: 50%;
-    transform: translateY(-50%);
-    right: -65px;
 }

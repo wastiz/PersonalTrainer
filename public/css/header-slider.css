@@ -1,0 +1,85 @@
+#carouselExampleIndicators {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.carousel-item {
+    height: 100vh;
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 1% 16%;
+}
+
+.carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+    filter: brightness(0) invert(1) sepia(100%) saturate(10000%) hue-rotate(0deg) brightness(90%) contrast(100%);
+}
+
+.carousel-indicators button {
+    background-color: transparent;
+    border: 5px solid yellow;
+}
+
+.carousel-indicators .active {
+    background-color: yellow;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    color: #fff;
+    text-align: left;
+    max-width: 50%;
+    background: rgba(0, 0, 0, 0);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Headline Styling */
+.text-overlay h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+/* Paragraph Styling */
+.text-overlay p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.yellow-text {
+    color: yellow; /* Specifies the yellow color */
+}
+
+.white-text {
+    color: white; /* Specifies the white color */
+}
+
+.text-overlay h2 {
+    font-size: 2rem; /* Adjust size as needed */
+    font-weight: bold; /* Ensures text is bold */
+    text-align: left; /* Centers the text */
+}
+
+/* Adding Simple Animation for Text */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.text-overlay {
+    animation: fadeIn 1s ease-out forwards;
+}

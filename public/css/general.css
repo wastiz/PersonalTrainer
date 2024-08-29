@@ -1,19 +1,34 @@
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('../fonts/roboto-flex-regular.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-display: swap;
+}
+
+/*primary: yellow*/
+/*secondary: #cdcd2c;*/
+/*rgba(255, 255, 0, 0.6)*/
+
 body {
-    /*font-family: Gill Sans, "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;*/
-    font-family: "Roboto", sans-serif;;
+    font-family: 'Roboto Flex', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6, p, a, label {
+    color: white;
+}
+
 section {
+    min-width: 100vh;
     min-height: 100vh;
     overflow: hidden;
 }
 
 label {
-    font-size: 19px; /* Adjust the size to your preference */
-    font-weight: bold; /* Optional: Makes the label text bold */
+    font-size: 19px;
+    font-weight: bold;
 }
 
 .flex {
@@ -55,7 +70,40 @@ label {
     vertical-align: middle;
     margin-right: 10px;
 }
+
+/*Navbar*/
+.navbar-toggler {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+}
+
+.navbar-toggler-icon::before {
+    content: "\2630";
+    font-size: 1.5rem;
+    color: white;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/*Buttons*/
 .btn-primary {
     background-color: yellow;
     color: black;
+    border-color: rgba(255, 255, 0, 0);
 }
+
+.btn-primary:hover {
+    border-color: rgba(255, 255, 0, 0);
+    background: rgba(255, 255, 0, 0.6);
+}
+
