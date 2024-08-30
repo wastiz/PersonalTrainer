@@ -2,8 +2,9 @@
     height: auto;
     padding-top: 40px;
     padding-right: 40px;
+    padding-bottom: 40px;
     background-size: cover;
-    background-image: url("../img/pictures/bookrightup.jpg");
+    background-image: url('../img/pictures/bookrightup.jpg');
 }
 
 .collage-container {
@@ -64,6 +65,11 @@
     border-radius: 1em;
     box-shadow: 0 1px 20px rgba(0, 0, 0, 1);
     transition: box-shadow 0.3s ease;
+}
+
+.book-form:hover {
+    box-shadow: 0 0 13px yellow, 0 0 13px yellow, 0 0 13px yellow;  /* Triple-layered bright yellow shadow for a glowing effect */
+    border: 2px solid yellow;  /* Ensure the border remains yellow on hover */
 }
 
 .book-form input, .book-form select {

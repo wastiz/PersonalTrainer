@@ -2,3 +2,19 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+.services-header {
+    max-height: 400px;
+    background: yellow;
+    padding: 20px 100px 0 100px;
+}
+.services-header h2 {
+    font-weight: 800;
+    font-size: 3em;
+}
+.service {
+    height: 300px;
+}
+.service .card-body {
+
+}
