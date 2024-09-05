@@ -1,11 +1,6 @@
 #carouselExampleIndicators {
-    height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
-}
-
-.carousel-item {
-    height: 100vh;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: -5%;
 }
 
 .carousel-item img {
@@ -18,7 +13,9 @@
 .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
     filter: brightness(0) invert(1) sepia(100%) saturate(10000%) hue-rotate(0deg) brightness(90%) contrast(100%);
 }
-
+.carousel-indicators {
+    margin-bottom: 3%;
+}
 .carousel-indicators button {
     background-color: transparent;
     border: 5px solid yellow;
@@ -30,7 +27,7 @@
 
 .text-overlay {
     position: absolute;
-    top: 60%;
+    top: 40%;
     left: 10%;
     color: #fff;
     text-align: left;

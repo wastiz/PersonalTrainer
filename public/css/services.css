@@ -1,20 +1,21 @@
 #services {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.services-header {
-    max-height: 400px;
-    background: yellow;
-    padding: 20px 100px 0 100px;
+    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    margin-bottom: -5%;
+    padding: 4% 0%;
+    background-image: url("../img/pictures/bookrightup.jpg");
+    background-size: cover;
 }
 .services-header h2 {
     font-weight: 800;
     font-size: 3em;
 }
-.service {
-    height: 300px;
+.service .card {
+    height: 250px;
+    background: rgba(0, 0, 0, 0.50);
 }
-.service .card-body {
-
+.service .card-title {
+    color: white;
+}
+.service .card-text {
+    font-size: 0.7em;
 }

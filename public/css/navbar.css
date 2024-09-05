@@ -78,15 +78,6 @@
     }
 }
 
-.red-back-text {
-    color: yellow;
-    font-size: 1.3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 0 black;
-    margin-top: 20px;
-    margin-left: 35px;
-}
-
 .nav-link {
     color: white;
     font-weight: bold;
