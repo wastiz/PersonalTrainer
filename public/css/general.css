@@ -20,7 +20,7 @@
 
 
 body {
-    font-family: 'Roboto Flex', sans-serif;
+    font-family: 'Oswald', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -61,8 +61,8 @@ h1, h2, h3, h4, h5, h6, p, a, label {
 
 /*Section common styles*/
 section {
-    height: 110vh;
-    overflow: hidden;
+    min-height: 110vh;
+    margin-bottom: -6%;
 }
 
 .section-title {
@@ -77,6 +77,22 @@ section {
     content: "";
     flex: 1;
     border-bottom: 1px solid white;
+    margin: 0 10px;
+}
+
+.section-title-black {
+    color: black;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 32px;
+    font-family: "Oswald", sans-serif;
+}
+
+.section-title-black::before, .section-title-black::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid black;
     margin: 0 10px;
 }
 
@@ -165,4 +181,8 @@ label {
     border-color: rgba(255, 255, 0, 0);
     background: rgba(255, 255, 0, 0.6);
 }
-
+/*Margins and Paddings*/
+.ptb-10 {
+    padding-top: 10%;
+    padding-bottom: 10%;
+}

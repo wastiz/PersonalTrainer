@@ -1,9 +1,6 @@
 #personal-training {
-    height: auto;
-    padding-top: 40px;
-    padding-right: 40px;
-    padding-bottom: 40px;
-    background-size: cover;
+    padding-top: 5%;
+    padding-bottom: 7%;
     clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
 }
 
