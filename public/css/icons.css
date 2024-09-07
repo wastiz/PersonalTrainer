@@ -75,6 +75,13 @@
 }
 
 .custom-icon-ru {
-    -webkit-mask: url(../img/icons/ru.png) no-repeat center;
-    mask: url(../img/icons/ru.png) no-repeat center;
+    -webkit-mask: url(../img/icons/ru.svg) no-repeat center;
+    mask: url(../img/icons/ru.svg) no-repeat center;
+}
+
+/*Arrows*/
+.custom-icon-arrow-left {
+    background-color: black;
+    -webkit-mask: url(../img/icons/arrow-left.svg) no-repeat center;
+    mask: url(../img/icons/arrow-left.svg) no-repeat center;
 }

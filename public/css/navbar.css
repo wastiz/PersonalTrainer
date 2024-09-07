@@ -101,8 +101,8 @@
 .navbar-collapse::after {
     content: '';
     position: absolute;
-    left: -300px;
-    right: -300px;
+    left: 0;
+    right: 0;
     height: 2px;
     background-color: yellow;
     z-index: -1;
