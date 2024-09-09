@@ -21,14 +21,104 @@
 
 body {
     font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: white;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, label, b {
-    color: white;
+h1 {
+    font-size: 2.25rem; /* Размер для h1 (36px) */
+    margin-bottom: 1.25rem;
 }
+
+/* h2 */
+h2 {
+    font-size: 1.875rem; /* Размер для h2 (30px) */
+    margin-bottom: 1.125rem;
+}
+
+/* h3 */
+h3 {
+    font-size: 1.5rem; /* Размер для h3 (24px) */
+    margin-bottom: 1rem;
+}
+
+/* h4 */
+h4 {
+    font-size: 1.25rem; /* Размер для h4 (20px) */
+    margin-bottom: 0.875rem;
+}
+
+/* h5 */
+h5 {
+    font-size: 1.125rem; /* Размер для h5 (18px) */
+    margin-bottom: 0.75rem;
+}
+
+/* h6 */
+h6 {
+    font-size: 1rem; /* Размер для h6 (16px) */
+    margin-bottom: 0.625rem;
+}
+
+/* Абзацы текста */
+p {
+    font-size: 1rem; /* Размер текста (16px) */
+    margin-bottom: 0.9375rem; /* 15px */
+}
+
+
+a {
+    font-size: 1rem; /* Размер ссылки (16px) */
+    color: #007bff; /* Цвет ссылки */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+ul, ol {
+    font-size: 1rem; /* Размер списка (16px) */
+    margin-left: 1.25rem;
+}
+
+
+li {
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+
+blockquote {
+    font-size: 1.125rem; /* Размер цитаты (18px) */
+    font-style: italic;
+    margin: 1.25rem 0;
+    padding-left: 1.25rem;
+    border-left: 0.25rem solid #ccc;
+}
+
+
+input, textarea, select {
+    font-size: 1rem; /* Размер для формы (16px) */
+    padding: 0.625rem; /* 10px */
+    margin-bottom: 0.625rem; /* 10px */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 1rem; /* Размер для меток (16px) */
+    font-weight: bold;
+    margin-bottom: 0.3125rem; /* 5px */
+    display: block;
+}
+
+
+
+/*Other*/
 
 .font-oswald {
     font-family: 'Oswald', sans-serif;
@@ -117,6 +207,8 @@ label {
     font-weight: bold;
 }
 
+/*Other*/
+
 .flex {
     display: flex;
 }
@@ -137,6 +229,10 @@ label {
 
 .small-text {
     font-size: 1.5rem;
+}
+
+.medium-text {
+    font-size: 2rem;
 }
 
 .large-text {

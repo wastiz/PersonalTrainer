@@ -1,0 +1,43 @@
+@media (max-width: 1024px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    p {
+        font-size: 16px;
+    }
+
+    .small-text {
+        font-size: 1rem;
+    }
+    .medium-text {
+        font-size: 1.2rem;
+    }
+    .large-text {
+        font-size: 1.5rem;
+    }
+
+    .bottom-left-to-top-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+    }
+    .left-to-right-clip {
+        clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+    }
+    .right-to-left-clip {
+        clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
+    }
+    section {
+        margin-bottom: -10%;
+    }
+}
