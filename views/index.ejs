@@ -20,13 +20,17 @@
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!--Landing sections styles-->
     <link rel="stylesheet" href="css/header-slider.css">
     <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/book-form.css">
-    <link rel="stylesheet" href="css/before-after.css">
+    <link rel="stylesheet" href="css/expertise.css">
+    <link rel="stylesheet" href="css/tracker.css">
     <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/before-after.css">
+    <link rel="stylesheet" href="css/book-form.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <%- include('partials/navbar')%>
@@ -34,8 +38,14 @@
     <!--General Slider-->
     <%- include('landing-sections/header-slider') %>
 
-    <!-- About Section -->
-    <%- include('landing-sections/about')%>
+    <!-- Expertise Section -->
+    <%- include('landing-sections/expertise')%>
+
+    <!--About section-->
+    <%- include('landing-sections/about')%>>
+
+    <!--Tracker section-->
+    <%- include('landing-sections/tracker')%>>
 
     <!-- Services and Pricing Section -->
     <%- include('landing-sections/services')%>

@@ -1,4 +1,4 @@
-<section id="before-after">
+<section id="before-after" class="right-to-left-clip">
     <div class="container">
         <div class="row pb-5 pt-5">
             <h2 class="section-title">Kogemused ja muutused mis räägivad endast</h2>
@@ -8,28 +8,25 @@
     <div id="feedbackCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <h6>
-                    <b>"</b>
-                    Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence
-                    <b>"</b>
-                </h6>
-                <b>Emily P.</b>
+                <%- include('../partials/feedback-content', {
+                    comment: "Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence",
+                    author: 'Emily P.',
+                    img: 'img/pictures/client1.jpg'
+                }) %>
             </div>
             <div class="carousel-item">
-                <h6>
-                    <b>"</b>
-                    Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence
-                    <b>"</b>
-                </h6>
-                <b>Emily P.</b>
+                <%- include('../partials/feedback-content', {
+                    comment: "Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence",
+                    author: 'Emily P.',
+                    img: 'img/pictures/client2.jpg'
+                }) %>
             </div>
             <div class="carousel-item">
-                <h6>
-                    <b>"</b>
-                    Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence
-                    <b>"</b>
-                </h6>
-                <b>Emily P.</b>
+                <%- include('../partials/feedback-content', {
+                    comment: "Jessica's positive attitude and constant encouragement have helped me push through my mental barriers and achieve things I never thought possible. Through her patient guidance and genuine care for my well-being, she has helped me not only transform my body but also rediscover my love for fitness and overall sense of self-confidence",
+                    author: 'Emily P.',
+                    img: 'img/pictures/client3.jpg'
+                }) %>
             </div>
         </div>
 

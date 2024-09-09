@@ -1,0 +1,12 @@
+#tracker {
+    background: black;
+    margin-bottom: -7%;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(67,90,113,1) 100%);
+}
+
+#tracker img {
+    width: 100%;
+}
+#tracker p {
+    padding: 16% 0;
+}

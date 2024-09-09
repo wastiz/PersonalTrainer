@@ -1,6 +1,5 @@
 #before-after {
     padding: 5% 5%;
-    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
     background: linear-gradient(180deg, rgba(67,90,113,1) 0%, rgba(0,0,0,1) 100%);
 }
 
@@ -49,6 +48,13 @@
 
 .round-button:focus {
     outline: none; /* Убираем стандартную обводку при фокусе */
+}
+
+.feedback-container {
+    padding: 0 10%;
+}
+.feedback-container img {
+    width: 300px;
 }
 
 

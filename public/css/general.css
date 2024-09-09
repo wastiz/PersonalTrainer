@@ -65,6 +65,17 @@ section {
     margin-bottom: -6%;
 }
 
+.bottom-left-to-top-clip {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+.left-to-right-clip {
+    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+}
+.right-to-left-clip {
+    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+}
+
+
 .section-title {
     display: flex;
     align-items: center;
@@ -185,4 +196,7 @@ label {
 .ptb-10 {
     padding-top: 10%;
     padding-bottom: 10%;
+}
+.text-right {
+    text-align: right;
 }
