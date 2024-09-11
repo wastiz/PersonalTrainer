@@ -28,6 +28,9 @@
         font-size: 1.5rem;
     }
 
+    .pt-5 {
+        padding-top: 5px;
+    }
     .bottom-left-to-top-clip {
         clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
     }
