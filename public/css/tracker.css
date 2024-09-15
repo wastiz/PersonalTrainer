@@ -1,6 +1,6 @@
 #tracker {
-    background: black;
-    margin-bottom: -7%;
+    margin-top: -4vh;
+    margin-bottom: -14vh;
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(67,90,113,1) 100%);
 }
 
@@ -9,4 +9,14 @@
 }
 #tracker p {
     padding: 16% 0;
+}
+@media (max-width: 768px) {
+    #tracker {
+        height: 120vh;
+        padding: 14% 0;
+        margin-bottom: -17%;
+    }
+    .text-right {
+        text-align: center;
+    }
 }

@@ -116,8 +116,6 @@ label {
     display: block;
 }
 
-
-
 /*Other*/
 
 .font-oswald {
@@ -151,20 +149,21 @@ label {
 
 /*Section common styles*/
 section {
-    min-height: 110vh;
-    margin-bottom: -6%;
+    height: 100vh;
+    margin-bottom: -10vh;
 }
 
 .bottom-left-to-top-clip {
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-}
-.left-to-right-clip {
-    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
-}
-.right-to-left-clip {
-    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
 }
 
+.left-to-right-clip {
+    clip-path: polygon(0 10vh, 100% 0, 100% 100%, 0 90vh);
+}
+
+.right-to-left-clip {
+    clip-path: polygon(0 0, 100% 10vh, 100% 90vh, 0 100%);
+}
 
 .section-title {
     display: flex;
@@ -253,30 +252,6 @@ label {
     margin-right: 10px;
 }
 
-/*Navbar*/
-.navbar-toggler {
-    background-color: transparent;
-    border: none;
-    font-weight: bold;
-}
-
-.navbar-toggler-icon {
-    background-color: white;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.25rem;
-}
-
-.navbar-toggler-icon::before {
-    content: "\2630";
-    font-size: 1.5rem;
-    color: white;
-}
-
-.navbar-toggler:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
 /*Buttons*/
 .btn-primary {
     background-color: yellow;
@@ -295,4 +270,12 @@ label {
 }
 .text-right {
     text-align: right;
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+.white-text {
+    color: white;
 }

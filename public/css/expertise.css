@@ -9,7 +9,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Ensures it's behind all other content but above the section background if any */
+    z-index: 1;
 }
 
 .content-wrapper {
@@ -95,4 +95,12 @@
 
 .info-block h4 {
     color:rgba(255,236,236, 0.8)
+}
+
+@media (max-width: 768px) {
+    #expertise {
+        height: 125vh;
+        padding: 14% 0;
+        margin-bottom: -17%;
+    }
 }

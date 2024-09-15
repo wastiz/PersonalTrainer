@@ -130,3 +130,38 @@
     position: absolute;
     margin-right: 10px;
 }
+
+.navbar-toggler {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+}
+
+.navbar-toggler-icon::before {
+    content: "\2630";
+    font-size: 1.5rem;
+    color: white;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: black;
+    }
+    .navbar-logo {
+        display: none;
+    }
+    .fixed-top-text {
+        display: none;
+    }
+}

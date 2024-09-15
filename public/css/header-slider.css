@@ -1,9 +1,3 @@
-/* Общие стили для всех устройств */
-#carouselExampleIndicators {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    height: 120vh;
-}
-
 .carousel-item img {
     height: 100%;
     width: 100%;
@@ -16,7 +10,7 @@
 }
 
 .carousel-indicators {
-    margin-bottom: 6%;
+    margin-bottom: 4%;
 }
 
 .carousel-indicators button {
@@ -30,7 +24,7 @@
 
 .text-overlay {
     position: absolute;
-    top: 45%;
+    top: 36%;
     left: 10%;
     color: #fff;
     text-align: left;
@@ -40,7 +34,6 @@
     border-radius: 5px;
 }
 
-/* Headline Styling */
 .text-overlay h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -48,18 +41,9 @@
     margin-bottom: 15px;
 }
 
-/* Paragraph Styling */
 .text-overlay p {
     font-size: 1.2rem;
     line-height: 1.8;
-}
-
-.yellow-text {
-    color: yellow; /* Specifies the yellow color */
-}
-
-.white-text {
-    color: white; /* Specifies the white color */
 }
 
 .text-overlay h2 {
@@ -84,18 +68,17 @@
     animation: fadeIn 1s ease-out forwards;
 }
 
-/* Медиазапросы для мобильных устройств */
 @media (max-width: 768px) {
     #carouselExampleIndicators {
         height: 80vh;
     }
 
     .carousel-indicators {
-        bottom: 10px; /* Перемещаем индикаторы вниз */
+        bottom: 10px;
     }
 
     .carousel-indicators button {
-        width: 10px; /* Уменьшаем размер индикаторов */
+        width: 10px;
         height: 10px;
         border-width: 3px;
     }
@@ -115,27 +98,27 @@
     }
 
     .text-overlay {
-        top: 60%; /* Перемещаем текст ниже на мобильных устройствах */
+        top: 60%;
         left: 5%;
-        max-width: 90%; /* Увеличиваем ширину на мобильных устройствах */
+        max-width: 90%;
         padding: 10px;
     }
 
     .text-overlay h1 {
-        font-size: 1.75rem; /* Уменьшаем размер заголовка */
+        font-size: 1.75rem;
         margin-bottom: 10px;
     }
 
     .text-overlay h2 {
-        font-size: 1.5rem; /* Уменьшаем размер заголовка */
+        font-size: 1.5rem;
     }
 
     .text-overlay p {
-        font-size: 1rem; /* Уменьшаем размер текста */
+        font-size: 1rem;
     }
 
     .carousel-control-prev-icon, .carousel-control-next-icon {
-        background-size: 20px; /* Уменьшаем размер иконок управления */
+        background-size: 20px;
         width: 30px;
         height: 30px;
     }

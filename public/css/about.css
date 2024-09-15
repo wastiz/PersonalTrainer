@@ -2,8 +2,6 @@
     position: relative;
     background-image: url("../img/pictures/bookrightdown.jpg");
     background-size: cover;
-    padding: 5% 0;
-    margin-bottom: -7%;
     overflow: hidden;
 }
 
@@ -26,4 +24,10 @@
 }
 #about p {
     padding: 30% 0;
+}
+
+@media (max-width: 768px) {
+    #about {
+        text-align: center;
+    }
 }

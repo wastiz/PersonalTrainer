@@ -57,49 +57,19 @@
     width: 300px;
 }
 
-
-/*#before-after .content {*/
-/*    flex: 1;*/
-/*    padding: 20px;*/
-/*}*/
-
-/*#before-after .content h1 {*/
-/*    font-size: 2.5rem; !* Scaled up for balance with a larger phone *!*/
-/*    margin-bottom: 0.5em; !* Adds a little space below the heading *!*/
-/*}*/
-
-/*#before-after .content p {*/
-/*    font-size: 1.4rem; !* Scaled up for better readability *!*/
-/*}*/
-
-/*#before-after .smartphone {*/
-/*    width: 600px; !* Increased width *!*/
-/*    height: 800px; !* Increased height *!*/
-/*    border-radius: 36px; !* Slightly larger border radius to maintain the proportion *!*/
-/*    position: relative;*/
-/*    overflow: hidden;*/
-/*    transform: rotateY(-30deg) rotateX(45deg) rotateZ(30deg);*/
-/*    transform-origin: center center;*/
-/*    transition: transform 0.5s ease-in-out;*/
-/*    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); !* Adjusted shadow for larger size *!*/
-/*    border: solid 6px transparent;*/
-/*    background: white linear-gradient(white, white),*/
-/*    linear-gradient(to right, #555, #333, #555);*/
-/*    background-origin: border-box;*/
-/*    background-clip: content-box, border-box;*/
-/*    margin-left: 30px; !* Adjusted margin for spacing *!*/
-/*}*/
-
-/*@media (max-width: 768px) {*/
-/*    #before-after {*/
-/*        flex-direction: column;*/
-/*    }*/
-/*    #before-after .smartphone {*/
-/*        transform: none; !* Resets transformation for better mobile viewing *!*/
-/*        margin-top: 20px;*/
-/*        margin-left: 0; !* Removes any horizontal margin on mobile *!*/
-/*        width: 100%; !* Makes the smartphone full-width on smaller screens *!*/
-/*        height: auto; !* Maintains aspect ratio *!*/
-/*        border-radius: 20px; !* Smaller border radius for smaller viewports *!*/
-/*    }*/
-/*}*/
+@media (max-width: 768px) {
+    #before-after {
+        height: auto;
+        padding: 20% 0;
+        margin-bottom: -17%;
+    }
+    .feedback-container h6 {
+        font-size: 14px !important;
+    }
+    .feedback-container b {
+        font-size: 14px !important;
+    }
+    .feedback-container img {
+        width: 200px;
+    }
+}
