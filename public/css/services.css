@@ -1,6 +1,7 @@
 #services {
     background-image: url("../img/pictures/bookrightup.jpg");
     background-size: cover;
+    background-position: 40px 20px;
 }
 .services-header h2 {
     font-weight: 800;
@@ -19,11 +20,13 @@
 }
 .service .card-text {
     font-size: 1em;
+    color: white;
 }
 @media (max-width: 768px) {
     #services {
         height: auto;
-        padding: 20% 0;
-        margin-bottom: -17%;
+        padding: 12vh 0;
+        margin-bottom: -12vh;
+        margin-top: -10vh;
     }
 }

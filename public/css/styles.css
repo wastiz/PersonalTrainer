@@ -3,8 +3,8 @@
     height: 50px;
     display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 25px;
+    right: 150px;
     z-index: 1000;
     cursor: pointer;
     border: 3px solid #cdcd2c;

@@ -4,7 +4,7 @@
 }
 
 #feedbackCarousel {
-    padding: 10% 0;
+    padding-top: 5%;
 }
 
 #feedbackCarousel .carousel-inner{
@@ -55,6 +55,7 @@
 }
 .feedback-container img {
     width: 300px;
+    height: 300px;
 }
 
 @media (max-width: 768px) {
@@ -62,6 +63,10 @@
         height: auto;
         padding: 20% 0;
         margin-bottom: -17%;
+    }
+    .feedback-container {
+        display: flex;
+        flex-direction: column !important;
     }
     .feedback-container h6 {
         font-size: 14px !important;
@@ -71,5 +76,6 @@
     }
     .feedback-container img {
         width: 200px;
+        height: 200px;
     }
 }

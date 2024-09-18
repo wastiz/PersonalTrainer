@@ -3,6 +3,7 @@ const CALENDAR_ID = 'stanislavjagutkin@gmail.com';
 const timePickers = document.querySelectorAll('.time-picker')
 const timePickerInput = document.querySelector('.time-picker-input');
 
+
 timePickers.forEach((btn, index) => {
     btn.addEventListener('click', (e) => {
         timePickerInput.value = btn.innerHTML;
@@ -43,6 +44,18 @@ async function initializeGapiClient() {
     })
 
     new AirDatepicker('#el', {
+        locale: {
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            today: 'Today',
+            clear: 'Clear',
+            dateFormat: 'MM/dd/yyyy',
+            timeFormat: 'hh:mm aa',
+            firstDay: 0
+        },
         selectedDates: [new Date()],
         position: 'left center',
         autoClose: true,
