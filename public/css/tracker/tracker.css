@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.bg-body-yellow {
+    background-color: yellow;
+}
+.bg-body-dark {
+    background-color: #343639;
+}
+nav {
+    height: 10%;
+    max-height: 10%;
+}
+.col-3 {
+    padding: 0;
+}
+main {
+    height: 90%;
+    max-height: 90%;
+}
+.main-window {
+    border: 1px solid black;
+}
+.section-block {
+    width: 350px;
+    height: 204px;
+    border: 1px solid black;
+}

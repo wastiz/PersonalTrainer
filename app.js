@@ -59,6 +59,10 @@ app.post('/send', (req, res) => {
     });
 });
 
+app.get('/fitness-tracker', (req, res) => {
+    res.render('tracker')
+})
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

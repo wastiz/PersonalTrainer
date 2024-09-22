@@ -1,51 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personaalne Treener</title>
-    <link rel="icon" href="img/icons/logo-icon.png" type="image/x-icon">
-
-    <!--FlatPickr styles-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">-->
-
-    <!--Bootstrap Styles-->
-    <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!--AirDatePicker styles-->
-    <link href="css/air-datepicker.css" rel="stylesheet">
-
-    <!--Custom Styles-->
-    <link rel="stylesheet" href="css/general.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/styles.css">
-
-    <!--Landing sections styles-->
-    <link rel="stylesheet" href="css/header-slider.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/expertise.css">
-    <link rel="stylesheet" href="css/tracker.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/before-after.css">
-    <link rel="stylesheet" href="css/book-form.css">
-    <link rel="stylesheet" href="css/footer.css">
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/66ea919283ab531891e87858/1i824h9q0';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-</head>
+<%- include('partials/head')%>
 <body>
     <%- include('partials/navbar')%>
 
@@ -59,7 +14,7 @@
     <%- include('landing-sections/about')%>>
 
     <!--Tracker section-->
-    <%- include('landing-sections/tracker')%>>
+    <%- include('landing-sections/tracker-landing')%>>
 
     <!-- Services and Pricing Section -->
     <%- include('landing-sections/services')%>
@@ -79,51 +34,7 @@
     </button>
 
     <!--Scripts by order-->
-    <script>
-        function loadScriptsSequentially(scripts, callback) {
-            let index = 0;
-
-            function loadNextScript() {
-                if (index < scripts.length) {
-                    let script = document.createElement('script');
-                    script.src = scripts[index];
-                    script.onload = function() {
-                        index++;
-                        loadNextScript();
-                    };
-                    script.onerror = function() {
-                        console.error(`Failed to load script: ${scripts[index]}`);
-                    };
-                    document.head.appendChild(script);
-                } else {
-                    callback();
-                }
-            }
-
-            loadNextScript();
-        }
-
-        loadScriptsSequentially([
-            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js',
-            'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426',
-            'https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js',
-            'js/bootstrap.min.js', //Bootstrap JS
-            'https://cdn.jsdelivr.net/npm/flatpickr', //Flatpickr js
-            'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', //Particles
-            'js/air-datepicker.js', //AirDatePicker
-            'https://accounts.google.com/gsi/client',
-            'https://apis.google.com/js/api.js',
-            '/js/script.js',
-            '/js/datePicker.js',
-            '/js/particles.js'
-        ], function() {
-            if (typeof gapiLoaded === 'function') {
-                gapiLoaded();
-            } else {
-                console.error('gapiLoaded function is not defined');
-            }
-        });
-    </script>
+    <%- include('partials/scripts')%>
 
 </body>
 </html>
