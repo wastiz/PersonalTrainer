@@ -63,6 +63,11 @@ app.get('/fitness-tracker', (req, res) => {
     res.render('tracker')
 })
 
+app.get('/fitness-tracker/:section', (req, res) => {
+    const section = req.params.section;
+    res.render(`tracker-sections/${section}`);
+});
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
