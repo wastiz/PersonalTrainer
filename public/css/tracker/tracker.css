@@ -127,6 +127,11 @@ main {
     color: black;
 }
 
+.modal {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 1470px) {
     .right-block {
         overflow-y: scroll;

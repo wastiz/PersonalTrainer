@@ -86,4 +86,46 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSections();
 
     window.addEventListener('resize', updateSections);
+
+    const loginResponse = document.querySelector('.login-response');
+    const loginModal = document.querySelector('.modal');
+
+    document.querySelector('.login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        loginResponse.innerHTML = 'Login...';
+
+        try {
+            const formData = new FormData(e.target);
+
+            const data = {
+                email: formData.get('login-mail'),
+                pass: formData.get('login-pass'),
+            };
+
+            // Дожидаемся выполнения запроса
+            const response = await fetch('http://localhost:3002/fitness-tracker/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            // Проверяем ответ от сервера
+            if (response.ok) {
+                loginResponse.innerHTML = 'Successfully logged in';
+                loginModal.style.display = 'none'; // Скрываем модальное окно
+            } else if (response.status === 401) {
+                loginResponse.innerHTML = 'Email or password is incorrect. Try again';
+            } else {
+                loginResponse.innerHTML = 'Server Error. Try again later';
+            }
+        } catch (e) {
+            console.error(e);
+            loginResponse.innerHTML = 'An error occurred. Please try again later'; // Показать ошибку пользователю
+        }
+    });
+
+
+
 });

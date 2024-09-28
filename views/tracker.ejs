@@ -12,6 +12,29 @@
     <link rel="stylesheet" href="css/tracker/tracker.css">
 </head>
 <body class="bg-body-dark">
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="login-form" action="">
+            <div class="modal-header bg-body-dark">
+                <h5 class="modal-title">Please login to continue...</h5>
+            </div>
+            <div class="modal-body text-black">
+                    <label for="login-mail">Email</label>
+                    <input id="login-mail" name="login-mail" type="email">
+                    <label for="login-pass">Password</label>
+                    <input id="login-pass" name="login-pass" type="text">
+            </div>
+            <div class="modal-footer bg-body-dark">
+                <p class="login-response"></p>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <main class="flex flex-row">
         <div class="left-block">
             <div class="main-window">

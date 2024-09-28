@@ -4,7 +4,10 @@ const ejs = require('ejs');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const config = require('./config');
+const {urlencoded, json} = require("express");
+const bodyParser = require('body-parser');
 const app = express();
+const {pool} = require('./db')
 const port = 3002;
 
 // Настройка шаблонизатора EJS
@@ -12,8 +15,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware для обработки данных формы
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Статические файлы
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,6 +71,24 @@ app.get('/fitness-tracker', (req, res) => {
 app.get('/fitness-tracker/:section', (req, res) => {
     const section = req.params.section;
     res.render(`tracker-sections/${section}`);
+});
+
+app.post('/fitness-tracker/login', async (req, res) => {
+    const data = req.body
+    console.log(data)
+
+    try {
+        const result = await pool.query('SELECT * FROM users_passwords WHERE email = $1 AND password = $2', [data.email, data.pass]);
+
+        if (result.rows.length > 0) {
+            res.json({ message: 'Login successful', user: result.rows[0] });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        }
+    } catch (error) {
+        console.error('Error executing query', error.stack);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
 
 app.listen(port, () => {
