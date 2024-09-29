@@ -66,6 +66,8 @@ main {
     clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
     margin-bottom: -5%;
     background: #323538;
+    padding: 0 7%;
+    padding-top: 12%;
 }
 
 .tracker-right-to-left-clip {

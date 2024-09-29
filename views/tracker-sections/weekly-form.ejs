@@ -1,44 +1,41 @@
 <form class='mb-3'>
     <div class="container">
         <div class="row">
+            <!-- Основные физические показатели -->
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nimi</label>
-                    <input name="Name" type="text" class="form-control" id="name" placeholder="Siseta oma nimi...">
+                    <label for="height" class="form-label">Height (cm)</label>
+                    <input name="height" type="number" class="form-control" id="height" placeholder="Enter your height...">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input name="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Siseta oma email...">
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Telefon</label>
-                    <input name="Phone" type="tel" class="form-control" id="name" placeholder="Siseta oma telefoni numbrit...">
+                    <label for="weight" class="form-label">Weight (kg)</label>
+                    <input name="weight" type="number" class="form-control" id="weight" placeholder="Enter your weight...">
                 </div>
             </div>
+
+            <!-- Замеры тела -->
             <div class="col-6">
                 <div class="mb-3">
-                    <label class="form-label">Treenitüüp</label>
-                    <select name="Type" class="form-select" aria-label="Default select example">
-                        <option selected>Vali treeni tüüp</option>
-                        <option value="1">Toitutrenn</option>
-                        <option value="2">Tavaline trenn</option>
-                        <option value="3">Füüsüotrenn</option>
-                        <option value="1">Personaalne treening</option>
-                        <option value="2">Grupitreening</option>
-                        <option value="3">Toitumisnõustamine</option>
-                        <option value="4">Trennid omas saalis</option>
-                        <option value="5">Programm algajatele ja edasijõudnutele</option>
-                        <option value="6">Väli treeningud</option>
-                    </select>
+                    <label for="bicep" class="form-label">Bicep (cm)</label>
+                    <input name="bicep" type="number" class="form-control" id="bicep" placeholder="Enter bicep size...">
                 </div>
                 <div class="mb-3">
-                    <label for="el" class="form-label">Kuupäev</label>
-                    <input name="Date" type="text" class="form-control" id="el" placeholder="Vali kuupäev">
+                    <label for="waist" class="form-label">Waist (cm)</label>
+                    <input name="waist" type="number" class="form-control" id="waist" placeholder="Enter waist size...">
+                </div>
+                <div class="mb-3">
+                    <label for="thigh" class="form-label">Thigh (cm)</label>
+                    <input name="thigh" type="number" class="form-control" id="thigh" placeholder="Enter thigh size...">
+                </div>
+                <div class="mb-3">
+                    <label for="forearm" class="form-label">Forearm (cm)</label>
+                    <input name="forearm" type="number" class="form-control" id="forearm" placeholder="Enter forearm size...">
                 </div>
             </div>
         </div>
-    </div>
-    <div class="flex flex-center">
-        <button type="submit" class="btn btn-primary">Saada</button>
+
+        <div class="flex flex-center">
+            <button type="submit" class="btn btn-primary">Saada</button>
+        </div>
     </div>
 </form>

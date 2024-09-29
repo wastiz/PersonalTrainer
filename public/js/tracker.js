@@ -33,20 +33,27 @@ document.addEventListener("DOMContentLoaded", function () {
 `;
 
     const rightSections = `
-    <div class="section-block tracker-bottom-left-to-top-clip flex flex-row">
-        <div>
-            <h5>Weekly form</h5>
-            <p>Please, fill the form, so we could analyze your results)</p>
-            <button class="btn btn-primary">Start filling</button>
+        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row">
+            <div>
+                <h5>Weekly form</h5>
+                <p>Please, fill the form, so we could analyze your results)</p>
+                <button class="btn btn-primary">Start filling</button>
+            </div>
+            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
         </div>
-        <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
-    </div>
-    <div class="section-block tracker-left-to-right-clip"></div>
-    <div class="section-block tracker-right-to-left-clip"></div>
-    <div class="section-block tracker-top-to-right-clip"></div>
+        <div class="section-block tracker-left-to-right-clip flex flex-row">
+            <div>
+                <h5>Strength measurements</h5>
+                <p>Fill your power measurements, so we could analyze more</p>
+                <button class="btn btn-primary">Start filling</button>
+            </div>
+            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="formik">
+        </div>
+        <div class="section-block tracker-right-to-left-clip"></div>
+        <div class="section-block tracker-top-to-right-clip"></div>
     `;
 
-    const sectionsContent = ['calories', 'training-plan', 'total-trainings', 'weekly-form', 'idk', 'idk2', 'idk3'];
+    const sectionsContent = ['calories', 'training-plan', 'total-trainings', 'weekly-form', 'strength-measurements', 'idk2', 'idk3'];
     const tabContent = document.querySelector('.tab-content');
     const bottomSection = document.querySelector('.bottom-sections');
     const rightSection = document.querySelector('.right-block');
