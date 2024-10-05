@@ -7,8 +7,10 @@ const config = require('./config');
 const {urlencoded, json} = require("express");
 const bodyParser = require('body-parser');
 const app = express();
-const {pool} = require('./db')
+const {pool, assignEmailToPass, insertBodyData, insertStrengthData} = require('./db')
 const port = 3002;
+const jwt = require('jsonwebtoken');
+const secretKey = 'your_secret_key';
 
 // Настройка шаблонизатора EJS
 app.set('view engine', 'ejs');
@@ -73,15 +75,28 @@ app.get('/fitness-tracker/:section', (req, res) => {
     res.render(`tracker-sections/${section}`);
 });
 
+function authenticateToken(req, res, next) {
+    const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1]; // Извлекаем токен из заголовка
+
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, secretKey, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+
 app.post('/fitness-tracker/login', async (req, res) => {
-    const data = req.body
-    console.log(data)
+    const { email, password } = req.body;
 
     try {
-        const result = await pool.query('SELECT * FROM users_passwords WHERE email = $1 AND password = $2', [data.email, data.pass]);
+        const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
+        const result = await pool.query(query, [email, password]);
 
-        if (result.rows.length > 0) {
-            res.json({ message: 'Login successful', user: result.rows[0] });
+        if (result.length > 0) {
+            const token = jwt.sign({ id: result[0].id, email: result[0].email }, secretKey, { expiresIn: '1h' });
+            res.json({ message: 'Login successful', token: token });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -89,6 +104,18 @@ app.post('/fitness-tracker/login', async (req, res) => {
         console.error('Error executing query', error.stack);
         res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+app.post('/fitness-tracker/submit-body-data', async (req, res) => {
+    const { email, waist, chest, shoulders, biceps, forearms, neck, hips, calves } = req.body;
+    await insertBodyData(email, waist, chest, shoulders, biceps, forearms, neck, hips, calves);
+    res.json({ message: 'Body data submitted successfully.' });
+});
+
+app.post('/fitness-tracker/submit-strength-data', async (req, res) => {
+    const { email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats } = req.body;
+    await insertStrengthData(email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats);
+    res.json({ message: 'Strength data submitted successfully.' });
 });
 
 app.listen(port, () => {

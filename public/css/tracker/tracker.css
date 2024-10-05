@@ -74,12 +74,16 @@ main {
     clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
     margin-bottom: -5%;
     background: #4a4c4e;
+    padding: 0 7%;
+    padding-top: 12%;
 }
 
 .tracker-top-to-right-clip {
     clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
     margin-right: 5%;
     background: #323538;
+    padding: 0 7%;
+    padding-top: 12%;
 }
 
 .tracker-top-to-bottom-clip {
