@@ -26,6 +26,8 @@ LIMIT 200;
 CREATE TABLE body_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
+    height DECIMAL(5,2),
+    weight DECIMAL(5,2),
     waist DECIMAL(5,2),
     chest DECIMAL(5,2),
     shoulders DECIMAL(5,2),
@@ -37,6 +39,10 @@ CREATE TABLE body_data (
     measurement_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
+
+INSERT INTO body_data (email, height, weight, waist, chest, shoulders, biceps, forearms, neck, hips, calves)
+VALUES ('valnos04@gmail.com', 175.00, 70.00, 85.00, 95.00, 45.00, 35.00, 30.00, 38.00, 90.00, 35.00);
+
 
 CREATE TABLE strength_data (
     id INT AUTO_INCREMENT PRIMARY KEY,

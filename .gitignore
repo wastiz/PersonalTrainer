@@ -1,4 +1,5 @@
 # Node.js
 node_modules/
 config.json
-sql-queries
+mysql-queries
+postgre-queries

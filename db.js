@@ -1,31 +1,30 @@
-const mariadb = require('mariadb');
+const { Pool } = require('pg');
 
-const pool = mariadb.createPool({
+const pool = new Pool({
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'postgres',
+    password: 'admin',
     database: 'fitness_tracker',
-    connectionLimit: 5
+    port: 5432,
 });
 
-pool.getConnection()
-    .then(conn => {
+pool.connect()
+    .then(client => {
         console.log('Successfully connected to db');
-        conn.release();
+        client.release();
     })
     .catch(err => {
         console.error('Error connecting to db', err);
     });
 
 async function getPasswordByEmail(email) {
-    let conn;
+    const client = await pool.connect();
     try {
-        conn = await pool.getConnection();
-        const query = 'SELECT password FROM users WHERE email = ?';
-        const rows = await conn.query(query, [email]);
+        const query = 'SELECT password FROM users WHERE email = $1';
+        const res = await client.query(query, [email]);
 
-        if (rows.length > 0) {
-            return rows[0].password;
+        if (res.rows.length > 0) {
+            return res.rows[0].password;
         } else {
             console.log('No user found with this email.');
             return null;
@@ -33,24 +32,22 @@ async function getPasswordByEmail(email) {
     } catch (err) {
         console.error('Error fetching password by email:', err);
     } finally {
-        if (conn) conn.release();
+        client.release();
     }
 }
 
 async function assignEmailToPass(email) {
-    let conn;
+    const client = await pool.connect();
     try {
-        conn = await pool.getConnection();
-
         const queryCheckPassword = 'SELECT id, password FROM users WHERE email IS NULL LIMIT 1';
-        const passwordRow = await conn.query(queryCheckPassword);
+        const passwordRow = await client.query(queryCheckPassword);
 
-        if (passwordRow.length > 0) {
-            const userId = passwordRow[0].id;
-            const availablePassword = passwordRow[0].password;
+        if (passwordRow.rows.length > 0) {
+            const userId = passwordRow.rows[0].id;
+            const availablePassword = passwordRow.rows[0].password;
 
-            const queryUpdateEmail = 'UPDATE users SET email = ? WHERE id = ?';
-            await conn.query(queryUpdateEmail, [email, userId]);
+            const queryUpdateEmail = 'UPDATE users SET email = $1 WHERE id = $2';
+            await client.query(queryUpdateEmail, [email, userId]);
 
             console.log(`Email ${email} has been successfully assigned to password: ${availablePassword}`);
         } else {
@@ -59,46 +56,88 @@ async function assignEmailToPass(email) {
     } catch (err) {
         console.error('Error assigning email to the next available password:', err);
     } finally {
-        if (conn) conn.release();
+        client.release();
     }
 }
 
-async function insertBodyData(email, waist, chest, shoulders, biceps, forearms, neck, hips, calves) {
-    let conn;
+async function insertBodyData(email, height, weight, waist, chest, shoulders, biceps, forearms, neck, hips, calves) {
+    const client = await pool.connect();
     try {
-        conn = await pool.getConnection();
-        const query = `INSERT INTO body_data (email, waist, chest, shoulders, biceps, forearms, neck, hips, calves) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        await conn.query(query, [email, waist, chest, shoulders, biceps, forearms, neck, hips, calves]);
+        const query = `INSERT INTO body_data (email, height, weight, waist, chest, shoulders, biceps, forearms, neck, hips, calves) 
+                       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
+        await client.query(query, [email, height, weight, waist, chest, shoulders, biceps, forearms, neck, hips, calves]);
         console.log(`Body data for ${email} inserted successfully.`);
     } catch (err) {
         console.error('Error inserting body data:', err);
     } finally {
-        if (conn) conn.release();
+        client.release();
     }
 }
 
 async function insertStrengthData(email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats) {
-    let conn;
+    const client = await pool.connect();
     try {
-        conn = await pool.getConnection();
         const query = `INSERT INTO strength_data (email, bench_press_wide, bench_press_narrow, bicep_curl, 
                         bent_over_one_arm_row, deadlift, squats) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        await conn.query(query, [email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats]);
+                       VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+        await client.query(query, [email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats]);
         console.log(`Strength data for ${email} inserted successfully.`);
     } catch (err) {
         console.error('Error inserting strength data:', err);
     } finally {
-        if (conn) conn.release();
+        client.release();
     }
 }
 
+async function getBodyData(email) {
+    const client = await pool.connect();
+    try {
+        const query = `SELECT * FROM body_data WHERE email = $1`;
+        const res = await client.query(query, [email]);
+
+        if (res.rows.length > 0) {
+            console.log(`Body data for ${email} retrieved successfully:`, res.rows);
+            return res.rows;
+        } else {
+            console.log(`No body data found for ${email}.`);
+            return null;
+        }
+    } catch (err) {
+        console.error('Error retrieving body data:', err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
+
+
+async function getStrengthData(email) {
+    const client = await pool.connect();
+    try {
+        const query = `SELECT * FROM strength_data WHERE email = $1`;
+        const res = await client.query(query, [email]);
+
+        if (res.rows.length > 0) {
+            console.log(`Strength data for ${email} retrieved successfully:`, res.rows);
+            return res.rows;
+        } else {
+            console.log(`No strength data found for ${email}.`);
+            return null;
+        }
+    } catch (err) {
+        console.error('Error retrieving strength data:', err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
 
 module.exports = {
     pool,
     assignEmailToPass,
     getPasswordByEmail,
     insertBodyData,
-    insertStrengthData
+    insertStrengthData,
+    getBodyData,
+    getStrengthData,
 };

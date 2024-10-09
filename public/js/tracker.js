@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     sections.forEach(section => section.classList.remove('active-section'));
                     section.classList.add('active-section');
                     if (sectionsContent[index] === 'body-results') {
-                        initializeChart();
+                        await initializeBodyCharts();
                     }
                 } catch (err) {
                     console.error('Error loading section:', err);
@@ -92,31 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function initializeChart() {
-        const bodyGraph = document.getElementById('myChart').getContext('2d');
-
-        const myChart = new Chart(bodyGraph, {
-            type: 'line',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
 
     function updateSections() {
         if (window.innerWidth < 768) {
@@ -185,6 +160,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    document.querySelector('.btn-logout').addEventListener('click', () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('email')
+        location.reload()
+    })
+
 
     document.querySelector('.weekly-body-form').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -192,11 +173,15 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const formData = new FormData(e.target);
             const data = {
-                email: formData.get('login-mail'),
-                password: formData.get('login-pass'),
+                email: localStorage.getItem('email')
             };
+            formData.forEach((value, key) => {
+                data[key] = +value;
+            });
 
-            const response = await fetch('http://localhost:3002/fitness-tracker/login', {
+            console.log(data)
+
+            const response = await fetch('http://localhost:3002/fitness-tracker/submit-body-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -205,22 +190,82 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (response.ok) {
-                const jsonResponse = await response.json();
-                localStorage.setItem('token', jsonResponse.token);
-                loginResponse.innerHTML = 'Successfully logged in';
-                loginModal.style.display = 'none';
-            } else if (response.status === 401) {
-                loginResponse.innerHTML = 'Email or password is incorrect. Try again';
+                console.log('Submitted body data')
             } else {
-                loginResponse.innerHTML = 'Server Error. Try again later';
+                console.log('Now sent')
             }
         } catch (e) {
             console.error(e);
-            loginResponse.innerHTML = 'An error occurred. Please try again later';
         }
     });
 
+    async function initializeBodyCharts() {
+        try {
+            console.log('Fetching body data...');
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
 
+            console.log('Response received:', response);
+            const data = await response.json();  // Ждем и парсим ответ в формате JSON
+            console.log('Data received:', data);
+
+            const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
+
+            bodyParts.forEach(part => {
+                createChart(part, data);
+            });
+        } catch (e) {
+            console.error('Error initializing body charts:', e);
+        }
+    }
+
+
+    async function initializeStrengthCharts() {
+        try {
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results');
+            const data = await response.json();
+
+            const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
+
+            bodyParts.forEach(part => {
+                createChart(part, data);
+            });
+        } catch (e) {
+            console.error('Error initializing strength charts:', e);
+        }
+    }
+
+
+    function createChart(bodyPart, data) {
+        const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),  // Метки времени (даты)
+                datasets: [{
+                    label: `${bodyPart} measurements`,
+                    data: data.map(item => item[bodyPart]),
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
 
 
 });
