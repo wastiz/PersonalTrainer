@@ -108,8 +108,9 @@ main {
 }
 
 .tab-content {
+    height: 91%;
     padding: 50px;
-    /*overflow-y: scroll;*/
+    overflow-y: scroll;
 }
 
 .section-block label {

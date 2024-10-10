@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 `;
 
     const rightSections = `
-        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row">
+        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row active-section">
             <div>
                 <h5>Weekly form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
@@ -85,6 +85,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (sectionsContent[index] === 'body-results') {
                         await initializeBodyCharts();
                     }
+                    if (sectionsContent[index] === 'strength-results') {
+                        await initializeStrengthCharts();
+                    }
+                    if (sectionsContent[index] === 'weekly-body-form') {
+                        addFormSubmitListener('.weekly-body-form', 'body-form-modal', '.body-form-modal-text', 'http://localhost:3002/fitness-tracker/submit-body-data');
+                    }
+                    if (sectionsContent[index] === 'weekly-strength-form') {
+                        addFormSubmitListener('.weekly-strength-form', 'strength-form-modal', '.strength-form-modal-text', 'http://localhost:3002/fitness-tracker/submit-strength-data');
+                    }
                 } catch (err) {
                     console.error('Error loading section:', err);
                 }
@@ -117,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //Login and forms fetches
 
     const loginResponse = document.querySelector('.login-response');
-    const loginModal = document.querySelector('.modal');
+    const loginModal = document.querySelector('#login-modal');
 
     const token = localStorage.getItem('token');
     if (token) {
@@ -167,41 +176,52 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
-    document.querySelector('.weekly-body-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    function addFormSubmitListener(formSelector, modalSelector, modalTextSelector, url) {
+        document.querySelector(formSelector).addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        try {
-            const formData = new FormData(e.target);
-            const data = {
-                email: localStorage.getItem('email')
-            };
-            formData.forEach((value, key) => {
-                data[key] = +value;
-            });
+            const infoText = document.querySelector(modalTextSelector);
+            const modal = new bootstrap.Modal(document.getElementById(modalSelector));
 
-            console.log(data)
+            try {
+                infoText.innerHTML = 'Sending...';
+                const formData = new FormData(e.target);
+                const data = {
+                    email: localStorage.getItem('email')
+                };
 
-            const response = await fetch('http://localhost:3002/fitness-tracker/submit-body-data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+                formData.forEach((value, key) => {
+                    data[key] = +value;  // Преобразование значений формы в числа
+                });
 
-            if (response.ok) {
-                console.log('Submitted body data')
-            } else {
-                console.log('Now sent')
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    infoText.innerHTML = 'Data was sent successfully';
+                } else {
+                    infoText.innerHTML = 'Sorry. Error occurred, try again later';
+                }
+
+                modal.show();
+
+            } catch (error) {
+                console.error(error);
+                infoText.innerHTML = 'An unexpected error occurred';
+                modal.show();
             }
-        } catch (e) {
-            console.error(e);
-        }
-    });
+        });
+    }
+
+
 
     async function initializeBodyCharts() {
         try {
-            console.log('Fetching body data...');
             const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results', {
                 method: 'POST',
                 headers: {
@@ -210,9 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({ email: localStorage.getItem('email') })
             });
 
-            console.log('Response received:', response);
-            const data = await response.json();  // Ждем и парсим ответ в формате JSON
-            console.log('Data received:', data);
+            const data = await response.json();
 
             const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
 
@@ -227,12 +245,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function initializeStrengthCharts() {
         try {
-            const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results');
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-strength-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
             const data = await response.json();
 
-            const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
+            const strengthParts = ['bench_press_wide', 'bench_press_narrow', 'bicep_curl', 'bent_over_one_arm_row', 'deadlift', 'squats'];
 
-            bodyParts.forEach(part => {
+            strengthParts.forEach(part => {
                 createChart(part, data);
             });
         } catch (e) {

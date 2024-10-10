@@ -1,42 +1,58 @@
-<form class='mb-3'>
+<form class="mb-3 weekly-strength-form">
     <div class="container">
         <h3 class="text-center">Weekly Strength Measurements</h3>
         <div class="row">
-            <!-- Силовые упражнения -->
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="bench-press" class="form-label">Bench Press (kg)</label>
-                    <input name="bench-press" type="number" class="form-control" id="bench-press" placeholder="Enter your bench press weight...">
-                </div>
-                <div class="mb-3">
-                    <label for="squat" class="form-label">Squat (kg)</label>
-                    <input name="squat" type="number" class="form-control" id="squat" placeholder="Enter your squat weight...">
-                </div>
-                <div class="mb-3">
-                    <label for="deadlift" class="form-label">Deadlift (kg)</label>
-                    <input name="deadlift" type="number" class="form-control" id="deadlift" placeholder="Enter your deadlift weight...">
-                </div>
-            </div>
+            <% const strengthExercises = [
+                { id: 'bench_press_wide', label: 'Bench Press Wide (kg)', placeholder: 'Enter your bench press wide weight...' },
+                { id: 'bench_press_narrow', label: 'Bench Press Narrow (kg)', placeholder: 'Enter your bench press narrow weight...' },
+                { id: 'deadlift', label: 'Deadlift (kg)', placeholder: 'Enter your deadlift weight...' },
+                { id: 'squats', label: 'Squats (kg)', placeholder: 'Enter your squat weight...' },
+                { id: 'bicep_curl', label: 'Bicep Curl (kg)', placeholder: 'Enter your bicep curl weight...' },
+                { id: 'bent_over_one_arm_row', label: 'Bent Over One Arm Row (kg)', placeholder: 'Enter your row weight...' }
+            ]; %>
 
-            <!-- Дополнительные силовые показатели -->
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="bicep-curl" class="form-label">Bicep Curl (kg)</label>
-                    <input name="bicep-curl" type="number" class="form-control" id="bicep-curl" placeholder="Enter your bicep curl weight...">
+            <% strengthExercises.forEach((exercise, index) => { %>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="<%= exercise.id %>" class="form-label"><%= exercise.label %></label>
+                        <input
+                                name="<%= exercise.id %>"
+                                type="number"
+                                class="form-control"
+                                id="<%= exercise.id %>"
+                                placeholder="<%= exercise.placeholder %>"
+                        >
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="shoulder-press" class="form-label">Shoulder Press (kg)</label>
-                    <input name="shoulder-press" type="number" class="form-control" id="shoulder-press" placeholder="Enter your shoulder press weight...">
-                </div>
-                <div class="mb-3">
-                    <label for="pull-up" class="form-label">Pull-up (reps)</label>
-                    <input name="pull-up" type="number" class="form-control" id="pull-up" placeholder="Enter your pull-up repetitions...">
-                </div>
-            </div>
+            <% }) %>
         </div>
+
+        <style>
+            #strength-form-modal {
+                display: none;
+            }
+        </style>
 
         <div class="flex flex-center">
-            <button type="submit" class="btn btn-primary">Submit Strength Measurements</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+
+        <div class="modal fade" id="strength-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="strength-form-modal-text">Initial text...</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </form>

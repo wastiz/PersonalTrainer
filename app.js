@@ -94,11 +94,9 @@ app.post('/fitness-tracker/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Use PostgreSQL syntax for parameterized queries
         const query = 'SELECT * FROM users WHERE email = $1 AND password = $2';
         const result = await pool.query(query, [email, password]);
 
-        // Check if any user is found
         if (result.rows.length > 0) {
             const token = jwt.sign({ id: result.rows[0].id, email: result.rows[0].email }, secretKey, { expiresIn: '1h' });
             res.json({ message: 'Login successful', token: token });
@@ -134,6 +132,23 @@ app.post('/fitness-tracker/get-body-results', async (req, res) => {
             res.json(response);
         } else {
             res.status(404).json({ message: 'No body data found' });
+        }
+    } catch (err) {
+        console.error('Error retrieving data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/fitness-tracker/get-strength-results', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const response = await getStrengthData(email);
+
+        if (response) {
+            res.json(response);
+        } else {
+            res.status(404).json({ message: 'No strength data found' });
         }
     } catch (err) {
         console.error('Error retrieving data:', err);

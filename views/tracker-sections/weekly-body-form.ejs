@@ -1,59 +1,67 @@
-<form class='mb-3 weekly-body-form'>
+<% const bodyMeasurements = [
+    { id: 'height', label: 'Height (cm)', placeholder: 'Enter your height...' },
+    { id: 'weight', label: 'Weight (kg)', placeholder: 'Enter your weight...' },
+    { id: 'chest', label: 'Chest (cm)', placeholder: 'Enter chest size...' },
+    { id: 'shoulders', label: 'Shoulders (cm)', placeholder: 'Enter shoulders size...' },
+    { id: 'neck', label: 'Neck (cm)', placeholder: 'Enter neck size...' },
+    { id: 'bicep', label: 'Bicep (cm)', placeholder: 'Enter bicep size...' },
+    { id: 'waist', label: 'Waist (cm)', placeholder: 'Enter waist size...' },
+    { id: 'thigh', label: 'Thigh (cm)', placeholder: 'Enter thigh size...' },
+    { id: 'forearm', label: 'Forearm (cm)', placeholder: 'Enter forearm size...' },
+    { id: 'hips', label: 'Hips (cm)', placeholder: 'Enter hips size...' },
+    { id: 'calves', label: 'Calves (cm)', placeholder: 'Enter calves size...' }
+]; %>
+
+<h2 class="text-yellow">Weekly body measurments</h2>
+<form class="mb-3 weekly-body-form">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <div class="mb-3">
-                    <label for="height" class="form-label">Height (cm)</label>
-                    <input name="height" type="number" class="form-control" id="height" placeholder="Enter your height..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="weight" class="form-label">Weight (kg)</label>
-                    <input name="weight" type="number" class="form-control" id="weight" placeholder="Enter your weight..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="chest" class="form-label">Chest (cm)</label>
-                    <input name="chest" type="number" class="form-control" id="chest" placeholder="Enter chest size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="shoulders" class="form-label">Shoulders (cm)</label>
-                    <input name="shoulders" type="number" class="form-control" id="shoulders" placeholder="Enter shoulders size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="neck" class="form-label">Neck (cm)</label>
-                    <input name="neck" type="number" class="form-control" id="neck" placeholder="Enter neck size..." required>
-                </div>
+                <% bodyMeasurements.slice(0, Math.ceil(bodyMeasurements.length / 2)).forEach(part => { %>
+                    <div class="mb-3">
+                        <label for="<%= part.id %>" class="form-label"><%= part.label %></label>
+                        <input name="<%= part.id %>" type="number" class="form-control" id="<%= part.id %>" placeholder="<%= part.placeholder %>" required>
+                    </div>
+                <% }) %>
             </div>
 
             <div class="col-6">
-                <div class="mb-3">
-                    <label for="bicep" class="form-label">Bicep (cm)</label>
-                    <input name="bicep" type="number" class="form-control" id="bicep" placeholder="Enter bicep size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="waist" class="form-label">Waist (cm)</label>
-                    <input name="waist" type="number" class="form-control" id="waist" placeholder="Enter waist size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="thigh" class="form-label">Thigh (cm)</label>
-                    <input name="thigh" type="number" class="form-control" id="thigh" placeholder="Enter thigh size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="forearm" class="form-label">Forearm (cm)</label>
-                    <input name="forearm" type="number" class="form-control" id="forearm" placeholder="Enter forearm size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="hips" class="form-label">Hips (cm)</label>
-                    <input name="hips" type="number" class="form-control" id="hips" placeholder="Enter hips size..." required>
-                </div>
-                <div class="mb-3">
-                    <label for="calves" class="form-label">Calves (cm)</label>
-                    <input name="calves" type="number" class="form-control" id="calves" placeholder="Enter calves size..." required>
+                <% bodyMeasurements.slice(Math.ceil(bodyMeasurements.length / 2)).forEach(part => { %>
+                    <div class="mb-3">
+                        <label for="<%= part.id %>" class="form-label"><%= part.label %></label>
+                        <input name="<%= part.id %>" type="number" class="form-control" id="<%= part.id %>" placeholder="<%= part.placeholder %>" required>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+        <style>
+            #body-form-modal {
+                display: none;
+            }
+        </style>
+
+        <div class="flex flex-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+        <div class="modal fade" id="body-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="body-form-modal-text">Initial text...</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-center">
-            <button type="submit" class="btn btn-primary">Saada</button>
-        </div>
     </div>
 </form>
+

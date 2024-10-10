@@ -1,8 +1,8 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,  -- Используем SERIAL для автоматического инкремента
+    id SERIAL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
-    is_assigned BOOLEAN DEFAULT FALSE,  -- Устанавливаем значение по умолчанию как FALSE
+    is_assigned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -17,10 +17,10 @@ SELECT CONCAT(
     CHR(FLOOR(65 + (RANDOM() * 25))),  -- A-Z
     CHR(FLOOR(97 + (RANDOM() * 25)))   -- a-z
 ) AS password
-FROM generate_series(1, 200);  -- Используем generate_series для генерации 200 строк
+FROM generate_series(1, 200);
 
 CREATE TABLE body_data (
-    id SERIAL PRIMARY KEY,  -- Используем SERIAL для автоматического инкремента
+    id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     height DECIMAL(5,2),
     weight DECIMAL(5,2),
@@ -40,7 +40,7 @@ INSERT INTO body_data (email, height, weight, waist, chest, shoulders, biceps, f
 VALUES ('valnos04@gmail.com', 175.00, 70.00, 85.00, 95.00, 45.00, 35.00, 30.00, 38.00, 90.00, 35.00);
 
 CREATE TABLE strength_data (
-    id SERIAL PRIMARY KEY,  -- Используем SERIAL для автоматического инкремента
+    id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     bench_press_wide DECIMAL(5,2),
     bench_press_narrow DECIMAL(5,2),

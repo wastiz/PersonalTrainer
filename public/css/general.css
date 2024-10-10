@@ -238,6 +238,10 @@ label {
     font-size: 3rem;
 }
 
+.text-yellow {
+    color: yellow;
+}
+
 .prefixed-text {
     font-size: 0.8rem;
     color: white;
