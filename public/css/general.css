@@ -207,7 +207,9 @@ label {
 }
 
 /*Other*/
-
+.display-none {
+    display: none;
+}
 .flex {
     display: flex;
 }

@@ -1,3 +1,4 @@
+<h2 class="text-yellow">Weekly body measurments</h2>
 <form class="mb-3 weekly-strength-form">
     <div class="container">
         <h3 class="text-center">Weekly Strength Measurements</h3>
@@ -11,7 +12,7 @@
                 { id: 'bent_over_one_arm_row', label: 'Bent Over One Arm Row (kg)', placeholder: 'Enter your row weight...' }
             ]; %>
 
-            <% strengthExercises.forEach((exercise, index) => { %>
+            <% strengthExercises.forEach((exercise) => { %>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="<%= exercise.id %>" class="form-label"><%= exercise.label %></label>
@@ -27,31 +28,8 @@
             <% }) %>
         </div>
 
-        <style>
-            #strength-form-modal {
-                display: none;
-            }
-        </style>
-
         <div class="flex flex-center">
             <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-
-        <div class="modal fade" id="strength-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="strength-form-modal-text">Initial text...</div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>

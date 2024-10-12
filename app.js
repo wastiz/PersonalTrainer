@@ -117,8 +117,8 @@ app.post('/fitness-tracker/submit-body-data', async (req, res) => {
 });
 
 app.post('/fitness-tracker/submit-strength-data', async (req, res) => {
-    const { email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats } = req.body;
-    await insertStrengthData(email, benchPressWide, benchPressNarrow, bicepCurl, bentOverOneArmRow, deadlift, squats);
+    const { email, bench_press_wide, bench_press_narrow, bicep_curl, bent_over_one_arm_row, deadlift, squats } = req.body;
+    await insertStrengthData(email, bench_press_wide, bench_press_narrow, bicep_curl, bent_over_one_arm_row, deadlift, squats);
     res.json({ message: 'Strength data submitted successfully.' });
 });
 

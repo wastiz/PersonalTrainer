@@ -33,11 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
 `;
 
     const rightSections = `
-        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row active-section">
+        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row flex-center active-section">
             <div>
                 <h5>Weekly form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
-                <button class="btn btn-primary">Start filling</button>
+                <button class="btn btn-primary">Start</button>
             </div>
             <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
         </div>
@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="section-block tracker-right-to-left-clip flex flex-row">
             <div>
-                <h5>Strength measurements</h5>
-                <p>Fill your power measurements, so we could analyze more</p>
-                <button class="btn btn-primary">Start filling</button>
+                <h5>Strength form</h5>
+                <p>Please, fill the form, so we could analyze your results)</p>
+                <button class="btn btn-primary">Start</button>
             </div>
-            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="formik">
+            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
         </div>
         <div class="section-block tracker-top-to-right-clip flex flex-row">
             <div>
@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         await initializeStrengthCharts();
                     }
                     if (sectionsContent[index] === 'weekly-body-form') {
-                        addFormSubmitListener('.weekly-body-form', 'body-form-modal', '.body-form-modal-text', 'http://localhost:3002/fitness-tracker/submit-body-data');
+                        addFormSubmitListener('.weekly-body-form','http://localhost:3002/fitness-tracker/submit-body-data');
                     }
                     if (sectionsContent[index] === 'weekly-strength-form') {
-                        addFormSubmitListener('.weekly-strength-form', 'strength-form-modal', '.strength-form-modal-text', 'http://localhost:3002/fitness-tracker/submit-strength-data');
+                        addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
                     }
                 } catch (err) {
                     console.error('Error loading section:', err);
@@ -176,12 +176,17 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
-    function addFormSubmitListener(formSelector, modalSelector, modalTextSelector, url) {
+    function addFormSubmitListener(formSelector, url) {
         document.querySelector(formSelector).addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const infoText = document.querySelector(modalTextSelector);
-            const modal = new bootstrap.Modal(document.getElementById(modalSelector));
+            const modal = createModal();
+
+            document.body.appendChild(modal);
+
+            const bsModal = new bootstrap.Modal(modal);
+
+            const infoText = modal.querySelector('.modal-body');
 
             try {
                 infoText.innerHTML = 'Sending...';
@@ -191,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
                 formData.forEach((value, key) => {
-                    data[key] = +value;  // Преобразование значений формы в числа
+                    data[key] = +value;
                 });
 
                 const response = await fetch(url, {
@@ -208,14 +213,50 @@ document.addEventListener("DOMContentLoaded", function () {
                     infoText.innerHTML = 'Sorry. Error occurred, try again later';
                 }
 
-                modal.show();
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
 
             } catch (error) {
                 console.error(error);
                 infoText.innerHTML = 'An unexpected error occurred';
-                modal.show();
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
             }
         });
+    }
+
+    function createModal() {
+        const modal = document.createElement('div');
+        modal.classList.add('modal', 'fade');
+        modal.id = 'dynamicModal';
+        modal.setAttribute('tabindex', '-1');
+        modal.setAttribute('aria-labelledby', 'dynamicModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+
+        modal.innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="dynamicModalLabel">Submission Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-black">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+        return modal;
     }
 
 
@@ -271,13 +312,16 @@ document.addEventListener("DOMContentLoaded", function () {
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),  // Метки времени (даты)
+                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),
                 datasets: [{
                     label: `${bodyPart} measurements`,
                     data: data.map(item => item[bodyPart]),
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
+                    tension: 0.1,
+                    borderColor: 'yellow', // Цвет линии
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Цвет заливки (если fill: true)
+                    pointBackgroundColor: 'yellow', // Цвет точек на линии
+                    pointBorderColor: 'yellow', // Цвет границы точек
                 }]
             },
             options: {

@@ -1,67 +1,43 @@
-<% const bodyMeasurements = [
-    { id: 'height', label: 'Height (cm)', placeholder: 'Enter your height...' },
-    { id: 'weight', label: 'Weight (kg)', placeholder: 'Enter your weight...' },
-    { id: 'chest', label: 'Chest (cm)', placeholder: 'Enter chest size...' },
-    { id: 'shoulders', label: 'Shoulders (cm)', placeholder: 'Enter shoulders size...' },
-    { id: 'neck', label: 'Neck (cm)', placeholder: 'Enter neck size...' },
-    { id: 'bicep', label: 'Bicep (cm)', placeholder: 'Enter bicep size...' },
-    { id: 'waist', label: 'Waist (cm)', placeholder: 'Enter waist size...' },
-    { id: 'thigh', label: 'Thigh (cm)', placeholder: 'Enter thigh size...' },
-    { id: 'forearm', label: 'Forearm (cm)', placeholder: 'Enter forearm size...' },
-    { id: 'hips', label: 'Hips (cm)', placeholder: 'Enter hips size...' },
-    { id: 'calves', label: 'Calves (cm)', placeholder: 'Enter calves size...' }
-]; %>
-
-<h2 class="text-yellow">Weekly body measurments</h2>
+<h2 class="text-yellow">Weekly Body Measurements</h2>
 <form class="mb-3 weekly-body-form">
     <div class="container">
+        <h3 class="text-center">Weekly Body Measurements</h3>
         <div class="row">
-            <div class="col-6">
-                <% bodyMeasurements.slice(0, Math.ceil(bodyMeasurements.length / 2)).forEach(part => { %>
-                    <div class="mb-3">
-                        <label for="<%= part.id %>" class="form-label"><%= part.label %></label>
-                        <input name="<%= part.id %>" type="number" class="form-control" id="<%= part.id %>" placeholder="<%= part.placeholder %>" required>
-                    </div>
-                <% }) %>
-            </div>
+            <% const bodyMeasurements = [
+                { id: 'height', label: 'Height (cm)', placeholder: 'Enter your height...' },
+                { id: 'weight', label: 'Weight (kg)', placeholder: 'Enter your weight...' },
+                { id: 'chest', label: 'Chest (cm)', placeholder: 'Enter chest size...' },
+                { id: 'shoulders', label: 'Shoulders (cm)', placeholder: 'Enter shoulders size...' },
+                { id: 'neck', label: 'Neck (cm)', placeholder: 'Enter neck size...' },
+                { id: 'bicep', label: 'Bicep (cm)', placeholder: 'Enter bicep size...' },
+                { id: 'waist', label: 'Waist (cm)', placeholder: 'Enter waist size...' },
+                { id: 'thigh', label: 'Thigh (cm)', placeholder: 'Enter thigh size...' },
+                { id: 'forearm', label: 'Forearm (cm)', placeholder: 'Enter forearm size...' },
+                { id: 'hips', label: 'Hips (cm)', placeholder: 'Enter hips size...' },
+                { id: 'calves', label: 'Calves (cm)', placeholder: 'Enter calves size...' }
+            ]; %>
 
-            <div class="col-6">
-                <% bodyMeasurements.slice(Math.ceil(bodyMeasurements.length / 2)).forEach(part => { %>
+            <% bodyMeasurements.forEach((measurement) => { %>
+                <div class="col-6">
                     <div class="mb-3">
-                        <label for="<%= part.id %>" class="form-label"><%= part.label %></label>
-                        <input name="<%= part.id %>" type="number" class="form-control" id="<%= part.id %>" placeholder="<%= part.placeholder %>" required>
+                        <label for="<%= measurement.id %>" class="form-label"><%= measurement.label %></label>
+                        <input
+                                name="<%= measurement.id %>"
+                                type="number"
+                                class="form-control"
+                                id="<%= measurement.id %>"
+                                placeholder="<%= measurement.placeholder %>"
+                        >
                     </div>
-                <% }) %>
-            </div>
+                </div>
+            <% }) %>
         </div>
-
-        <style>
-            #body-form-modal {
-                display: none;
-            }
-        </style>
 
         <div class="flex flex-center">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
 
-        <div class="modal fade" id="body-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="body-form-modal-text">Initial text...</div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </form>
+
 

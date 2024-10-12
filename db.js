@@ -96,7 +96,7 @@ async function getBodyData(email) {
         const res = await client.query(query, [email]);
 
         if (res.rows.length > 0) {
-            console.log(`Body data for ${email} retrieved successfully:`, res.rows);
+            console.log(`Body data for ${email} retrieved successfully:`);
             return res.rows;
         } else {
             console.log(`No body data found for ${email}.`);
@@ -118,7 +118,7 @@ async function getStrengthData(email) {
         const res = await client.query(query, [email]);
 
         if (res.rows.length > 0) {
-            console.log(`Strength data for ${email} retrieved successfully:`, res.rows);
+            console.log(`Strength data for ${email} retrieved successfully:`);
             return res.rows;
         } else {
             console.log(`No strength data found for ${email}.`);

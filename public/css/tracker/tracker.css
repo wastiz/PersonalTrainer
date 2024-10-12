@@ -23,6 +23,31 @@ html, body {
 /*    border: 3px solid yellowgreen;*/
 /*}*/
 
+/* Для браузеров на базе WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 0, 0.6); /* Задний фон скроллбара с прозрачностью */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: yellow; /* Цвет ползунка (язычка) */
+    border-radius: 10px;  /* Скругление краев ползунка */
+    border: 2px solid rgba(255, 255, 0, 0.6); /* Обводка ползунка того же цвета, что и трек */
+}
+
+/* Убираем стрелочки */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;  /* Тонкий скроллбар */
+    scrollbar-color: yellow rgba(255, 255, 0, 0.6);  /* Ползунок и фон */
+}
 
 
 main {
@@ -109,7 +134,7 @@ main {
 
 .tab-content {
     height: 91%;
-    padding: 50px;
+    padding: 20px;
     overflow-y: scroll;
 }
 
@@ -143,6 +168,28 @@ main {
     .right-block {
         overflow-y: scroll;
     }
+    .tracker-right-top-to-bottom-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+    }
+    .tracker-bottom-to-top-clip {
+        margin-left: 0;
+        padding: 0 30px;
+        gap: 0 !important;
+        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    }
+    .tracker-top-to-bottom-clip {
+        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+    }
+    .tracker-bottom-left-to-top-clip {
+        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    }
+    .tracker-bottom-left-to-top-clip p, .tracker-right-to-left-clip p{
+        font-size: 15px;
+    }
+    .tab-content {
+        height: 100%;
+        overflow-y: hidden;
+    }
 }
 
 @media (max-width: 768px) {
@@ -150,10 +197,12 @@ main {
         display: none;
     }
     .bottom-sections {
+        height: 28%;
         overflow-x: scroll;
     }
-    .right-block {
-        width: 0;
+    .tab-content {
+        height: 100%;
+        overflow-y: scroll;
     }
     .left-block {
         width: 100%;
@@ -166,12 +215,42 @@ main {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
     }
-
     .bottom-sections .section-block {
-        min-width: 200px;
+        max-height: 215px;
+        max-width: 300px;
         flex: 0 0 auto;
         margin-right: 10px;
         scroll-snap-align: start;
+    }
+
+
+    .tracker-bottom-left-to-top-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        padding: 40px;
+    }
+
+    .tracker-left-to-right-clip {
+        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+    }
+
+    .tracker-right-to-left-clip {
+        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    }
+
+    .tracker-top-to-right-clip {
+        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+    }
+
+    .tracker-top-to-bottom-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+    }
+
+    .tracker-bottom-to-top-clip {
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+    }
+
+    .tracker-right-top-to-bottom-clip {
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
     }
 }
 
