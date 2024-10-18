@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const bottomSections = `
-    <div class="section-block tracker-right-top-to-bottom-clip flex flex-row flex-center gap-5">
+    <div class="section-block calorie-section flex flex-row flex-center gap-5">
         <div>
             <h5>Calories</h5>
             <label for="">Consumed</label>
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <img width="30%" src="img/icons/calories.png" alt="form">
     </div>
-    <div class="section-block tracker-bottom-to-top-clip flex flex-row flex-center gap-5">
+    <div class="section-block training-plan-section flex flex-row flex-center gap-5">
         <div>
             <h5>Current training plan</h5>
             <label>Type</label>
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <img src="img/icons/project.png" alt="training plan" width="100" height="100">
     </div>
-    <div class="section-block tracker-top-to-bottom-clip flex flex-row flex-center gap-5">
+    <div class="section-block total-trains-section flex flex-row flex-center gap-5">
         <div>
             <h5>Total trains</h5>
             <label for="">This week</label>
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 `;
 
     const rightSections = `
-        <div class="section-block tracker-bottom-left-to-top-clip flex flex-row flex-center active-section">
+        <div class="section-block weekly-body-form-section flex flex-row flex-center active-section">
             <div>
                 <h5>Weekly form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
         </div>
-        <div class="section-block tracker-left-to-right-clip flex flex-row">
+        <div class="section-block body-results-section flex flex-row">
             <div>
                 <h5>Body results</h5>
                 <p>See your body results in graphs</p>
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <img width="70%" height="70%" src="img/icons/growth.png" alt="formik">
         </div>
-        <div class="section-block tracker-right-to-left-clip flex flex-row">
+        <div class="section-block weekly-strength-form-section flex flex-row">
             <div>
                 <h5>Strength form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
         </div>
-        <div class="section-block tracker-top-to-right-clip flex flex-row">
+        <div class="section-block strength-results-section flex flex-row">
             <div>
                 <h5>Strength results</h5>
                 <p>See your strength results in graphs</p>
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sectionsContent = ['calories', 'training-plan', 'total-trainings', 'weekly-body-form', 'body-results', 'weekly-strength-form', 'strength-results'];
     const tabContent = document.querySelector('.tab-content');
-    const bottomSection = document.querySelector('.bottom-sections');
+    const bottomSection = document.querySelector('.bottom-block');
     const rightSection = document.querySelector('.right-block');
 
     function addClickHandlers() {
@@ -103,10 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function updateSections() {
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < 1170) {
             bottomSection.innerHTML = bottomSections + rightSections;
             rightSection.innerHTML = '';
-        } else if (window.innerWidth >= 768 && window.innerWidth < 1470) {
+        } else if (window.innerWidth >= 1170 && window.innerWidth < 1470) {
             rightSection.innerHTML = bottomSections + rightSections;
             bottomSection.innerHTML = '';
         } else if (window.innerWidth >= 1470) {
@@ -120,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSections();
 
     window.addEventListener('resize', updateSections);
-
 
 
     //Login and forms fetches

@@ -8,14 +8,14 @@ CREATE TABLE users (
 
 INSERT INTO users (password)
 SELECT CONCAT(
-    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 26))),  -- a-z
-    CHR(FLOOR(48 + (RANDOM() * 10))),  -- 0-9
-    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 26))),  -- a-z
-    CHR(FLOOR(48 + (RANDOM() * 10))),  -- 0-9
-    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 26)))   -- a-z
+    CHR(FLOOR(65 + (RANDOM() * 26))::int),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26))::int),  -- a-z
+    CHR(FLOOR(48 + (RANDOM() * 10))::int),  -- 0-9
+    CHR(FLOOR(65 + (RANDOM() * 26))::int),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26))::int),  -- a-z
+    CHR(FLOOR(48 + (RANDOM() * 10))::int),  -- 0-9
+    CHR(FLOOR(65 + (RANDOM() * 26))::int),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26))::int)   -- a-z
 ) AS password
 FROM generate_series(1, 200);
 
@@ -53,3 +53,15 @@ CREATE TABLE strength_data (
     measurement_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
+
+INSERT INTO strength_data (
+    email,
+    bench_press_wide,
+    bench_press_narrow,
+    bicep_curl,
+    bent_over_one_arm_row,
+    deadlift,
+    squats,
+    measurement_date
+) VALUES
+('valnos04@gmail.com', 95.50, 90.00, 42.50, 70.00, 160.00, 120.00, '2024-10-18 14:30:00');

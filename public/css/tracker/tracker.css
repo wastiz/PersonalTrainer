@@ -23,6 +23,10 @@ html, body {
 /*    border: 3px solid yellowgreen;*/
 /*}*/
 
+/*.section-block {*/
+/*    border: 2px solid red   ;*/
+/*}*/
+
 /* Для браузеров на базе WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     width: 12px;
@@ -64,7 +68,7 @@ main {
 .main-window {
     height: 76%;
 }
-.bottom-sections {
+.bottom-block {
     height: 24%;
 }
 
@@ -80,14 +84,14 @@ main {
     color: black;
 }
 
-.tracker-bottom-left-to-top-clip {
+.weekly-body-form-section {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     margin-bottom: -5%;
     background: #4a4c4e;
     padding: 40px;
 }
 
-.tracker-left-to-right-clip {
+.body-results-section {
     clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
     margin-bottom: -5%;
     background: #323538;
@@ -95,7 +99,7 @@ main {
     padding-top: 12%;
 }
 
-.tracker-right-to-left-clip {
+.weekly-strength-form-section {
     clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
     margin-bottom: -5%;
     background: #4a4c4e;
@@ -103,7 +107,7 @@ main {
     padding-top: 12%;
 }
 
-.tracker-top-to-right-clip {
+.strength-results-section {
     clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
     margin-right: 5%;
     background: #323538;
@@ -111,21 +115,21 @@ main {
     padding-top: 12%;
 }
 
-.tracker-top-to-bottom-clip {
+.calorie-section {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
     height: 215px;
     margin-left: -3.5%;
     background: #4a4c4e;
 }
 
-.tracker-bottom-to-top-clip {
+.training-plan-section {
     clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
     height: 215px;
     margin-left: -3.5%;
     background: #323538;
 }
 
-.tracker-right-top-to-bottom-clip {
+.total-trains-section {
     clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
     height: 215px;
     background: #4a4c4e;
@@ -167,90 +171,116 @@ main {
 @media (max-width: 1470px) {
     .right-block {
         overflow-y: scroll;
+        overflow-x: hidden;
     }
-    .tracker-right-top-to-bottom-clip {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+    .main-window {
+        height: 92.5%;
     }
-    .tracker-bottom-to-top-clip {
-        margin-left: 0;
-        padding: 0 30px;
-        gap: 0 !important;
-        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
-    }
-    .tracker-top-to-bottom-clip {
-        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
-    }
-    .tracker-bottom-left-to-top-clip {
-        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
-    }
-    .tracker-bottom-left-to-top-clip p, .tracker-right-to-left-clip p{
-        font-size: 15px;
+    .bottom-block {
+        display: none;
     }
     .tab-content {
         height: 100%;
         overflow-y: hidden;
     }
+    .section-block {
+        height: 240px !important;
+    }
+    .calorie-section {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+        margin-left: 0;
+    }
+    .training-plan-section {
+        margin-left: 0;
+        margin-top: -7.3%;
+        padding: 0 30px;
+        gap: 0 !important;
+        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    }
+    .total-trains-section {
+        margin-top: -7.3%;
+        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+    }
+    .weekly-body-form-section {
+        margin-top: -7.3%;
+        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    }
+    .weekly-body-form-section p, .weekly-strength-form-section p{
+        font-size: 15px;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1170px) {
     .right-block {
         display: none;
     }
-    .bottom-sections {
-        height: 28%;
-        overflow-x: scroll;
+    .main-window{
+        height: 76%;
     }
     .tab-content {
-        height: 100%;
+        height: 90%;
         overflow-y: scroll;
     }
     .left-block {
         width: 100%;
     }
-    .bottom-sections {
+    .bottom-block {
         display: flex;
         flex-direction: row;
         overflow-x: auto;
+        overflow-y: hidden;
         white-space: nowrap;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
     }
-    .bottom-sections .section-block {
+    .section-block {
         max-height: 215px;
-        max-width: 300px;
+        max-width: 400px;
         flex: 0 0 auto;
         margin-right: 10px;
         scroll-snap-align: start;
     }
 
-
-    .tracker-bottom-left-to-top-clip {
-        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-        padding: 40px;
+    .calorie-section {
+        margin: 0;
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
     }
 
-    .tracker-left-to-right-clip {
-        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
-    }
-
-    .tracker-right-to-left-clip {
-        clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
-    }
-
-    .tracker-top-to-right-clip {
-        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
-    }
-
-    .tracker-top-to-bottom-clip {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
-    }
-
-    .tracker-bottom-to-top-clip {
+    .training-plan-section {
+        margin: 0;
+        margin-left: -7%;
         clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
     }
 
-    .tracker-right-top-to-bottom-clip {
-        clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    .total-trains-section {
+        margin: 0;
+        margin-left: -7%;
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+    }
+
+    .weekly-body-form-section {
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+        padding: 0 50px;
+        margin-top: 0;
+        margin-left: -3%;
+    }
+
+    .body-results-section {
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+        margin-left: -3%;
+        padding: 20px 30px;
+    }
+
+    .weekly-strength-form-section {
+        padding: 0;
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+        margin-left: -3%;
+    }
+
+    .strength-results-section {
+        padding: 0;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+        margin-left: -3%;
     }
 }
 
