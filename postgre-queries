@@ -8,16 +8,18 @@ CREATE TABLE users (
 
 INSERT INTO users (password)
 SELECT CONCAT(
-    CHR(FLOOR(65 + (RANDOM() * 25))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 25))),  -- a-z
+    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26))),  -- a-z
     CHR(FLOOR(48 + (RANDOM() * 10))),  -- 0-9
-    CHR(FLOOR(65 + (RANDOM() * 25))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 25))),  -- a-z
+    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26))),  -- a-z
     CHR(FLOOR(48 + (RANDOM() * 10))),  -- 0-9
-    CHR(FLOOR(65 + (RANDOM() * 25))),  -- A-Z
-    CHR(FLOOR(97 + (RANDOM() * 25)))   -- a-z
+    CHR(FLOOR(65 + (RANDOM() * 26))),  -- A-Z
+    CHR(FLOOR(97 + (RANDOM() * 26)))   -- a-z
 ) AS password
 FROM generate_series(1, 200);
+
+UPDATE users SET email = 'valnos04@gmail.com' WHERE id = 1
 
 CREATE TABLE body_data (
     id SERIAL PRIMARY KEY,
