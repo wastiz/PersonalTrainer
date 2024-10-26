@@ -78,7 +78,13 @@ document.addEventListener("DOMContentLoaded", function () {
             section.addEventListener('click', async () => {
                 console.log('clicked');
                 try {
-                    const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`);
+                    const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(localStorage.getItem('email')),
+                    });
                     tabContent.innerHTML = await response.text();
                     sections.forEach(section => section.classList.remove('active-section'));
                     section.classList.add('active-section');
@@ -93,6 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     if (sectionsContent[index] === 'weekly-strength-form') {
                         addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
+                    }
+                    if (sectionsContent[index] === 'total-trainings') {
+                        await createTrainingsChart()
                     }
                 } catch (err) {
                     console.error('Error loading section:', err);
@@ -303,6 +312,62 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error initializing strength charts:', e);
         }
     }
+
+    async function createTrainingsChart() {
+        const infoText = document.querySelector('.trainings-info-text');
+        try {
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-trainings-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
+
+            if (response.status === 404) {
+                infoText.innerHTML = 'You have no completed trainings yet';
+            } else {
+                const data = await response.json();
+
+                // Processing the data from the server
+                const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                const attendanceData = daysOfWeek.map(day => {
+                    const session = data.attendance.find(d => d.day_of_week === day);
+                    return session ? session.count : 0;  // If there's no data for the day, set count to 0
+                });
+
+                // Create the chart
+                const ctx = document.getElementById('trainings-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: daysOfWeek,
+                        datasets: [{
+                            label: 'Attendance',
+                            data: attendanceData,
+                            backgroundColor: function(context) {
+                                const value = context.raw;
+                                return value > 3 ? 'rgba(75, 192, 192, 1)' :
+                                    value > 1 ? 'rgba(75, 192, 192, 0.6)' : 'rgba(75, 192, 192, 0.3)';
+                            }
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: Math.max(...attendanceData) + 1
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
 
 
     function createChart(bodyPart, data) {

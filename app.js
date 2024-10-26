@@ -7,7 +7,7 @@ const config = require('./config');
 const {urlencoded, json} = require("express");
 const bodyParser = require('body-parser');
 const app = express();
-const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData} = require('./db')
+const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData, getTrainingsData} = require('./db')
 const port = 3002;
 const jwt = require('jsonwebtoken');
 const secretKey = 'your_secret_key';
@@ -72,7 +72,16 @@ app.get('/fitness-tracker', (req, res) => {
 
 app.get('/fitness-tracker/:section', async (req, res) => {
     const section = req.params.section;
-    res.render(`tracker-sections/${section}`);
+    const { email } = req.body;
+    if (section === "total-trainings"){
+        days = getTrainingsData(email)
+        if (days === null) {
+            days = ['You have no days']
+        }
+        res.render(`tracker-sections/${section}`, {days});
+    } else {
+        res.render(`tracker-sections/${section}`);
+    }
 });
 
 
@@ -155,6 +164,21 @@ app.post('/fitness-tracker/get-strength-results', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+app.post('/fitness-tracker/get-trainings-results', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const response = await getTrainingsData(email);
+        if (response) {
+            res.json(response);
+        } else {
+            res.status(404).json({ message: 'No trainings data found' });
+        }
+    } catch (e) {
+        console.error(e)
+    }
+})
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

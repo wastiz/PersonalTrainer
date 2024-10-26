@@ -132,6 +132,47 @@ async function getStrengthData(email) {
     }
 }
 
+async function getUserWeeks (email) {
+    const client = await pool.connect();
+    try {
+        const query = `SELECT DISTINCT td.day_of_week
+                               FROM training_sessions ts
+                               JOIN training_days td ON ts.plan_id = td.plan_id
+                               WHERE ts.email = :email AND ts.attended = TRUE;`
+        const res = await client.query(query, [email]);
+        if (res.rows.length > 0) {
+            return res.rows;
+        } else {
+            return null;
+        }
+    } catch (e) {
+        console.error(e)
+    } finally {
+        client.release();
+    }
+}
+
+async function getTrainingsData(email) {
+    const client = await pool.connect();
+    try {
+        const query = `SELECT * FROM tranings_data WHERE email = $1`;
+        const res = await client.query(query, [email]);
+
+        if (res.rows.length > 0) {
+            console.log(`Traingings data for ${email} retrieved successfully:`);
+            return res.rows;
+        } else {
+            console.log(`No trainings data found for ${email}.`);
+            return null;
+        }
+    } catch (err) {
+        console.error('Error retrieving trainings data:', err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
+
 module.exports = {
     pool,
     assignEmailToPass,
@@ -140,4 +181,5 @@ module.exports = {
     insertStrengthData,
     getBodyData,
     getStrengthData,
+    getTrainingsData,
 };
