@@ -76,15 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const sections = document.querySelectorAll('.section-block');
         sections.forEach((section, index) => {
             section.addEventListener('click', async () => {
-                console.log('clicked');
                 try {
-                    const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(localStorage.getItem('email')),
-                    });
+                    const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`);
                     tabContent.innerHTML = await response.text();
                     sections.forEach(section => section.classList.remove('active-section'));
                     section.classList.add('active-section');
@@ -101,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
                     }
                     if (sectionsContent[index] === 'total-trainings') {
-                        await createTrainingsChart()
+                        await initializeTrainingSection()
                     }
                 } catch (err) {
                     console.error('Error loading section:', err);
@@ -313,8 +306,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    async function createTrainingsChart() {
+    async function initializeTrainingSection() {
         const infoText = document.querySelector('.trainings-info-text');
+        const afterLabel = document.querySelector('.trainings-label-count')
         try {
             const response = await fetch('http://localhost:3002/fitness-tracker/get-trainings-results', {
                 method: 'POST',
@@ -327,45 +321,22 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.status === 404) {
                 infoText.innerHTML = 'You have no completed trainings yet';
             } else {
-                const data = await response.json();
-
-                // Processing the data from the server
-                const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                const attendanceData = daysOfWeek.map(day => {
-                    const session = data.attendance.find(d => d.day_of_week === day);
-                    return session ? session.count : 0;  // If there's no data for the day, set count to 0
+                const { trainingsData, userWeeks } = await response.json();
+                userWeeks.forEach(item => {
+                    // Создаем кнопку
+                    const button = document.createElement('button');
+                    button.textContent = item['day_of_week'];
+                    button.classList.add('btn');
+                    button.classList.add('btn-primary')
+                    afterLabel.insertAdjacentElement('afterend', button);
                 });
-
-                // Create the chart
-                const ctx = document.getElementById('trainings-chart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: daysOfWeek,
-                        datasets: [{
-                            label: 'Attendance',
-                            data: attendanceData,
-                            backgroundColor: function(context) {
-                                const value = context.raw;
-                                return value > 3 ? 'rgba(75, 192, 192, 1)' :
-                                    value > 1 ? 'rgba(75, 192, 192, 0.6)' : 'rgba(75, 192, 192, 0.3)';
-                            }
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: Math.max(...attendanceData) + 1
-                            }
-                        }
-                    }
-                });
+                console.log(trainingsData, userWeeks);
             }
         } catch (e) {
             console.error(e);
         }
     }
+
 
 
 

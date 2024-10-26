@@ -7,7 +7,9 @@ const config = require('./config');
 const {urlencoded, json} = require("express");
 const bodyParser = require('body-parser');
 const app = express();
-const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData, getTrainingsData} = require('./db')
+const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData, getTrainingsData,
+    getUserWeeks
+} = require('./db')
 const port = 3002;
 const jwt = require('jsonwebtoken');
 const secretKey = 'your_secret_key';
@@ -72,19 +74,9 @@ app.get('/fitness-tracker', (req, res) => {
 
 app.get('/fitness-tracker/:section', async (req, res) => {
     const section = req.params.section;
-    const { email } = req.body;
-    if (section === "total-trainings"){
-        days = getTrainingsData(email)
-        if (days === null) {
-            days = ['You have no days']
-        }
-        res.render(`tracker-sections/${section}`, {days});
-    } else {
-        res.render(`tracker-sections/${section}`);
-    }
+    res.render(`tracker-sections/${section}`);
+
 });
-
-
 
 //Middleware для проверки аунтефикации
 function authenticateToken(req, res, next) {
@@ -168,17 +160,25 @@ app.post('/fitness-tracker/get-strength-results', async (req, res) => {
 app.post('/fitness-tracker/get-trainings-results', async (req, res) => {
     const { email } = req.body;
 
+    console.log(email);
+
     try {
-        const response = await getTrainingsData(email);
-        if (response) {
-            res.json(response);
+        const trainingsData = await getTrainingsData(email);
+        const userWeeks = await getUserWeeks(email);
+
+        if (trainingsData && userWeeks) {
+            res.json({ trainingsData, userWeeks });
         } else {
             res.status(404).json({ message: 'No trainings data found' });
         }
     } catch (e) {
-        console.error(e)
+        console.error(e);
+        res.status(500).json({ message: 'Server error' });
     }
-})
+});
+
+
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

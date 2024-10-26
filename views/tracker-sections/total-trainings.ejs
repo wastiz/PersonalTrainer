@@ -9,8 +9,10 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <p class="trainings-info-text"></p>
-            <canvas id="trainings-chart" width="400" height="200"></canvas>
+            <div class="flex flex-row">
+                <p class="trainings-info-text"></p>
+                <img src="img/icons/calories.png" alt="">
+            </div>
         </div>
         <div class="col-6">
             <p>Trainings this week: 2</p>
@@ -18,10 +20,8 @@
             <p>Total hours this week: 6</p>
             <p>Total hours: 300</p>
             <form action="">
-                <label for="">Add trainings count</label>
-                <% days.forEach(item => { %>
-                    <button type="button" class="btn btn-secondary"><%= item %></button>
-                <% }) %>
+                <label class="trainings-label-count" for="">Add trainings count</label>
+                <button type="button" class="btn btn-secondary"></button>
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>

@@ -135,10 +135,7 @@ async function getStrengthData(email) {
 async function getUserWeeks (email) {
     const client = await pool.connect();
     try {
-        const query = `SELECT DISTINCT td.day_of_week
-                               FROM training_sessions ts
-                               JOIN training_days td ON ts.plan_id = td.plan_id
-                               WHERE ts.email = :email AND ts.attended = TRUE;`
+        const query = `SELECT * FROM training_days WHERE email = $1`;
         const res = await client.query(query, [email]);
         if (res.rows.length > 0) {
             return res.rows;
@@ -155,7 +152,7 @@ async function getUserWeeks (email) {
 async function getTrainingsData(email) {
     const client = await pool.connect();
     try {
-        const query = `SELECT * FROM tranings_data WHERE email = $1`;
+        const query = `SELECT * FROM training_sessions WHERE email = $1`;
         const res = await client.query(query, [email]);
 
         if (res.rows.length > 0) {
@@ -181,5 +178,6 @@ module.exports = {
     insertStrengthData,
     getBodyData,
     getStrengthData,
+    getUserWeeks,
     getTrainingsData,
 };
