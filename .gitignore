@@ -2,4 +2,3 @@
 node_modules/
 config.json
 mysql-queries
-postgre-queries.sql
