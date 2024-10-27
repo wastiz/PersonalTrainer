@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.3.2",
     "mysql2": "^3.11.3",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.14",
     "pg": "^8.13.0"
   },

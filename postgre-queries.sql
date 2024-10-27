@@ -77,31 +77,61 @@ CREATE TABLE IF NOT EXISTS training_plans (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Таблица предпочтительных дней недели для тренировок
-CREATE TABLE IF NOT EXISTS training_days (
+CREATE TABLE total_trainings (
     id SERIAL PRIMARY KEY,
-    plan_id INT NOT NULL REFERENCES training_plans(id) ON DELETE CASCADE,
-    day_of_week VARCHAR(10) NOT NULL,                  -- День недели (например, "Monday", "Tuesday")
-    UNIQUE (plan_id, day_of_week)                      -- Уникальность пары "план - день недели"
+    email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    sessions INT,
+    hours INT
 );
 
--- Таблица сессий тренировок (фактические посещения)
-CREATE TABLE IF NOT EXISTS training_sessions (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    plan_id INT REFERENCES training_plans(id) ON DELETE SET NULL,
-    session_date DATE NOT NULL,                        -- Дата фактической тренировки
-    attended BOOLEAN DEFAULT FALSE,                    -- Флаг, была ли тренировка посещена
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table training_days_weekly (
+    id SERIAL primary key,
+    email varchar(255) references users(email) on delete cascade,
+    week_day varchar(255),
+    attended boolean,
+    to_show boolean
 );
 
--- Таблица для отслеживания полосы посещаемости (огонечка)
-CREATE TABLE IF NOT EXISTS attendance_streaks (
+create table users_streaks (
+    id serial primary key,
+    email varchar (255) references users(email) on delete cascade,
+    streak INT
+);
+
+INSERT INTO training_plans (email, weekly_sessions, session_duration_hours)
+VALUES ('valnos04@gmail.com', 3, 1.5);
+
+INSERT INTO training_days (email, day_of_week)
+VALUES
+    ('valnos04@gmail.com', 'Monday'),
+    ('valnos04@gmail.com', 'Wednesday'),
+    ('valnos04@gmail.com', 'Friday');
+
+INSERT INTO training_sessions (email, plan_id, session_date, attended)
+VALUES
+    ('valnos04@gmail.com', 1, '2023-10-01', TRUE),
+    ('valnos04@gmail.com', 1, '2023-10-04', TRUE),
+    ('valnos04@gmail.com', 1, '2023-10-06', FALSE),
+    ('valnos04@gmail.com', 1, '2023-10-08', TRUE);
+
+
+INSERT INTO attendance_streaks (email, start_date, end_date, streak_length)
+VALUES
+    ('valnos04@gmail.com', '2023-10-01', NULL, 3);
+
+
+CREATE TABLE IF NOT EXISTS calorie_plans (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    start_date DATE NOT NULL,                          -- Дата начала полосы подряд посещенных тренировок
-    end_date DATE,                                     -- Дата окончания полосы (если не закончена, то NULL)
-    streak_length INT DEFAULT 1,                       -- Длина текущей полосы подряд посещений
+    email VARCHAR(255) NOT NULL UNIQUE REFERENCES users(email) ON DELETE CASCADE,
+    daily_calorie_goal INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS calorie_entries (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
+    calories INT NOT NULL,  -- Количество потребленных калорий
+    entry_date DATE DEFAULT CURRENT_DATE  -- Дата записи
 );
