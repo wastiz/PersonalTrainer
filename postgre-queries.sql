@@ -1,3 +1,4 @@
+use fitness_tracker;
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
@@ -19,9 +20,9 @@ SELECT CONCAT(
 ) AS password
 FROM generate_series(1, 200);
 
-UPDATE users SET email = 'valnos04@gmail.com' WHERE id = 1;
+UPDATE users SET email = 'valnos04@gmail.com' WHERE id = 1
 
-CREATE TABLE IF NOT EXISTS body_data (
+CREATE TABLE body_data (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     height DECIMAL(5,2),
@@ -41,7 +42,7 @@ CREATE TABLE IF NOT EXISTS body_data (
 INSERT INTO body_data (email, height, weight, waist, chest, shoulders, biceps, forearms, neck, hips, calves)
 VALUES ('valnos04@gmail.com', 175.00, 70.00, 85.00, 95.00, 45.00, 35.00, 30.00, 38.00, 90.00, 35.00);
 
-CREATE TABLE IF NOT EXISTS strength_data (
+CREATE TABLE strength_data (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     bench_press_wide DECIMAL(5,2),
@@ -66,63 +67,51 @@ INSERT INTO strength_data (
 ) VALUES
 ('valnos04@gmail.com', 95.50, 90.00, 42.50, 70.00, 160.00, 120.00, '2024-10-18 14:30:00');
 
+
 CREATE TABLE IF NOT EXISTS training_plans (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    weekly_sessions INT NOT NULL,                      -- Number of training sessions per week
-    session_duration_hours DECIMAL(4, 2) NOT NULL,     -- Duration of each session in hours
+    day_of_week VARCHAR(40) NOT NULL,
+    session_duration_hours DECIMAL(4, 2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table for preferred training days
-CREATE TABLE IF NOT EXISTS training_days (
+CREATE TABLE IF NOT EXISTS total_trainings (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    day_of_week VARCHAR(10) NOT NULL,                  -- Day of the week (e.g., "Monday", "Tuesday")
-    UNIQUE (email, day_of_week)                      -- Uniqueness of the pair "plan - day of week"
+    email VARCHAR(255) UNIQUE REFERENCES users(email) ON DELETE CASCADE,
+    sessions DECIMAL(4, 2) NOT NULL,
+    hours DECIMAL(4, 2) NOT NULL
 );
 
-INSERT INTO training_days (email, day_of_week)
-VALUES
-('valnos04@gmail.com', 'Monday'),
-('valnos04@gmail.com', 'Wednesday'),
-('valnos04@gmail.com', 'Friday');
-
--- Table for training sessions (actual attendance)
-CREATE TABLE IF NOT EXISTS training_sessions (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    plan_id INT REFERENCES training_plans(id) ON DELETE SET NULL,
-    session_date DATE NOT NULL,                        -- Date of the actual training
-    attended BOOLEAN DEFAULT FALSE,                    -- Flag indicating whether the session was attended
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table if not exists training_days_weekly (
+    id SERIAL primary key,
+    email varchar(255) references users(email) on delete cascade,
+    week_day varchar(255),
+    attended boolean,
+    to_show boolean
 );
 
--- Table for tracking attendance streaks
-CREATE TABLE IF NOT EXISTS attendance_streaks (
+create table if not exists users_streaks (
+    id serial primary key,
+    email varchar (255) references users(email) on delete cascade,
+    streak INT
+);
+
+
+CREATE TABLE IF NOT EXISTS calorie_plans (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
-    start_date DATE NOT NULL,                          -- Start date of the streak of consecutive attended sessions
-    end_date DATE,                                     -- End date of the streak (if not ended, then NULL)
-    streak_length INT DEFAULT 1,                       -- Length of the current attendance streak
+    email VARCHAR(255) NOT NULL UNIQUE REFERENCES users(email) ON DELETE CASCADE,
+    daily_calorie_goal INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO training_plans (email, weekly_sessions, session_duration_hours, created_at, updated_at)
-VALUES
-('valnos04@gmail.com', 3, 1.5, DEFAULT, DEFAULT); -- 3 sessions a week, each lasting 1.5 hours
 
+CREATE TABLE IF NOT EXISTS calorie_entries (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
+    calories INT NOT NULL,  -- Количество потребленных калорий
+    entry_date DATE DEFAULT CURRENT_DATE  -- Дата записи
+);
 
--- Inserting sample data into the training_sessions table
-INSERT INTO training_sessions (email, plan_id, session_date, attended, created_at)
-VALUES
-('valnos04@gmail.com', 1, '2024-10-20', TRUE, DEFAULT),  -- Attended session
-('valnos04@gmail.com', 1, '2024-10-22', FALSE, DEFAULT), -- Did not attend session
-('valnos04@gmail.com', 1, '2024-10-24', TRUE, DEFAULT);  -- Attended session
-
--- Inserting sample data into the attendance_streaks table
-INSERT INTO attendance_streaks (email, start_date, end_date, streak_length, created_at, updated_at)
-VALUES
-('valnos04@gmail.com', '2024-10-20', NULL, 2, DEFAULT, DEFAULT); -- 2-day attendance streak starting from 20th Oct

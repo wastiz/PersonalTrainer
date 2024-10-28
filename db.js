@@ -152,7 +152,7 @@ async function getUserWeeks (email) {
 async function getTrainingsData(email) {
     const client = await pool.connect();
     try {
-        const query = `SELECT * FROM training_sessions WHERE email = $1`;
+        const query = `SELECT * FROM attendance_streaks WHERE email = $1`;
         const res = await client.query(query, [email]);
 
         if (res.rows.length > 0) {

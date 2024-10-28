@@ -4,7 +4,34 @@
             <h2>Calorie Section</h2>
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-primary">Change calorie plan</button>
+            <button class="btn btn-primary" id="btn-change-calorie-plan" data-bs-toggle="modal" data-bs-target="#caloriePlanModal">
+                Change calorie plan
+            </button>
+
+            <style>
+                #caloriePlanModal {
+                    display: none;
+                }
+            </style>
+            <div class="modal fade" id="caloriePlanModal" tabindex="-1" aria-labelledby="caloriePlanModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-black">
+                            <h5 class="modal-title" id="caloriePlanModalLabel">Set Calorie Plan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-black">
+                            <form id="calorie-plan-form">
+                                <div class="mb-3">
+                                    <label for="calorieGoal" class="form-label">Daily Calorie Goal</label>
+                                    <input type="number" class="form-control" id="calorieGoal" placeholder="Enter daily calorie goal" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Plan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -12,11 +39,11 @@
             <canvas id="calorie-chart" width="400" height="200"></canvas>
         </div>
         <div class="col-6">
-            <p>Calorie consumed today</p>
-            <p>Remaining calories</p>
-            <form action="">
+            <p id="consumed-calories"></p>
+            <p id="remained-calories"></p>
+            <form action="" id="add-calorie-form">
                 <label for="">Add calorie consumption</label>
-                <input type="text" placeholder="Enter calories you consumed">
+                <input id="calorie-add-input" type="text" placeholder="Enter calories you consumed">
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>

@@ -1,29 +1,63 @@
-<div class="container">
+<div class="container trainings-section">
     <div class="row mb-3">
         <div class="col-6">
             <h2>Trainings counter section</h2>
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-primary">Change training's plan</button>
+            <button class="btn btn-primary" id="btn-change-training-plan" data-bs-toggle="modal" data-bs-target="#trainingPlanModal">Change training's plan</button>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <div class="flex flex-row">
-                <p class="trainings-info-text"></p>
-                <img src="img/icons/calories.png" alt="">
+            <div class="flex flex-row flex-center">
+                <h6 id="attendance-streak"></h6>
+                <img id='streak-img' src="img/icons/calories.png" alt="fire icon">
             </div>
+            <h6>Training sessions in a row</h6>
         </div>
         <div class="col-6">
-            <p>Trainings this week: 2</p>
-            <p>Remaining trainings this week: 1</p>
-            <p>Total hours this week: 6</p>
-            <p>Total hours: 300</p>
-            <form action="">
-                <label class="trainings-label-count" for="">Add trainings count</label>
-                <button type="button" class="btn btn-secondary"></button>
-                <button class="btn btn-primary" type="submit">Submit</button>
-            </form>
+            <p>Total sessions: <span id="total-sessions">0</span></p>
+            <p>Total hours: <span id="total-hours">0</span></p>
+            <div id="user-weeks-buttons" class="flex flex-row gap-2 mb-3"></div>
+        </div>
+    </div>
+
+    <style>
+        #trainingPlanModal {
+            display: none;
+            color: black;
+        }
+    </style>
+    <div class="modal fade" id="trainingPlanModal" tabindex="-1" aria-labelledby="trainingPlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trainingPlanModalLabel">Set Training Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="training-plan-form">
+                        <div class="mb-3">
+                            <label class="form-label">Choose Days of the Week:</label>
+                            <div id="days-of-week" class="d-flex flex-wrap mb-3">
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Monday">Monday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Tuesday">Tuesday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Wednesday">Wednesday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Thursday">Thursday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Friday">Friday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Saturday">Saturday</button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="Sunday">Sunday</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sessionDuration" class="form-label">Duration of each training (hours)</label>
+                            <input type="number" class="form-control" id="sessionDuration" placeholder="Enter duration in hours" min="0.5" step="0.1">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Plan</button>
+                    </form>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

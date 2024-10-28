@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <div class="section-block total-trains-section flex flex-row flex-center gap-5">
         <div>
-            <h5>Total trains</h5>
+            <h5>Total trainings</h5>
             <label for="">This week</label>
-            <p>6h</p>
+            <p></p>
             <label>Previous</label>
             <p>2h</p>
         </div>
@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const sections = document.querySelectorAll('.section-block');
         sections.forEach((section, index) => {
             section.addEventListener('click', async () => {
+                console.log('clicked');
                 try {
                     const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`);
                     tabContent.innerHTML = await response.text();
@@ -94,7 +95,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
                     }
                     if (sectionsContent[index] === 'total-trainings') {
-                        await initializeTrainingSection()
+                        await initializeTrainingSection();
+                    }
+                    if (sectionsContent[index] === 'calories') {
+                        await initializeCalorieSection();
                     }
                 } catch (err) {
                     console.error('Error loading section:', err);
@@ -307,39 +311,247 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function initializeTrainingSection() {
-        const infoText = document.querySelector('.trainings-info-text');
-        const afterLabel = document.querySelector('.trainings-label-count')
-        try {
-            const response = await fetch('http://localhost:3002/fitness-tracker/get-trainings-results', {
+        const email = localStorage.getItem('email');
+
+        document.querySelector('#btn-change-training-plan').addEventListener('click', (e) => {
+            const daysOfWeekButtons = document.querySelectorAll('#days-of-week button');
+            const selectedDays = new Set();
+            console.log(daysOfWeekButtons);
+            daysOfWeekButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    console.log('cloked item')
+                    const day = this.getAttribute('data-day');
+                    if (selectedDays.has(day)) {
+                        selectedDays.delete(day);
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-outline-primary');
+                    } else {
+                        selectedDays.add(day);
+                        this.classList.remove('btn-outline-primary');
+                        this.classList.add('btn-primary');
+                    }
+                });
+            });
+
+            document.getElementById('training-plan-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const sessionDuration = document.getElementById('sessionDuration').value;
+
+                const trainingDays = Array.from(selectedDays).join(', ');
+
+                const response = await fetch('/set-training-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: localStorage.getItem('email'), days: trainingDays, duration: sessionDuration })
+                });
+
+                if (response.ok) {
+                    alert('Training plan updated successfully!');
+                    selectedDays.clear();
+                    daysOfWeekButtons.forEach(button => {
+                        button.classList.remove('btn-primary');
+                        button.classList.add('btn-outline-primary');
+                    });
+                    document.getElementById('sessionDuration').value = '';
+                    initializeTrainingSection();
+                } else {
+                    console.error('Error updating training plan.');
+                }
+            });
+        });
+
+        const { weekDays, totalSessionsHours, streak } = await getUserTrainingData(email);
+
+        if (!weekDays || weekDays.length === 0) {
+            document.getElementById('user-weeks-buttons').innerHTML = '<p>Please create a training plan to get started!</p>';
+            document.getElementById('total-sessions').innerText = '0';
+            document.getElementById('total-hours').innerText = '0';
+            document.getElementById('attendance-streak').innerText = "0";
+            return;
+        }
+
+        console.log(weekDays, totalSessionsHours, streak);
+
+        document.getElementById('total-sessions').innerText = totalSessionsHours.sessions || '0';
+        document.getElementById('total-hours').innerText = totalSessionsHours.hours || '0';
+        document.getElementById('attendance-streak').innerText = streak || "0";
+
+        weekDays.forEach(item => {
+            console.log(item);
+            const button = document.createElement('button');
+            button.innerText = item.week_day;
+            button.classList.add('btn', 'btn-primary');
+            button.id = item.id;
+            button.disabled = item.attended || !item.to_show;
+
+            button.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                const response = await fetch('/mark-training-attended', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: localStorage.getItem('email'), week_day: item.week_day })
+                });
+
+                if (response.ok) {
+                    await initializeTrainingSection();
+                } else {
+                    alert('Ошибка при пометке тренировки как посещенной.');
+                }
+            });
+
+            document.getElementById('user-weeks-buttons').append(button);
+        });
+    }
+
+    async function getUserTrainingData(email) {
+        const response = await fetch('/get-user-training-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            if (data.message) {
+                alert(data.message);
+            }
+            return data;
+        } else {
+            console.error('Error retrieving training data:', data.error);
+        }
+    }
+
+    async function initializeCalorieSection() {
+
+        document.querySelector('#btn-change-calorie-plan').addEventListener('click', () => {
+            document.getElementById('calorie-plan-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = localStorage.getItem('email');
+                const daily_calorie_goal = document.getElementById('calorieGoal').value;
+
+                const response = await fetch('/set-calorie-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, daily_calorie_goal })
+                });
+
+                if (response.ok) {
+                    alert('Calorie plan updated successfully!');
+                    document.getElementById('calorieGoal').value = '';
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('caloriePlanModal'));
+                    modal.hide();
+                    initializeCalorieSection(); // Обновление графика
+                } else {
+                    console.error('Error updating calorie plan.');
+                }
+            });
+        })
+
+
+        document.querySelector('#add-calorie-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = localStorage.getItem('email');
+            const calories = parseInt(document.querySelector('#calorie-add-input').value);
+
+            const response = await fetch('/add-calories', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, calories })
+            });
+
+            if (response.ok) {
+                alert('Calorie entry added successfully')   ;
+                initializeCalorieSection();
+            } else {
+                console.error('Error adding calorie entry.');
+            }
+        });
+
+        document.getElementById('calorie-plan-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = localStorage.getItem('email');
+            const daily_calorie_goal = document.getElementById('calorieGoal').value;
+
+            const response = await fetch('/set-calorie-plan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: localStorage.getItem('email') })
+                body: JSON.stringify({ email, daily_calorie_goal })
             });
 
-            if (response.status === 404) {
-                infoText.innerHTML = 'You have no completed trainings yet';
+            if (response.ok) {
+                alert('Calorie plan updated successfully!');
+                document.getElementById('calorieGoal').value = '';
+                const modal = bootstrap.Modal.getInstance(document.getElementById('caloriePlanModal'));
+                modal.hide();
+                initializeCalorieSection(); // Обновление графика
             } else {
-                const { trainingsData, userWeeks } = await response.json();
-                userWeeks.forEach(item => {
-                    // Создаем кнопку
-                    const button = document.createElement('button');
-                    button.textContent = item['day_of_week'];
-                    button.classList.add('btn');
-                    button.classList.add('btn-primary')
-                    afterLabel.insertAdjacentElement('afterend', button);
-                });
-                console.log(trainingsData, userWeeks);
+                console.error('Error updating calorie plan.');
             }
-        } catch (e) {
-            console.error(e);
+        });
+
+
+        const email = localStorage.getItem('email');
+        const response = await fetch('/get-calorie-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        if (response.ok) {
+            const { dailyGoal, calorieData } = await response.json();
+            const labels = calorieData.map(entry => entry.entry_date);
+            const data = calorieData.map(entry => entry.calories);
+
+            console.log(data, dailyGoal)
+
+            document.querySelector('#consumed-calories').innerText = "Calorie consumed today: " + data[data.length - 1];
+            document.querySelector('#remained-calories').innerText = "Remained calories: " +(dailyGoal - parseInt(data[data.length - 1]));
+
+
+
+            const ctx = document.getElementById('calorie-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Calories consumed',
+                        data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterBody: () => `Daily goal: ${dailyGoal} calories`
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            console.error('Error fetching calorie data.');
         }
     }
-
-
-
-
 
     function createChart(bodyPart, data) {
         const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');

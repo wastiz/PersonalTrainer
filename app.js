@@ -10,8 +10,10 @@ const app = express();
 const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData, getTrainingsData,
     getUserWeeks
 } = require('./db')
+const {trackingFunction} = require('./trackingScript');
 const port = 3002;
 const jwt = require('jsonwebtoken');
+const {schedule} = require("node-cron");
 const secretKey = 'your_secret_key';
 
 // Настройка шаблонизатора EJS
@@ -75,8 +77,8 @@ app.get('/fitness-tracker', (req, res) => {
 app.get('/fitness-tracker/:section', async (req, res) => {
     const section = req.params.section;
     res.render(`tracker-sections/${section}`);
-
 });
+
 
 //Middleware для проверки аунтефикации
 function authenticateToken(req, res, next) {
@@ -157,28 +159,200 @@ app.post('/fitness-tracker/get-strength-results', async (req, res) => {
     }
 });
 
-app.post('/fitness-tracker/get-trainings-results', async (req, res) => {
-    const { email } = req.body;
+function sortWeekDays(weekDays) {
+    const daysOrder = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday'
+    ];
 
-    console.log(email);
+    return weekDays.sort((a, b) => {
+        const indexA = daysOrder.indexOf(a.week_day.toLowerCase());
+        const indexB = daysOrder.indexOf(b.week_day.toLowerCase());
+        return indexA - indexB;
+    });
+}
+
+app.post('/get-user-training-data', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const weekDaysResult = await pool.query(`SELECT * FROM training_days_weekly WHERE email = $1`, [email]);
+        const weekDays = sortWeekDays(weekDaysResult.rows);
+
+
+        const totalSessionsHoursResult = await pool.query(`SELECT sessions, hours FROM total_trainings WHERE email = $1`, [email]);
+        const totalSessionsHours = totalSessionsHoursResult.rows[0] || { sessions: 0, hours: 0 };
+
+        const streakResult = await pool.query(`SELECT streak FROM users_streaks WHERE email = $1`, [email]);
+        const streak = streakResult.rows[0] ? streakResult.rows[0].streak : 0;
+
+        if (weekDays.length === 0) {
+            return res.json({
+                weekDays: [],
+                totalSessionsHours,
+                streak,
+                message: 'You have not set a training plan yet. Please create one.'
+            });
+        }
+
+        res.json({ weekDays, totalSessionsHours, streak });
+    } catch (error) {
+        console.error('Error retrieving training data:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+app.post('/mark-training-attended', async (req, res) => {
+    const { email, week_day } = req.body;
+
+    console.log(email, week_day)
 
     try {
-        const trainingsData = await getTrainingsData(email);
-        const userWeeks = await getUserWeeks(email);
+        await pool.query(`UPDATE training_days_weekly SET attended = TRUE, to_show = FALSE WHERE email = $1 AND week_day = $2;`, [email, week_day]);
 
-        if (trainingsData && userWeeks) {
-            res.json({ trainingsData, userWeeks });
-        } else {
-            res.status(404).json({ message: 'No trainings data found' });
+        await pool.query(`UPDATE users_streaks SET streak = streak + 1 WHERE email = $1;`, [email]);
+
+        const result = await pool.query(`SELECT session_duration_hours FROM training_plans WHERE email = $1;`, [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Training plan not found for this email.' });
         }
+
+        const sessionDuration = result.rows[0].session_duration_hours;
+
+        await pool.query(`
+            INSERT INTO total_trainings (email, sessions, hours)
+            VALUES ($1, 1, $2)
+            ON CONFLICT (email) DO UPDATE 
+            SET sessions = total_trainings.sessions + 1,
+                hours = total_trainings.hours + $2;`,
+            [email, sessionDuration]
+        );
+
+        res.status(200).send();
+    } catch (error) {
+        console.error('Error marking training as attended:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+app.post('/set-training-plan', async (req, res) => {
+    const { email, days, duration } = req.body;
+    const daysArray = days.split(',').map(day => day.trim());
+    console.log(email, days, duration)
+    try {
+        await pool.query(`DELETE FROM training_plans WHERE email = $1`, [email]);
+        const insertPromises = daysArray.map(day => {
+            return pool.query(`INSERT INTO training_plans (email, day_of_week, session_duration_hours) VALUES ($1, $2, $3)`, [email, day, duration]);
+        });
+        await Promise.all(insertPromises);
+
+        const currentDate = new Date();
+        const currentWeekDay = currentDate.toLocaleString('en-US', { weekday: 'long' });
+
+        const passedDays = daysArray.filter(day => {
+            const dayIndex = new Date(`${currentWeekDay} 00:00`).getDay();
+            const targetDayIndex = new Date(`${day} 00:00`).getDay();
+            return targetDayIndex < dayIndex;
+        });
+
+        for (const day of daysArray) {
+            const attended = false;
+            const toShow = !passedDays.includes(day);
+
+            await pool.query(`INSERT INTO training_days_weekly (email, week_day, attended, to_show) VALUES ($1, $2, $3, $4)`, [email, day, attended, toShow]);
+        }
+
+        await pool.query(`INSERT INTO users_streaks (email, streak) VALUES ($1, $2)`, [email, 0]);
+
+
+        res.status(200).send();
+    } catch (error) {
+        console.error('Error setting training plan:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/set-calorie-plan', async (req, res) => {
+    const { email, daily_calorie_goal } = req.body;
+    const client = await pool.connect();
+
+    try {
+        await client.query(
+            `INSERT INTO calorie_plans (email, daily_calorie_goal) 
+             VALUES ($1, $2)
+             ON CONFLICT (email)
+             DO UPDATE SET daily_calorie_goal = EXCLUDED.daily_calorie_goal, updated_at = CURRENT_TIMESTAMP`,
+            [email, daily_calorie_goal]
+        );
+        res.status(200).json({ message: 'Calorie plan updated successfully' });
+    } catch (error) {
+        console.error('Error inserting/updating calorie plan:', error);
+        res.status(500).json({ message: 'Error updating calorie plan' });
+    } finally {
+        client.release();
+    }
+});
+
+
+app.post('/add-calories', async (req, res) => {
+    const { email, calories } = req.body;
+
+    try {
+        const client = await pool.connect();
+        const query = `
+            INSERT INTO calorie_entries (email, calories) 
+            VALUES ($1, $2)
+        `;
+        await client.query(query, [email, calories]);
+        client.release();
+        res.json({ message: 'Calorie entry added successfully.' });
     } catch (e) {
         console.error(e);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
+app.post('/get-calorie-data', async (req, res) => {
+    const { email } = req.body;
 
+    try {
+        const client = await pool.connect();
 
+        const planQuery = `SELECT daily_calorie_goal FROM calorie_plans WHERE email = $1`;
+        const planResult = await client.query(planQuery, [email]);
+        const dailyGoal = planResult.rows[0]?.daily_calorie_goal || 0;
+
+        const entriesQuery = `
+            SELECT entry_date, SUM(calories) AS calories 
+            FROM calorie_entries 
+            WHERE email = $1 
+            GROUP BY entry_date 
+            ORDER BY entry_date
+        `;
+        const entriesResult = await client.query(entriesQuery, [email]);
+
+        client.release();
+        res.json({
+            dailyGoal,
+            calorieData: entriesResult.rows
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+schedule('0 0 * * *', () => {
+    console.log('Running daily streaks and attendance reset...');
+    trackingFunction();
+});
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
