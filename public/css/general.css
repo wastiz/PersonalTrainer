@@ -257,6 +257,10 @@ label {
     vertical-align: middle;
     margin-right: 10px;
 }
+.no-underline {
+    text-decoration: none;
+}
+
 
 /*Buttons*/
 .btn-primary {

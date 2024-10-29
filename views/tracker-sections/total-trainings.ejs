@@ -11,7 +11,7 @@
         <div class="col-6">
             <div class="flex flex-row flex-center">
                 <h6 id="attendance-streak"></h6>
-                <img id='streak-img' src="img/icons/calories.png" alt="fire icon">
+                <img id='streak-img' src="/img/icons/calories.png" alt="fire icon">
             </div>
             <h6>Training sessions in a row</h6>
         </div>
@@ -61,3 +61,123 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function initializeTrainingSection() {
+        const email = localStorage.getItem('email');
+
+        const daysOfWeekButtons = document.querySelectorAll('#days-of-week button');
+        const selectedDays = new Set();
+        console.log(daysOfWeekButtons);
+        daysOfWeekButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                console.log('cloked item')
+                const day = this.getAttribute('data-day');
+                if (selectedDays.has(day)) {
+                    selectedDays.delete(day);
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-outline-primary');
+                } else {
+                    selectedDays.add(day);
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
+                }
+            });
+        });
+
+        document.getElementById('training-plan-form').addEventListener('submit', async (e) => {
+
+            const sessionDuration = document.getElementById('sessionDuration').value;
+
+            const trainingDays = Array.from(selectedDays).join(', ');
+
+            const response = await fetch('/set-training-plan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email'), days: trainingDays, duration: sessionDuration })
+            });
+
+            if (response.ok) {
+                alert('Training plan updated successfully!');
+                selectedDays.clear();
+                daysOfWeekButtons.forEach(button => {
+                    button.classList.remove('btn-primary');
+                    button.classList.add('btn-outline-primary');
+                });
+                document.getElementById('sessionDuration').value = '';
+                initializeTrainingSection();
+            } else {
+                console.error('Error updating training plan.');
+            }
+        });
+
+        const { weekDays, totalSessionsHours, streak } = await getUserTrainingData(email);
+
+        if (!weekDays || weekDays.length === 0) {
+            document.getElementById('user-weeks-buttons').innerHTML = '<p>Please create a training plan to get started!</p>';
+            document.getElementById('total-sessions').innerText = '0';
+            document.getElementById('total-hours').innerText = '0';
+            document.getElementById('attendance-streak').innerText = "0";
+            return;
+        }
+
+        console.log(weekDays, totalSessionsHours, streak);
+
+        document.getElementById('total-sessions').innerText = totalSessionsHours.sessions || '0';
+        document.getElementById('total-hours').innerText = totalSessionsHours.hours || '0';
+        document.getElementById('attendance-streak').innerText = streak || "0";
+
+        weekDays.forEach(item => {
+            console.log(item);
+            const button = document.createElement('button');
+            button.innerText = item.week_day;
+            button.classList.add('btn', 'btn-primary');
+            button.id = item.id;
+            button.disabled = item.attended || !item.to_show;
+
+            button.addEventListener('click', async (e) => {
+
+                const response = await fetch('/mark-training-attended', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: localStorage.getItem('email'), week_day: item.week_day })
+                });
+
+                if (response.ok) {
+                    await initializeTrainingSection();
+                } else {
+                    alert('Ошибка при пометке тренировки как посещенной.');
+                }
+            });
+
+            document.getElementById('user-weeks-buttons').append(button);
+        });
+    }
+
+    initializeTrainingSection()
+
+    async function getUserTrainingData(email) {
+        const response = await fetch('/get-user-training-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            if (data.message) {
+                alert(data.message);
+            }
+            return data;
+        } else {
+            console.error('Error retrieving training data:', data.error);
+        }
+    }
+</script>

@@ -49,3 +49,128 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector('#btn-change-calorie-plan').addEventListener('click', () => {
+        document.getElementById('calorie-plan-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = localStorage.getItem('email');
+            const daily_calorie_goal = document.getElementById('calorieGoal').value;
+
+            const response = await fetch('/set-calorie-plan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, daily_calorie_goal })
+            });
+
+            if (response.ok) {
+                alert('Calorie plan updated successfully!');
+                document.getElementById('calorieGoal').value = '';
+                const modal = bootstrap.Modal.getInstance(document.getElementById('caloriePlanModal'));
+                modal.hide();
+                initializeCalorieSection(); // Обновление графика
+            } else {
+                console.error('Error updating calorie plan.');
+            }
+        });
+    })
+
+    document.querySelector('#add-calorie-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = localStorage.getItem('email');
+        const calories = parseInt(document.querySelector('#calorie-add-input').value);
+
+        const response = await fetch('/add-calories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, calories })
+        });
+
+        if (response.ok) {
+            alert('Calorie entry added successfully')   ;
+            initializeCalorieSection();
+        } else {
+            console.error('Error adding calorie entry.');
+        }
+    });
+
+    document.getElementById('calorie-plan-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = localStorage.getItem('email');
+        const daily_calorie_goal = document.getElementById('calorieGoal').value;
+
+        const response = await fetch('/set-calorie-plan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, daily_calorie_goal })
+        });
+
+        if (response.ok) {
+            alert('Calorie plan updated successfully!');
+            document.getElementById('calorieGoal').value = '';
+            const modal = bootstrap.Modal.getInstance(document.getElementById('caloriePlanModal'));
+            modal.hide();
+            initializeCalorieSection(); // Обновление графика
+        } else {
+            console.error('Error updating calorie plan.');
+        }
+    });
+
+
+    const email = localStorage.getItem('email');
+    fetch('/get-calorie-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const { dailyGoal, calorieData } = data;
+            const labels = calorieData.map(entry => entry.entry_date);
+            const calories = calorieData.map(entry => entry.calories);
+
+            console.log(calories, dailyGoal);
+
+            document.querySelector('#consumed-calories').innerText = "Calorie consumed today: " + calories[calories.length - 1];
+            document.querySelector('#remained-calories').innerText = "Remained calories: " + (dailyGoal - parseInt(calories[calories.length - 1]));
+
+            const ctx = document.getElementById('calorie-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Calories consumed',
+                        data: calories,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterBody: () => `Daily goal: ${dailyGoal} calories`
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching calorie data:', error);
+        });
+</script>

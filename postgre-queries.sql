@@ -1,4 +1,4 @@
-use fitness_tracker;
+
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ SELECT CONCAT(
 ) AS password
 FROM generate_series(1, 200);
 
-UPDATE users SET email = 'valnos04@gmail.com' WHERE id = 1
+UPDATE users SET email = 'valnos04@gmail.com' WHERE id = 1;
 
 CREATE TABLE body_data (
     id SERIAL PRIMARY KEY,

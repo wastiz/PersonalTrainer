@@ -49,6 +49,9 @@
             console.error('Error initializing strength charts:', e);
         }
     }
+
+    initializeStrengthCharts()
+
     function createChart(bodyPart, data) {
         const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');
 
@@ -61,10 +64,10 @@
                     data: data.map(item => item[bodyPart]),
                     fill: false,
                     tension: 0.1,
-                    borderColor: 'yellow', // Цвет линии
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Цвет заливки (если fill: true)
-                    pointBackgroundColor: 'yellow', // Цвет точек на линии
-                    pointBorderColor: 'yellow', // Цвет границы точек
+                    borderColor: 'yellow',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    pointBackgroundColor: 'yellow',
+                    pointBorderColor: 'yellow',
                 }]
             },
             options: {
@@ -77,7 +80,5 @@
             }
         });
     }
-
-    await initializeBodyCharts()
 
 </script>

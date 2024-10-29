@@ -41,6 +41,88 @@
 </form>
 <script src="/js/test.js"></script>
 <script>
+    function addFormSubmitListener(formSelector, url) {
+        document.querySelector(formSelector).addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const modal = createModal();
+
+            document.body.appendChild(modal);
+
+            const bsModal = new bootstrap.Modal(modal);
+
+            const infoText = modal.querySelector('.modal-body');
+
+            try {
+                infoText.innerHTML = 'Sending...';
+                const formData = new FormData(e.target);
+                const data = {
+                    email: localStorage.getItem('email')
+                };
+
+                formData.forEach((value, key) => {
+                    data[key] = +value;
+                });
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    infoText.innerHTML = 'Data was sent successfully';
+                } else {
+                    infoText.innerHTML = 'Sorry. Error occurred, try again later';
+                }
+
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
+
+            } catch (error) {
+                console.error(error);
+                infoText.innerHTML = 'An unexpected error occurred';
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
+            }
+        });
+    }
+
+    function createModal() {
+        const modal = document.createElement('div');
+        modal.classList.add('modal', 'fade');
+        modal.id = 'dynamicModal';
+        modal.setAttribute('tabindex', '-1');
+        modal.setAttribute('aria-labelledby', 'dynamicModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+
+        modal.innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="dynamicModalLabel">Submission Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-black">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+        return modal;
+    }
     addFormSubmitListener('.weekly-body-form','http://localhost:3002/fitness-tracker/submit-body-data');
 </script>
 
