@@ -32,3 +32,59 @@
     </div>
 </div>
 
+<script>
+    async function initCharts() {
+        try {
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
+
+            const data = await response.json();
+
+            const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
+
+            bodyParts.forEach(part => {
+                createChart(part, data);
+            });
+        } catch (e) {
+            console.error('Error initializing body charts:', e);
+        }
+    }
+
+    initCharts(); // Вызов функции
+
+    function createChart(bodyPart, data) {
+        const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),
+                datasets: [{
+                    label: `${bodyPart} measurements`,
+                    data: data.map(item => item[bodyPart]),
+                    fill: false,
+                    tension: 0.1,
+                    borderColor: 'yellow',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    pointBackgroundColor: 'yellow',
+                    pointBorderColor: 'yellow',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+

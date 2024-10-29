@@ -27,3 +27,57 @@
         <% }) %>
     </div>
 </div>
+
+<script>
+    async function initializeStrengthCharts() {
+        try {
+            const response = await fetch('http://localhost:3002/fitness-tracker/get-strength-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
+            const data = await response.json();
+
+            const strengthParts = ['bench_press_wide', 'bench_press_narrow', 'bicep_curl', 'bent_over_one_arm_row', 'deadlift', 'squats'];
+
+            strengthParts.forEach(part => {
+                createChart(part, data);
+            });
+        } catch (e) {
+            console.error('Error initializing strength charts:', e);
+        }
+    }
+    function createChart(bodyPart, data) {
+        const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),
+                datasets: [{
+                    label: `${bodyPart} measurements`,
+                    data: data.map(item => item[bodyPart]),
+                    fill: false,
+                    tension: 0.1,
+                    borderColor: 'yellow', // Цвет линии
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Цвет заливки (если fill: true)
+                    pointBackgroundColor: 'yellow', // Цвет точек на линии
+                    pointBorderColor: 'yellow', // Цвет границы точек
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    await initializeBodyCharts()
+
+</script>

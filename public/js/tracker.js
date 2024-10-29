@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const bottomSections = `
-    <div class="section-block calorie-section flex flex-row flex-center gap-5">
+    <a href="/fitness-tracker/calories"></a><div class="section-block calorie-section flex flex-row flex-center gap-5">
         <div>
             <h5>Calories</h5>
             <label for="">Consumed</label>
@@ -8,17 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
             <label>Remaining</label>
             <p>170 cal</p>
         </div>
-        <img width="30%" src="img/icons/calories.png" alt="form">
-    </div>
-    <div class="section-block training-plan-section flex flex-row flex-center gap-5">
+        <img width="30%" src="/img/icons/calories.png" alt="form">
+    </div></a>
+    <a href="/fitness-tracker/training-plan"><div class="section-block training-plan-section flex flex-row flex-center gap-5">
         <div>
             <h5>Current training plan</h5>
             <label>Type</label>
             <p>Muscle gaining</p>
         </div>
-        <img src="img/icons/project.png" alt="training plan" width="100" height="100">
-    </div>
-    <div class="section-block total-trains-section flex flex-row flex-center gap-5">
+        <img src="/img/icons/project.png" alt="training plan" width="100" height="100">
+    </div></a>
+    <a href="/fitness-tracker/total-trainings"><div class="section-block total-trains-section flex flex-row flex-center gap-5">
         <div>
             <h5>Total trainings</h5>
             <label for="">This week</label>
@@ -29,83 +29,82 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="outline-border">
             37 hours
         </div>
-    </div>
+    </div></a>
 `;
 
     const rightSections = `
-        <div class="section-block weekly-body-form-section flex flex-row flex-center active-section">
+        <a href="/fitness-tracker/weekly-body-form"><div class="section-block weekly-body-form-section flex flex-row flex-center active-section">
             <div>
                 <h5>Weekly form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
                 <button class="btn btn-primary">Start</button>
             </div>
-            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
-        </div>
-        <div class="section-block body-results-section flex flex-row">
+            <img width="70%" height="70%" src="/img/icons/contact-form.png" alt="form">
+        </div></a>
+        <a href="/fitness-tracker/body-results"><div class="section-block body-results-section flex flex-row">
             <div>
                 <h5>Body results</h5>
                 <p>See your body results in graphs</p>
                 <button class="btn btn-primary">Watch</button>
             </div>
-            <img width="70%" height="70%" src="img/icons/growth.png" alt="formik">
-        </div>
-        <div class="section-block weekly-strength-form-section flex flex-row">
+            <img width="70%" height="70%" src="/img/icons/growth.png" alt="formik">
+        </div></a>
+        <a href="/fitness-tracker/weekly-strength-form"><div class="section-block weekly-strength-form-section flex flex-row">
             <div>
                 <h5>Strength form</h5>
                 <p>Please, fill the form, so we could analyze your results)</p>
                 <button class="btn btn-primary">Start</button>
             </div>
-            <img width="70%" height="70%" src="img/icons/contact-form.png" alt="form">
-        </div>
-        <div class="section-block strength-results-section flex flex-row">
+            <img width="70%" height="70%" src="/img/icons/contact-form.png" alt="form">
+        </div></a>
+        <a href="/fitness-tracker/strength-results"><div class="section-block strength-results-section flex flex-row">
             <div>
                 <h5>Strength results</h5>
                 <p>See your strength results in graphs</p>
                 <button class="btn btn-primary">Watch</button>
             </div>
-            <img width="40%" height="60%" src="img/icons/growth.png" alt="formik">
-        </div>
+            <img width="40%" height="60%" src="/img/icons/growth.png" alt="formik">
+        </div></a>
     `;
 
-    const sectionsContent = ['calories', 'training-plan', 'total-trainings', 'weekly-body-form', 'body-results', 'weekly-strength-form', 'strength-results'];
-    const tabContent = document.querySelector('.tab-content');
+
     const bottomSection = document.querySelector('.bottom-block');
     const rightSection = document.querySelector('.right-block');
 
-    function addClickHandlers() {
-        const sections = document.querySelectorAll('.section-block');
-        sections.forEach((section, index) => {
-            section.addEventListener('click', async () => {
-                console.log('clicked');
-                try {
-                    const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`);
-                    tabContent.innerHTML = await response.text();
-                    sections.forEach(section => section.classList.remove('active-section'));
-                    section.classList.add('active-section');
-                    if (sectionsContent[index] === 'body-results') {
-                        await initializeBodyCharts();
-                    }
-                    if (sectionsContent[index] === 'strength-results') {
-                        await initializeStrengthCharts();
-                    }
-                    if (sectionsContent[index] === 'weekly-body-form') {
-                        addFormSubmitListener('.weekly-body-form','http://localhost:3002/fitness-tracker/submit-body-data');
-                    }
-                    if (sectionsContent[index] === 'weekly-strength-form') {
-                        addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
-                    }
-                    if (sectionsContent[index] === 'total-trainings') {
-                        await initializeTrainingSection();
-                    }
-                    if (sectionsContent[index] === 'calories') {
-                        await initializeCalorieSection();
-                    }
-                } catch (err) {
-                    console.error('Error loading section:', err);
-                }
-            });
-        });
-    }
+    // function addClickHandlers() {
+    //     const sections = document.querySelectorAll('.section-block');
+    //     sections.forEach((section, index) => {
+    //         section.addEventListener('click', async () => {
+    //             console.log('clicked');
+    //             try {
+    //                 const response = await fetch(`/fitness-tracker/${sectionsContent[index]}`);
+    //                 tabContent.innerHTML = await response.text();
+    //                 sections.forEach(section => section.classList.remove('active-section'));
+    //                 section.classList.add('active-section');
+    //                 if (sectionsContent[index] === 'body-results') {
+    //                     await initializeBodyCharts();
+    //                 }
+    //                 if (sectionsContent[index] === 'strength-results') {
+    //                     await initializeStrengthCharts();
+    //                 }
+    //                 if (sectionsContent[index] === 'weekly-body-form') {
+    //                     addFormSubmitListener('.weekly-body-form','http://localhost:3002/fitness-tracker/submit-body-data');
+    //                 }
+    //                 if (sectionsContent[index] === 'weekly-strength-form') {
+    //                     addFormSubmitListener('.weekly-strength-form','http://localhost:3002/fitness-tracker/submit-strength-data');
+    //                 }
+    //                 if (sectionsContent[index] === 'total-trainings') {
+    //                     await initializeTrainingSection();
+    //                 }
+    //                 if (sectionsContent[index] === 'calories') {
+    //                     await initializeCalorieSection();
+    //                 }
+    //             } catch (err) {
+    //                 console.error('Error loading section:', err);
+    //             }
+    //         });
+    //     });
+    // }
 
 
     function updateSections() {
@@ -119,8 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
             rightSection.innerHTML = rightSections;
             bottomSection.innerHTML = bottomSections;
         }
-
-        addClickHandlers();
     }
 
     updateSections();
@@ -262,30 +259,6 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
 
         return modal;
-    }
-
-
-
-    async function initializeBodyCharts() {
-        try {
-            const response = await fetch('http://localhost:3002/fitness-tracker/get-body-results', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: localStorage.getItem('email') })
-            });
-
-            const data = await response.json();
-
-            const bodyParts = ['height', 'weight', 'waist', 'chest', 'shoulders', 'biceps', 'forearms', 'neck', 'hips', 'calves'];
-
-            bodyParts.forEach(part => {
-                createChart(part, data);
-            });
-        } catch (e) {
-            console.error('Error initializing body charts:', e);
-        }
     }
 
 

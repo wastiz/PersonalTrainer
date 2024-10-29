@@ -10,6 +10,7 @@ const app = express();
 const {pool, assignEmailToPass, insertBodyData, insertStrengthData, getBodyData, getStrengthData, getTrainingsData,
     getUserWeeks
 } = require('./db')
+const expressLayouts = require('express-ejs-layouts');
 const {trackingFunction} = require('./trackingScript');
 const port = 3002;
 const jwt = require('jsonwebtoken');
@@ -18,6 +19,7 @@ const secretKey = 'your_secret_key';
 
 // Настройка шаблонизатора EJS
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware для обработки данных формы
@@ -45,6 +47,7 @@ app.get('/', (req, res) => {
     const translations = require(`./locales/${lang}.json`);
 
     res.render('index', {
+        layout: false,
         translations,
         googleApiKey: config.apiKeys.googleApiKey,
         calendarId: config.calendarId
@@ -71,7 +74,35 @@ app.post('/send', (req, res) => {
 });
 
 app.get('/fitness-tracker', (req, res) => {
-    res.render('tracker')
+    res.render('tracker', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/weekly-body-form', (req, res) => {
+    res.render('tracker-sections/weekly-body-form', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/body-results', (req, res) => {
+    res.render('tracker-sections/body-results', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/weekly-strength-form', (req, res) => {
+    res.render('tracker-sections/weekly-strength-form', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/strength-results', (req, res) => {
+    res.render('tracker-sections/strength-results', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/calories', (req, res) => {
+    res.render('tracker-sections/calories', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/training-plan', (req, res) => {
+    res.render('tracker-sections/training-plan', {layout: 'layout'})
+})
+
+app.get('/fitness-tracker/total-trainings', (req, res) => {
+    res.render('tracker-sections/total-trainings', {layout: 'layout'})
 })
 
 app.get('/fitness-tracker/:section', async (req, res) => {
