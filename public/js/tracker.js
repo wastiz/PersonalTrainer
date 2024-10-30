@@ -33,37 +33,37 @@ document.addEventListener("DOMContentLoaded", function () {
 `;
 
     const rightSections = `
-        <div class="section-block weekly-body-form-section flex flex-row flex-center active-section">
+        <div class="section-block weekly-body-form-section flex flex-row flex-center gap-5">
             <div>
                 <h5>Weekly form</h5>
-                <p>Please, fill the form, so we could analyze your results)</p>
+                <p>Weekly form to fill</p>
                 <button class="btn btn-primary">Start</button>
             </div>
-            <img width="70%" height="70%" src="/img/icons/contact-form.png" alt="form">
+            <img width="30%" src="/img/icons/contact-form.png" alt="form">
         </div>
-        <div class="section-block body-results-section flex flex-row">
+        <div class="section-block body-results-section flex flex-row flex-center gap-5">
             <div>
                 <h5>Body results</h5>
-                <p>See your body results in graphs</p>
+                <p>Body results in graphs</p>
                 <button class="btn btn-primary">Watch</button>
             </div>
-            <img width="70%" height="70%" src="/img/icons/growth.png" alt="formik">
+            <img width="30%" src="/img/icons/growth.png" alt="formik">
         </div>
-        <div class="section-block weekly-strength-form-section flex flex-row">
-            <div>
+        <div class="section-block weekly-strength-form-section flex flex-row flex-center gap-5">
+            <div class="width-50">
                 <h5>Strength form</h5>
-                <p>Please, fill the form, so we could analyze your results)</p>
+                <p>Weekly strength form</p>
                 <button class="btn btn-primary">Start</button>
             </div>
-            <img width="70%" height="70%" src="/img/icons/contact-form.png" alt="form">
+            <img width="30%" src="/img/icons/contact-form.png" alt="form">
         </div>
-        <div class="section-block strength-results-section flex flex-row">
+        <div class="section-block strength-results-section flex flex-row flex-center gap-5">
             <div>
                 <h5>Strength results</h5>
-                <p>See your strength results in graphs</p>
+                <p>strength results in graphs</p>
                 <button class="btn btn-primary">Watch</button>
             </div>
-            <img width="40%" height="60%" src="/img/icons/growth.png" alt="formik">
+            <img width="30%" src="/img/icons/growth.png" alt="formik">
         </div>
     `;
 

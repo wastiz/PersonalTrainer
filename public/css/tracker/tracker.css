@@ -96,7 +96,6 @@ main {
     margin-bottom: -5%;
     background: #323538;
     padding: 0 7%;
-    padding-top: 12%;
 }
 
 .weekly-strength-form-section {
@@ -104,7 +103,6 @@ main {
     margin-bottom: -5%;
     background: #4a4c4e;
     padding: 0 7%;
-    padding-top: 12%;
 }
 
 .strength-results-section {
@@ -112,7 +110,6 @@ main {
     margin-right: 5%;
     background: #323538;
     padding: 0 7%;
-    padding-top: 12%;
 }
 
 .calories-section {
@@ -130,7 +127,8 @@ main {
 }
 
 .total-trainings-section {
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+    margin-left: -7%;
     height: 215px;
     background: #4a4c4e;
     padding: 20px;
@@ -208,6 +206,7 @@ main {
     .total-trainings-section {
         margin-top: -7.3%;
         clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
+        width: auto;
     }
     .weekly-body-form-section {
         margin-top: -7.3%;

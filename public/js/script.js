@@ -97,6 +97,21 @@ function scrollToTop() {
     });
 }
 
+function scrollToElement(target) {
+    const element = document.getElementById(target);
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function goToForm(trainingType) {
+    scrollToElement("personal-training");
+    const selectElement = document.getElementById("training-type-selector");
+    selectElement.value = trainingType;
+}
+
+function goToTracker () {
+    window.location.href = '/fitness-tracker'
+}
+
 scrollTopBtn.addEventListener('click', scrollToTop);
 window.addEventListener('scroll', handleScroll);
 
