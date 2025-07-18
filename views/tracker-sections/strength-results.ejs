@@ -1,0 +1,99 @@
+<% const harjutused = [
+    { id: 'bench_press_wide', name: translations.strengthResults.exercises.bench_press_wide },
+    { id: 'bench_press_narrow', name: translations.strengthResults.exercises.bench_press_narrow },
+    { id: 'bicep_curl', name: translations.strengthResults.exercises.bicep_curl },
+    { id: 'bent_over_one_arm_row', name: translations.strengthResults.exercises.bent_over_one_arm_row },
+    { id: 'deadlift', name: translations.strengthResults.exercises.deadlift },
+    { id: 'squats', name: translations.strengthResults.exercises.squats }
+]; %>
+
+<div class="container mt-5">
+    <h2><%= translations.strengthResults.title %></h2>
+
+    <div class="mb-3">
+        <label for="exerciseSelect" class="form-label"><%= translations.strengthResults.exerciseLabel %></label>
+        <select class="form-select" id="exerciseSelect">
+            <% harjutused.forEach((harjutus, index) => { %>
+                <option value="<%= harjutus.id %>" <%= index === 0 ? 'selected' : '' %>>
+                    <%= harjutus.name %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <div class="tab-content mt-3">
+        <% harjutused.forEach((harjutus, index) => { %>
+            <div class="tab-pane fade <%= index === 0 ? 'show active' : '' %>" id="<%= harjutus.id %>" role="tabpanel">
+                <canvas id="<%= harjutus.id %>-chart" width="400" height="200"></canvas>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<script>
+    document.getElementById('exerciseSelect').addEventListener('change', function() {
+        const selectedValue = this.value;
+
+        document.querySelectorAll('.tab-pane').forEach(tab => {
+            tab.classList.remove('show', 'active');
+        });
+
+        const targetTab = document.getElementById(selectedValue);
+        if (targetTab) {
+            targetTab.classList.add('show', 'active');
+        }
+    });
+
+    async function initializeStrengthCharts() {
+        try {
+            const response = await fetch('/get-strength-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: localStorage.getItem('email') })
+            });
+            const data = await response.json();
+
+            const jõuharjutused = ['bench_press_wide', 'bench_press_narrow', 'bicep_curl', 'bent_over_one_arm_row', 'deadlift', 'squats'];
+
+            jõuharjutused.forEach(part => {
+                createChart(part, data);
+            });
+        } catch (e) {
+            console.error('Viga jõugraafikute alustamisel:', e);
+        }
+    }
+
+    initializeStrengthCharts()
+
+    function createChart(bodyPart, data) {
+        const ctx = document.getElementById(`${bodyPart}-chart`).getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(item => new Date(item.measurement_date).toLocaleDateString()),
+                datasets: [{
+                    label: `${bodyPart} mõõtmised`,
+                    data: data.map(item => item[bodyPart]),
+                    fill: false,
+                    tension: 0.1,
+                    borderColor: 'yellow',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    pointBackgroundColor: 'yellow',
+                    pointBorderColor: 'yellow',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+</script>

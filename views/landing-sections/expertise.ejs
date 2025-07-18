@@ -1,0 +1,25 @@
+<section id="expertise" class="clip-right flex flex-center">
+    <div class="container info-section">
+        <div class="row pt-5 pb-5">
+            <h2 class="section-title"><%= translations.expertise.title %></h2>
+        </div>
+        <div id="particles-js"></div>
+        <div class="row pt-5">
+            <% const infoBlocks = [
+                { target: 16, label: translations.expertise.yearsInGym },
+                { target: 9, label: translations.expertise.yearsInFitness },
+                { target: 2, label: translations.expertise.eestiChampion },
+                { target: 10, label: translations.expertise.yearsInGoodShape },
+                { target: 1000, label: translations.expertise.happyClients },
+                { target: 7, label: translations.expertise.yearsOfTrainingExperience }
+            ]; %>
+
+            <% infoBlocks.forEach(block => { %>
+                <div class="info-block col-lg-4 col-md-4 col-sm-12">
+                    <h2 data-target="<%= block.target %>">0</h2>
+                    <h4><%= block.label %></h4>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,123 @@
+<h2 class="text-yellow"><%= translations.strengthForm.weeklyMeasurementsTitle %></h2>
+<form class="mb-3 weekly-strength-form">
+    <div class="container">
+        <h3 class="text-center"><%= translations.strengthForm.weeklyMeasurementsTitle %></h3>
+        <div class="row">
+            <% const strengthExercises = [
+                { id: 'bench_press_wide', label: translations.strengthForm.exercises.benchPressWide, placeholder: translations.placeholders.benchPressWide },
+                { id: 'bench_press_narrow', label: translations.strengthForm.exercises.benchPressNarrow, placeholder: translations.placeholders.benchPressNarrow },
+                { id: 'deadlift', label: translations.strengthForm.exercises.deadlift, placeholder: translations.placeholders.deadlift },
+                { id: 'squats', label: translations.strengthForm.exercises.squats, placeholder: translations.placeholders.squats },
+                { id: 'bicep_curl', label: translations.strengthForm.exercises.bicepCurl, placeholder: translations.placeholders.bicepCurl },
+                { id: 'bent_over_one_arm_row', label: translations.strengthForm.exercises.bentOverOneArmRow, placeholder: translations.placeholders.bentOverOneArmRow }
+            ]; %>
+
+            <% strengthExercises.forEach((exercise) => { %>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="<%= exercise.id %>" class="form-label"><%= exercise.label %></label>
+                        <input
+                                name="<%= exercise.id %>"
+                                type="number"
+                                class="form-control"
+                                id="<%= exercise.id %>"
+                                placeholder="<%= exercise.placeholder %>"
+                        >
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <div class="flex flex-center">
+            <button type="submit" class="btn btn-primary"><%= translations.strengthForm.submitButton %></button>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    function addFormSubmitListener(formSelector, url) {
+        document.querySelector(formSelector).addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const modal = createModal();
+
+            document.body.appendChild(modal);
+
+            const bsModal = new bootstrap.Modal(modal);
+
+            const infoText = modal.querySelector('.modal-body');
+
+            try {
+                infoText.innerHTML = '<%= translations.strengthForm.sending %>';
+                const formData = new FormData(e.target);
+                const data = {
+                    email: localStorage.getItem('email')
+                };
+
+                formData.forEach((value, key) => {
+                    data[key] = +value;
+                });
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    infoText.innerHTML = '<%= translations.strengthForm.sent %>';
+                } else {
+                    infoText.innerHTML = '<%= translations.strengthForm.errorOccurred %>';
+                }
+
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
+
+            } catch (error) {
+                console.error(error);
+                infoText.innerHTML = '<%= translations.strengthForm.unexpectedError %>';
+                bsModal.show();
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    modal.remove();
+                });
+            }
+        });
+    }
+
+    function createModal() {
+        const modal = document.createElement('div');
+        modal.classList.add('modal', 'fade');
+        modal.id = 'dynamicModal';
+        modal.setAttribute('tabindex', '-1');
+        modal.setAttribute('aria-labelledby', 'dynamicModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black" id="dynamicModalLabel"><%= translations.strengthForm.modalTitle %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= translations.strengthForm.closeButton %>"></button>
+                    </div>
+                    <div class="modal-body text-black">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><%= translations.strengthForm.closeButton %></button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return modal;
+    }
+
+    addFormSubmitListener('.weekly-strength-form','submit-strength-data');
+</script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head')%>
+<body>
+    <%- include('partials/navbar')%>
+
+    <!--General Slider-->
+    <%- include('landing-sections/header-slider') %>
+
+    <!-- Expertise Section -->
+    <%- include('landing-sections/expertise')%>
+
+    <!--About section-->
+    <%- include('landing-sections/about')%>>
+
+    <!--Tracker section-->
+    <%- include('landing-sections/tracker-landing')%>>
+
+    <!-- Services and Pricing Section -->
+    <%- include('landing-sections/services')%>
+
+    <!-- Before-after Section -->
+    <%- include('landing-sections/before-after')%>
+    <!-- Faq section -->
+    <%- include('landing-sections/faq')%>
+
+    <!-- Training Section -->
+    <%- include('landing-sections/book-form')%>
+
+    <!-- Footer -->
+    <%- include('landing-sections/footer')%>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn">
+        <img src="img/icons/arrow-up-solid.svg" alt="Scroll to Top">
+    </button>
+
+    <!--Scripts by order-->
+    <%- include('partials/scripts')%>
+
+    <script>
+        const nameInput = document.getElementById('name');
+        nameInput.addEventListener('input', () => {
+            clearError(nameInput);
+            if (/\d/.test(nameInput.value)) {
+                showError(nameInput, "<%= translations.personalTraining.nameContainsNumbers %>");
+            }
+        });
+
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', () => {
+            clearError(phoneInput);
+            if (/[^0-9+() -]/.test(phoneInput.value)) {
+                showError(phoneInput, "<%= translations.personalTraining.phoneContainsSymbols %>");
+            }
+        });
+
+        const emailInput = document.getElementById('exampleInputEmail1');
+        emailInput.addEventListener('blur', () => {
+            clearError(emailInput);
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                showError(emailInput, "<%= translations.personalTraining.incorrectEmail %>");
+            }
+        });
+
+        function showError(input, message) {
+            clearError(input);
+            const errorElement = document.createElement('div');
+            errorElement.classList.add('error-message');
+            errorElement.style.color = 'red';
+            errorElement.style.fontSize = 'small';
+            errorElement.innerText = message;
+            input.parentElement.appendChild(errorElement);
+        }
+
+        function clearError(input) {
+            const error = input.parentElement.querySelector('.error-message');
+            if (error) {
+                error.remove();
+            }
+        }
+
+        const form = document.getElementById('book-form');
+        form.addEventListener('submit', function (event) {
+            if (document.querySelectorAll('.error-message').length > 0) {
+                event.preventDefault();
+            }
+        });
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(document.getElementById('book-form'));
+            const handler = document.querySelector('.form-text-handler');
+            handler.innerText = "Sending..."
+
+            let data = {
+                name: formData.get('Name'),
+                email: formData.get('Email'),
+                phone: formData.get('Phone'),
+                type: formData.get('Type'),
+                date: formData.get('Date'),
+                time: formData.get('Time')
+            }
+
+            console.log(data)
+
+            try {
+                const response = await fetch('/book-form-send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    handler.innerText = "<%= translations.personalTraining.successMessage %>"
+                }
+            } catch (error) {
+                handler.innerText = "<%= translations.personalTraining.errorMessage %>"
+                console.error('Error occurred:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
+

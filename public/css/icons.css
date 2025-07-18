@@ -1,0 +1,87 @@
+.custom-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    transition: background-color 0.3s ease;
+}
+
+.custom-icon-md {
+    width: 24px;
+    height: 24px;
+}
+
+.custom-icon-lg {
+    width: 32px;
+    height: 32px;
+}
+
+.custom-icon-2x {
+    width: 48px;
+    height: 48px;
+}
+
+.custom-icon-3x {
+    width: 64px;
+    height: 64px;
+}
+
+.custom-icon-pull-left {
+    float: left;
+    margin-right: .3em;
+}
+
+.custom-icon-pull-right {
+    float: right;
+    margin-left: .3em;
+}
+
+.custom-icon-fw {
+    width: 1.25em;
+}
+
+/*Customizing icons*/
+
+/*Facebook*/
+.custom-icon-facebook {
+    background-color: white;
+    -webkit-mask: url(../img/icons/facebook-icon.svg) no-repeat center;
+    mask: url(../img/icons/facebook-icon.svg) no-repeat center;
+}
+
+.custom-icon-facebook:hover {
+    background-color: yellow;
+}
+
+/*Instagram*/
+.custom-icon-instagram {
+    background-color: white;
+    -webkit-mask: url(../img/icons/instagram-icon.svg) no-repeat center;
+    mask: url(../img/icons/instagram-icon.svg) no-repeat center;
+}
+
+.custom-icon-instagram:hover {
+    background-color: yellow;
+}
+
+/*Flags*/
+.custom-icon-et {
+    background-color: transparent;
+    -webkit-mask: url(../img/icons/et.svg) no-repeat center;
+    mask: url(../img/icons/et.svg) no-repeat center;
+}
+
+.custom-icon-ru {
+    -webkit-mask: url(../img/icons/ru.svg) no-repeat center;
+    mask: url(../img/icons/ru.svg) no-repeat center;
+}
+
+/*Arrows*/
+.custom-icon-arrow-left {
+    background-color: black;
+    -webkit-mask: url(../img/icons/arrow-left.svg) no-repeat center;
+    mask: url(../img/icons/arrow-left.svg) no-repeat center;
+}

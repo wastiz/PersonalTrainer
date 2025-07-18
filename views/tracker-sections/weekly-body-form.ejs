@@ -1,0 +1,128 @@
+<div class="container weekly-body-section">
+    <h2 class="text-yellow"><%= translations.bodyForm.weeklyMeasurementsTitle %></h2>
+    <form class="mb-3 weekly-body-form">
+        <div class="container">
+            <h3 class="text-center"><%= translations.bodyForm.weeklyMeasurementsTitle %></h3>
+            <div class="row">
+                <% const bodyMeasurements = [
+                    { id: 'height', label: translations.bodyForm.bodyParts.height, placeholder: translations.placeholders.height },
+                    { id: 'weight', label: translations.bodyForm.bodyParts.weight, placeholder: translations.placeholders.weight },
+                    { id: 'chest', label: translations.bodyForm.bodyParts.chest, placeholder: translations.placeholders.chest },
+                    { id: 'shoulders', label: translations.bodyForm.bodyParts.shoulders, placeholder: translations.placeholders.shoulders },
+                    { id: 'neck', label: translations.bodyForm.bodyParts.neck, placeholder: translations.placeholders.neck },
+                    { id: 'bicep', label: translations.bodyForm.bodyParts.bicep, placeholder: translations.placeholders.bicep },
+                    { id: 'waist', label: translations.bodyForm.bodyParts.waist, placeholder: translations.placeholders.waist },
+                    { id: 'thigh', label: translations.bodyForm.bodyParts.thigh, placeholder: translations.placeholders.thigh },
+                    { id: 'forearm', label: translations.bodyForm.bodyParts.forearm, placeholder: translations.placeholders.forearm },
+                    { id: 'hips', label: translations.bodyForm.bodyParts.hips, placeholder: translations.placeholders.hips },
+                    { id: 'calves', label: translations.bodyForm.bodyParts.calves, placeholder: translations.placeholders.calves }
+                ]; %>
+
+                <% bodyMeasurements.forEach((measurement) => { %>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="<%= measurement.id %>" class="form-label"><%= measurement.label %></label>
+                            <input
+                                    name="<%= measurement.id %>"
+                                    type="number"
+                                    class="form-control"
+                                    id="<%= measurement.id %>"
+                                    placeholder="<%= measurement.placeholder %>"
+                            >
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+            <div class="flex flex-center">
+                <button type="submit" class="btn btn-primary"><%= translations.bodyForm.submitButton %></button>
+            </div>
+
+        </div>
+    </form>
+    <script>
+        function addFormSubmitListener(formSelector, url) {
+            document.querySelector(formSelector).addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const modal = createModal();
+
+                document.body.appendChild(modal);
+
+                const bsModal = new bootstrap.Modal(modal);
+
+                const infoText = modal.querySelector('.modal-body');
+
+                try {
+                    infoText.innerHTML = '<%= translations.bodyForm.sending %>';
+                    const formData = new FormData(e.target);
+                    const data = {
+                        email: localStorage.getItem('email')
+                    };
+
+                    formData.forEach((value, key) => {
+                        data[key] = +value;
+                    });
+
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (response.ok) {
+                        infoText.innerHTML = '<%= translations.bodyForm.sent %>';
+                    } else {
+                        infoText.innerHTML = '<%= translations.bodyForm.errorOccurred %>';
+                    }
+
+                    bsModal.show();
+
+                    modal.addEventListener('hidden.bs.modal', () => {
+                        modal.remove();
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                    infoText.innerHTML = '<%= translations.bodyForm.unexpectedError %>';
+                    bsModal.show();
+
+                    modal.addEventListener('hidden.bs.modal', () => {
+                        modal.remove();
+                    });
+                }
+            });
+        }
+
+        function createModal() {
+            const modal = document.createElement('div');
+            modal.classList.add('modal', 'fade');
+            modal.id = 'dynamicModal';
+            modal.setAttribute('tabindex', '-1');
+            modal.setAttribute('aria-labelledby', 'dynamicModalLabel');
+            modal.setAttribute('aria-hidden', 'true');
+
+            modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black" id="dynamicModalLabel"><%= translations.bodyForm.modalTitle %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= translations.bodyForm.closeButton %>"></button>
+                    </div>
+                    <div class="modal-body text-black">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><%= translations.bodyForm.closeButton %></button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            return modal;
+        }
+        addFormSubmitListener('.weekly-body-form','/submit-body-data');
+    </script>
+</div>

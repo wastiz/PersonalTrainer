@@ -1,0 +1,94 @@
+#before-after {
+    padding: 12vh 0;
+    background: rgba(67,90,113,1);
+}
+
+#feedbackCarousel {
+    padding-top: 5%;
+}
+
+#feedbackCarousel .carousel-inner{
+    padding: 0 10%;
+}
+
+#feedbackCarousel .carousel-control-prev, #feedbackCarousel .carousel-control-next {
+    top: 40%;
+}
+
+#feedbackCarousel .carousel-item h6 {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+
+.round-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Размер кнопки */
+    height: 60px; /* Размер кнопки */
+    border-radius: 50%; /* Круглая форма */
+    background-color: yellow; /* Желтый цвет */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Небольшая тень */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Эффект при наведении */
+}
+
+.round-button:hover {
+    background-color: #ffd700; /* Более насыщенный желтый при наведении */
+    transform: scale(1.05); /* Легкое увеличение при наведении */
+}
+
+.round-button svg {
+    width: 30px; /* Размер иконки */
+    height: 30px;
+    fill: none;
+    stroke: black; /* Цвет стрелки */
+}
+
+.round-button:focus {
+    outline: none; /* Убираем стандартную обводку при фокусе */
+}
+
+.feedback-container {
+    padding: 0 10%;
+
+}
+.feedback-container img {
+    width: 300px;
+    height: 300px;
+}
+
+@media (max-width: 1420px) {
+    #before-after {
+        padding-bottom: 0;
+    }
+    .feedback-container h6 {
+        font-size: 18px !important;
+    }
+    .feedback-container b {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #before-after {
+        height: auto;
+        margin-bottom: -17%;
+    }
+    .feedback-container {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .feedback-container h6 {
+        font-size: 14px !important;
+    }
+    .feedback-container b {
+        font-size: 14px !important;
+    }
+    .feedback-container img {
+        width: 200px;
+        height: 200px;
+    }
+}

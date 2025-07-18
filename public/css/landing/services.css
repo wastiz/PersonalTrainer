@@ -1,0 +1,36 @@
+#services {
+    background-image: url("../../img/pictures/bookrightup.jpg");
+    background-size: cover;
+    background-position: center;
+    height: auto;
+    padding: 12vh 0;
+}
+.services-header h2 {
+    font-weight: 800;
+    font-size: 3em;
+}
+.service {
+    width: 400px;
+    height: 200px;
+}
+.service .card{
+    background: rgba(0, 0, 0, 0.50);
+    border: 1px solid yellow;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
+
+    border-radius: 1em;
+}
+.service .card-title {
+    color: white;
+    font-size: 1.5em;
+}
+.service .card-text {
+    font-size: 1em;
+    color: white;
+}
+@media (max-width: 1420px) {
+
+}
+@media (max-width: 768px) {
+
+}

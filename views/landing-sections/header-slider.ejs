@@ -1,0 +1,37 @@
+<section id="header-slider" class="carousel slide" data-bs-ride="carousel" data-interval="10000">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#header-slider" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#header-slider" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#header-slider" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <% const slides = ['slide1', 'slide2', 'slide3']; %>
+        <% slides.forEach((slide, index) => { %>
+            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                <img src="img/pictures/carousel<%= index + 1 %>.jpg" class="d-block w-100" alt="cover">
+                <div class="text-overlay">
+                    <h2 class="revealUp">
+                        <span class="yellow-text">|</span>
+                        <span class="white-text small-text"><%= translations.carousel[slide].heading.split(' ')[0] %><br></span>
+                        <span class="white-text large-text"><%= translations.carousel[slide].heading.split(' ')[1] %></span>
+                        <span class="yellow-text large-text"><%= translations.carousel[slide].heading.split(' ')[2] %></span>
+                        <span class="white-text large-text"><%= translations.carousel[slide].heading.split(' ')[3] %></span>
+                    </h2>
+                    <p class="prefixed-text"><%= translations.carousel[slide].subheading1 %></p>
+                    <p class="prefixed-text"><%= translations.carousel[slide].subheading2 %></p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#header-slider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#header-slider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</section>

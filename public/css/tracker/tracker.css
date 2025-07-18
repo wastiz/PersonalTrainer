@@ -1,0 +1,190 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*for borders*/
+/*main {*/
+/*    border: 3px solid red;*/
+/*}*/
+/*.left-block, .sidebar {*/
+/*    border: 2px solid #0dcaf0;*/
+/*}*/
+/*.main-window, .bottom-sections {*/
+/*    border: 3px solid yellowgreen;*/
+/*}*/
+
+/*.section-block {*/
+/*    border: 2px solid red   ;*/
+/*}*/
+
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.main-window {
+    width: 80%;
+}
+
+.sidebar {
+    width: 20%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.section-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1vw;
+    width: 100%;
+    height: 18vw;
+    margin-bottom: -1.5vw;
+}
+
+.section-block:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.top-clip {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 1.5vw));
+    background: #323538;
+}
+.right-clip {
+    clip-path: polygon(0 1.5vw, 100% 0, 100% 100%, 0 calc(100% - 1.5vw));
+    background: #323538;
+}
+.left-clip {
+    clip-path: polygon(0 0, 100% 1.5vw, 100% calc(100% - 1.5vw), 0 100%);
+    background: #4a4c4e;
+}
+.bottom-clip {
+    clip-path: polygon(0 1.5vw, 100% 0, 100% 100%, 0 100%);
+    background: #323538;
+}
+
+.section-block label {
+    font-weight: 300;
+    color: gray;
+}
+
+.active-section {
+    background: yellow;
+    color: black;
+}
+
+.tab-content {
+    height: 93%;
+    padding: 20px;
+    /*overflow-y: scroll;*/
+}
+
+.outline-border {
+    border: 2px solid yellow;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.modal {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#streak-img {
+    width: 50px;
+    height: 50px;
+}
+.trainings-section h6{
+    font-size: 50px;
+}
+
+#calorie-calculator input {
+    width: 50%;
+}
+#calorie-calculator select {
+    width: 50%;
+}
+
+@media (max-width: 1170px) {
+    main {
+        flex-direction: column;
+    }
+    .main-window {
+        width: 100%;
+        height: 80%;
+    }
+    .sidebar {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 20%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .section-block {
+        width: 350px;
+        height: 100%;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        margin-right: -1.5vw;
+    }
+    .top-clip {
+        clip-path: polygon(0 0, 100% 0, calc(100% - 1.5vw) 100%, 0 100%);
+        background: #323538;
+    }
+    .left-clip {
+        clip-path: polygon(1.5vw 0, calc(100% - 1.5vw) 0, 100% 100%, 0 100%);
+        background: #4a4c4e;
+    }
+    .right-clip {
+        clip-path: polygon(0 0, 100% 0, calc(100% - 1.5vw) 100%, 1.5vw 100%);
+        background: #323538;
+    }
+    .bottom-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 1.5vw 100%);
+        background: #323538;
+    }
+    .calories-section p {
+        font-size: 12px;
+    }
+    .calories-section label {
+        font-size: 12px;
+    }
+    .total-trainings-section p {
+        font-size: 12px;
+    }
+    .total-trainings-section label {
+        font-size: 12px;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 0, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: yellow;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 0, 0.6);
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: yellow rgba(255, 255, 0, 0.6);
+}
+

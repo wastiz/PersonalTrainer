@@ -1,0 +1,241 @@
+{
+  "layout": {
+    "modal": {
+      "title": "Palun sisesta andmeid",
+      "email": "E-post",
+      "password": "Parool",
+      "loginButton": "Logi sisse"
+    },
+    "navbar": {
+      "home": "Avaleht",
+      "logout": "Logi välja"
+    },
+    "sidebar": {
+      "calories": {
+        "title": "Kalorid kokku",
+        "consumed": "Tarbitud",
+        "remaining": "Järelejäänud"
+      },
+      "bmi": {
+        "title": "Kalkulaatorid",
+        "label": "Sinu kehamassiindeks (BMI):"
+      },
+      "totalTrainings": {
+        "title": "Kokku treeningud",
+        "thisWeek": "Sel nädalal",
+        "previous": "Eelmine"
+      },
+      "weeklyBodyForm": {
+        "title": "Keha analüüs",
+        "description": "Täida enda nädalane kehavorm",
+        "button": "Täida"
+      },
+      "bodyResults": {
+        "title": "Sinu keha tulemused",
+        "description": "Vaata oma terviseandmeid graafikul",
+        "button": "Vaata"
+      },
+      "weeklyStrengthForm": {
+        "title": "Jõu saavutused",
+        "description": "Nädala jõulised saavutused",
+        "button": "Täida"
+      },
+      "strengthResults": {
+        "title": "Jõulised tulemused",
+        "description": "Jõutreeningu tulemused graafikul",
+        "button": "Vaata"
+      }
+    }
+  },
+  "tracker": {
+    "welcomeMessage": "Tere tulemast Ya-fit jälgimise tööriista",
+    "features": {
+      "trackCalories": "🔥Jälgi oma kaloreid",
+      "createWorkoutPlan": "📋Tee omale treeningukava",
+      "trackMeasurements": "💪Jälgi oma kehamõõte",
+      "enjoyAchievements": "🏋️‍Naudi enda saavutusi"
+    }
+  },
+  "bodyResults": {
+    "title": "Treeningu soorituse analüüs",
+    "exerciseLabel": "Vali kehaosa",
+    "bodyParts": {
+      "height": "Pikkus",
+      "weight": "Kaal",
+      "waist": "Vööümbermõõt",
+      "chest": "Rinnalihas",
+      "shoulders": "Õlad",
+      "biceps": "Biitseps",
+      "forearms": "Eesõlavarrelihas",
+      "neck": "Kael",
+      "hips": "Puusad",
+      "calves": "Sääremarjad"
+    }
+  },
+  "calories": {
+    "title": "Kui palju kaloreid sa täna tarbisid?",
+    "modalTitle": "Määra kaloriplaan",
+    "dailyGoalLabel": "Igapäevane kalorite eesmärk",
+    "dailyGoalPlaceholder": "Sisesta päevane kalorite eesmärk",
+    "goalError": "Sisesta ainult positiivsed numbrid (maksimaalselt 4 numbrit).",
+    "saveButton": "Salvesta plaan",
+    "extraCalorieText": "Sinu igapäevane kalorite eesmärk",
+    "consumedCalories": "Täna tarbitud kalorid",
+    "remainedCalories": "Järelejäänud kalorid",
+    "caloriesInputLabel": "Kalorite tarbimine",
+    "caloriesInputPlaceholder": "Sisesta tarbitud kalorid",
+    "submitButton": "Esita",
+    "changePlanButton": "Muuda",
+    "inputError": "Sisesta kehtiv number (positiivne, kuni 4 numbrit).",
+    "legendConsumed": "Punane: Tarbitud kalorid päevas",
+    "legendRemained": "Kollane: Järelejäänud kalorid päevas",
+    "calorieInputError": "Sisesta kehtiv number (positiivne, kuni 4 numbrit).",
+    "calorieInputSuccess": "Kalorite kirje edukalt lisatud"
+  },
+  "strengthResults": {
+    "title": "Treeningu soorituse analüüs",
+    "exerciseLabel": "Vali harjutus",
+    "exercises": {
+      "bench_press_wide": "Surumine (laia haardega)",
+      "bench_press_narrow": "Surumine (kitsa haardega)",
+      "bicep_curl": "Biitsepsi lokk",
+      "bent_over_one_arm_row": "Ühe käega ettekallutatud sõudmine",
+      "deadlift": "Jõutõmme",
+      "squats": "Kükid"
+    }
+  },
+  "totalTrainings": {
+    "title": "Treeningute arvestuse sektsioon",
+    "changeTrainingPlan": "Muuda treeningute plaani",
+    "trainingStreak": "Järjestikused treeningpäevad",
+    "totalSessions": "Kokku sessioone",
+    "totalHours": "Kokku tunde",
+    "setTrainingPlan": "Määra treeningplaan",
+    "chooseDaysOfWeek": "Vali nädalapäevad",
+    "durationEachTraining": "Iga treeningu kestus (tundides)",
+    "savePlan": "Salvesta plaan",
+    "sending": "Saatmine...",
+    "sent": "Saadetud",
+    "errorOccurred": "Vabandust, ilmnes viga",
+    "createTrainingPlanPrompt": "Palun loo alustamiseks treeningplaan!"
+  },
+  "daysOfWeek": {
+    "monday": "Esmaspäev",
+    "tuesday": "Teisipäev",
+    "wednesday": "Kolmapäev",
+    "thursday": "Neljapäev",
+    "friday": "Reede",
+    "saturday": "Laupäev",
+    "sunday": "Pühapäev"
+  },
+  "placeholders": {
+    "enterDuration": "Sisesta kestus (tundides)",
+    "height": "Sisesta oma pikkus...",
+    "weight": "Sisesta oma kaal...",
+    "chest": "Sisesta rindade ümbermõõt...",
+    "shoulders": "Sisesta õlgade ümbermõõt...",
+    "neck": "Sisesta kaela ümbermõõt...",
+    "bicep": "Sisesta biitsepsi ümbermõõt...",
+    "waist": "Sisesta vöökoha ümbermõõt...",
+    "thigh": "Sisesta reie ümbermõõt...",
+    "forearm": "Sisesta käsivarre ümbermõõt...",
+    "hips": "Sisesta puusade ümbermõõt...",
+    "calves": "Sisesta sääre ümbermõõt...",
+    "benchPressWide": "Sisesta lai surumise raskus...",
+    "benchPressNarrow": "Sisesta kitsa surumise raskus...",
+    "deadlift": "Sisesta jõutõmbe raskus...",
+    "squats": "Sisesta kükkide raskus...",
+    "bicepCurl": "Sisesta biitsepsi loki raskus...",
+    "bentOverOneArmRow": "Sisesta sõudmise raskus..."
+  },
+  "bodyForm": {
+    "weeklyMeasurementsTitle": "Nädalased kehamõõtmised",
+    "submitButton": "Esita",
+    "sending": "Saatmine...",
+    "sent": "Andmed saadeti edukalt",
+    "errorOccurred": "Vabandust. Ilmnes viga, proovige hiljem uuesti.",
+    "unexpectedError": "Ilmnes ootamatu viga.",
+    "modalTitle": "Esitamise staatus",
+    "closeButton": "Sulge",
+    "bodyParts": {
+      "height": "Pikkus (cm)",
+      "weight": "Kaal (kg)",
+      "chest": "Rind (cm)",
+      "shoulders": "Õlad (cm)",
+      "neck": "Kael (cm)",
+      "bicep": "Biitseps (cm)",
+      "waist": "Vöö (cm)",
+      "thigh": "Reis (cm)",
+      "forearm": "Käsivars (cm)",
+      "hips": "Puusad (cm)",
+      "calves": "Sääred (cm)"
+    }
+  },
+  "strengthForm": {
+    "weeklyMeasurementsTitle": "Nädalased jõumõõtmised",
+    "submitButton": "Esita",
+    "sending": "Andmeid saadetakse...",
+    "sent": "Andmed saadeti edukalt",
+    "errorOccurred": "Vabandust, ilmnes viga",
+    "unexpectedError": "Ootamatu viga ilmnes",
+    "modalTitle": "Esitamise staatus",
+    "closeButton": "Sulge",
+    "exercises": {
+      "benchPressWide": "Lai surumine (kg)",
+      "benchPressNarrow": "Kitsas surumine (kg)",
+      "deadlift": "Jõutõmme (kg)",
+      "squats": "Kükid (kg)",
+      "bicepCurl": "Biitsepsi lokk (kg)",
+      "bentOverOneArmRow": "Ühe käe ettekallutatud sõudmine (kg)"
+    }
+  },
+  "calculators": {
+    "label": "Vali kalkulaator:",
+    "chooseCalculator": "Vali kalkulaator:",
+    "bmiCalculator": {
+      "title": "Kehamassiindeksi Kalkulaator",
+      "weightLabel": "Kaal (kg):",
+      "heightLabel": "Pikkus (cm):",
+      "calculateButton": "Arvuta BMI",
+      "result": "Tulemus:",
+      "category": "Kategooria",
+      "description": "Kirjeldus",
+      "veryLowWeight": "Tervisele ohtlik alakaal",
+      "lowWeight": "Alakaal",
+      "normalWeight": "Normaalkaal",
+      "overWeight": "Ülekaal",
+      "obesity1": "Rasvumine I aste",
+      "obesity2": "Rasvumine II aste",
+      "obesity3": "Rasvumine III aste",
+      "error": "Palun sisestage kehtivad andmed."
+    },
+    "calorieCalculator": {
+      "title": "Kaloraaži Vajaduse Kalkulaator",
+      "genderLabel": "Sugu:",
+      "ageLabel": "Vanus (aastates):",
+      "weightLabel": "Kaal (kg):",
+      "heightLabel": "Pikkus (cm):",
+      "goalLabel": "Sinu eesmärk:",
+      "activityLabel": "Aktiivsuse tase:",
+      "calculateButton": "Arvuta Kaloraaž",
+      "result": "Tulemus:"
+    },
+    "options": {
+      "maintain": "Kaalu hoidmine",
+      "lose": "Kaalu langetamine",
+      "gain": "Kaalu tõstmine",
+      "activityLevels": {
+        "1.2": "Istuv eluviis",
+        "1.375": "Kerge aktiivsus",
+        "1.55": "Keskmine aktiivsus",
+        "1.725": "Aktiivne",
+        "1.9": "Väga aktiivne",
+        "2.2": "Sportlane"
+      },
+      "gender": {
+        "male": "Mees",
+        "female": "Naine"
+      }
+    }
+  }
+}

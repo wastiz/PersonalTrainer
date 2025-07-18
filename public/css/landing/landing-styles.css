@@ -1,0 +1,26 @@
+#scrollTopBtn {
+    width: 50px;
+    height: 50px;
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    cursor: pointer;
+    border: 3px solid #cdcd2c;
+    border-radius: 10px;
+    background: yellow;
+    padding: 0;
+}
+
+#scrollTopBtn img {
+    width: 70%;
+    height: 70%;
+}
+
+#scrollTopBtn:hover {
+    transform: scale(1.05); /* Subtly enlarge on hover */
+}
+
+
+

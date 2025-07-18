@@ -1,0 +1,74 @@
+<section id="personal-training">
+    <div class="container">
+        <div class="row pt-5 pb-5">
+            <h2 class="section-title-black"><%= translations.personalTraining.title %></h2>
+        </div>
+        <div class="row text-center">
+            <p class="text-black"><%= translations.personalTraining.description %></p>
+        </div>
+        <div class="row">
+            <form class="mb-3" id="book-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label"><%= translations.personalTraining.nameLabel %></label>
+                    <input name="Name" type="text" class="form-control" id="name" placeholder="<%= translations.personalTraining.namePlaceholder %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"><%= translations.personalTraining.emailLabel %></label>
+                    <input name="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<%= translations.personalTraining.emailPlaceholder %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label"><%= translations.personalTraining.phoneLabel %></label>
+                    <input name="Phone" type="tel" class="form-control" id="phone" placeholder="<%= translations.personalTraining.phonePlaceholder %>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><%= translations.personalTraining.trainingTypeLabel %></label>
+                    <select name="Type" id="training-type-selector" class="form-select" aria-label="Default select example" required>
+                        <option selected><%= translations.personalTraining.selectTrainingType %></option>
+                        <option value="Isiklik treening"><%= translations.personalTraining.personalTraining %></option>
+                        <option value="Kuupakett (12 treeningut)"><%= translations.personalTraining.monthlyPackage12 %></option>
+                        <option value="Kuupakett (8 treeningut)"><%= translations.personalTraining.monthlyPackage8 %></option>
+                        <option value="Paaristreening"><%= translations.personalTraining.partnerTraining %></option>
+                        <option value="Grupitreening"><%= translations.personalTraining.groupTraining %></option>
+                        <option value="Konsultatsioon treeningu või toitumiskava kohta"><%= translations.personalTraining.consultation %></option>
+                        <option value="Online-treening"><%= translations.personalTraining.onlinetraining %></option>
+                        <option value="Treeningud sinu valitud saalis"><%= translations.personalTraining.locationtraining %></option>
+                        <option value="Treening interneti vahendusel"><%= translations.personalTraining.personalonlinecontrol %></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="el" class="form-label"><%= translations.personalTraining.dateLabel %></label>
+                    <input name="Date" type="text" class="form-control" id="el" placeholder="<%= translations.personalTraining.datePlaceholder %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="el" class="form-label"><%= translations.personalTraining.timeLabel %></label>
+                    <style>
+                        .scrollable-select {
+                            max-height: 50px !important;
+                            overflow-y: auto !important;
+                        }
+                    </style>
+                    <select name="Time" id="training-time-selector" class="form-select scrollable-select" aria-label="Default select example" required>
+                        <option value="07:00-08:00" selected>07:00 - 08:00</option>
+                        <option value="08:00-09:00">08:00 - 09:00</option>
+                        <option value="09:00-10:00">09:00 - 10:00</option>
+                        <option value="10:00-11:00">10:00 - 11:00</option>
+                        <option value="11:00-12:00">11:00 - 12:00</option>
+                        <option value="12:00-13:00">12:00 - 13:00</option>
+                        <option value="13:00-14:00">13:00 - 14:00</option>
+                        <option value="14:00-15:00">14:00 - 15:00</option>
+                        <option value="15:00-16:00">15:00 - 16:00</option>
+                        <option value="16:00-17:00">16:00 - 17:00</option>
+                        <option value="17:00-18:00">17:00 - 18:00</option>
+                        <option value="18:00-19:00">18:00 - 19:00</option>
+                        <option value="19:00-20:00">19:00 - 20:00</option>
+                        <option value="20:00-21:00">20:00 - 21:00</option>
+                    </select>
+                </div>
+                <div class="flex flex-column flex-center">
+                    <button type="submit" class="btn btn-primary mb-2"><%= translations.personalTraining.submitButton %></button>
+                    <p class="form-text-handler text-black"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

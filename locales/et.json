@@ -1,0 +1,206 @@
+{
+  "navbar": {
+    "title": "Personaalne Treener",
+    "home": "Avaleht",
+    "about": "Minust",
+    "comeToTraining": "Liitu Treeninguga",
+    "tracker": "Jälgija",
+    "beforeAfter": "Enne ja Pärast",
+    "services": "Teenused",
+    "faq": "KKK",
+    "contact": "Kontakt"
+  },
+  "carousel": {
+    "slide1": {
+      "heading": "KAS OTSID PERSONAAL TREENERIT?",
+      "subheading1": "Saavuta oma parim vorm koos kogenud treeneriga.",
+      "subheading2": "Personaalsed treeningkavad, mis viivad sind eesmärkideni."
+    },
+    "slide2": {
+      "heading": "EI TEA KUST ALUSTADA?",
+      "subheading1": "Individuaalne lähenemine sinu vajadustele ja võimetele.",
+      "subheading2": "Professionaalne juhendamine ja motiveeriv tugi."
+    },
+    "slide3": {
+      "heading": "TEEME KOOS SINU UNISTUSE KEHA!",
+      "subheading1": "Nähtavad muutused ja parem enesetunne.",
+      "subheading2": "Vaata, kuidas saavutada keha, mida oled alati tahtnud."
+    }
+  },
+  "expertise": {
+    "title": "Minu kogemus",
+    "yearsInGym": "Aastat kogemust jõusaalis",
+    "yearsInFitness": "Aastat fitnessi valdkonnas",
+    "eestiChampion": "Eesti meister kulturismis ja fitnessis",
+    "yearsInGoodShape": "Aastat püsin heas vormis",
+    "happyClients": "Õnnelikku klienti",
+    "yearsOfTrainingExperience": "Aastat kogemust klientide treenimisel"
+  },
+  "about": {
+    "title": "Minust",
+    "greeting": "Hei! Mina olen Stanislav — sinu tulevane personaaltreener ja mentor. Aitan sul saavutada oma eesmärke kiiremini ja efektiivsemalt, kui seda üksinda tehes. Minu treeningud ühendavad praktilised teadmised ja põhjaliku arusaamise keha anatoomiast, et saaksid kasutada oma täielikku potentsiaali.",
+    "experience": "Fitnessi ja treeningutega olen tegelenud alates 2009. aastast ning osalenud mitmetel võistlustel. Olen mitmekordne Eesti meister ja rahvusvaheliste võistluste võitja Men's Physique kategoorias. Alates 2017. aastast olen sertifitseeritud treener ning olen aidanud paljusid inimesi, alustades algajatest kuni kogenud sportlasteni, saavutada oma tervise- ja spordieesmärke.",
+    "motivation": "Kui tahad oma elu muuta, parandada füüsilist vormi, tugevdada tervist või suurendada enesekindlust, siis pakun sulle personaalse lähenemise. Minu töö põhineb kaasaegsetel treening- ja toitumismeetoditel. Minu eesmärk on sinu tulemused, terviklik areng ja heaolu.",
+    "callToAction": "Ära lükka edasi — alusta juba täna! Liitu treeningutega ja astu esimene samm oma eesmärkide poole.",
+    "button": "Registreeru"
+  },
+  "trackerLanding": {
+    "title": "Treeningute jälgimise tööriist",
+    "description": "Avasta mugav ja tõhus viis oma tervise ja treeningute jälgimiseks. Minu loodud tööriist aitab sul jälgida oma kaloreid, treeningute sagedust, kehamõõtmeid ja palju muud. See motiveerib sind paremate tulemuste saavutamiseks ja annab mulle võimaluse sind täpsemalt juhendada, vajadusel kohandada toitumis- või treeningkava. Alusta tööriista kasutamist kohe pärast registreerumist!",
+    "button": "Alusta jälgimist"
+  },
+  "trackerWelcomePage": {
+    "welcomeMessage": "Tere tulemast Ya-fit jälgimistööriista!",
+    "trackCalories": "🔥 Jälgi oma kaloreid",
+    "createWorkoutPlan": "📋 Loo oma treeningplaan",
+    "trackMeasurements": "💪 Hoia silm peal oma keha mõõtudel",
+    "enjoyAchievements": "🏋️‍ Naudi oma saavutusi"
+  },
+  "services": {
+    "title": "Teenused",
+    "personalTraining": {
+      "title": "Personaalne treening",
+      "text": "100% kohandatud treeningud, mis aitavad sul saavutada just sinu eesmärgid.",
+      "price": "30€ / tund",
+      "type": "Isiklik treening"
+    },
+    "monthlyPackage12": {
+      "title": "Kuupakett (12 treeningut)",
+      "text": "Personaalse toitumiskava ja treeneri online-tugega saavutad oma eesmärgid kiiremini.",
+      "price": "300€ / kuu",
+      "type": "Kuupakett (12 treeningut)"
+    },
+    "monthlyPackage8": {
+      "title": "Kuupakett (8 treeningut)",
+      "text": "Toitumiskava ja online-tugi, et püsida õigel rajal ning jõuda oma eesmärkideni.",
+      "price": "220€ / kuu",
+      "type": "Kuupakett (8 treeningut)"
+    },
+    "partnerTraining": {
+      "title": "Paaristreening",
+      "text": "Treeni koos sõbra või partneriga – koos on lihtsam ja lõbusam!",
+      "price": "40€ / tund",
+      "type": "Paaristreening"
+    },
+    "groupTraining": {
+      "title": "Grupitreening",
+      "text": "Treenimine 3–10 inimesega. Võimalus trenniks ka sinu valitud jõusaalis (kokkuleppel).",
+      "price": "100€ / tund",
+      "type": "Grupitreening"
+    },
+    "consultation": {
+      "title": "Konsultatsioon treeningu või toitumiskava kohta",
+      "text": "Saad täpsed ja isiklikud soovitused, mis viivad sind paremate tulemusteni.",
+      "price": "50€",
+      "type": "Konsultatsioon treeningu või toitumiskava kohta"
+    },
+    "onlinetraining": {
+      "title": "Online-treening",
+      "text": "Treeni kus iganes, mugavalt interneti kaudu (Zoom, Google Meet jne).",
+      "price": "30€ / tund",
+      "type": "Online-treening"
+    },
+    "locationtraining": {
+      "title": "Treeningud sinu valitud saalis",
+      "text": "Treeningud toimuvad kohas, mille valid ise, ükskõik kus see ka ei oleks (kokkuleppel).",
+      "price": "40€ / tund",
+      "type": "Treeningud sinu valitud saalis"
+    },
+    "personalonlinecontrol": {
+      "title": "Treenimine interneti vahendusel",
+      "text": "Personaalsed treening- ja toitumiskavad, progressi jälgimine ning pidev motiveerimine.",
+      "price": "150€ / kuu",
+      "type": "Treening interneti vahendusel"
+    }
+  },
+  "beforeAfter": {
+    "title": "Kliendid räägivad: tulemused, mis inspireerivad",
+    "feedback1": {
+      "comment": "Tänu treeningutele kaotasin 20 kilo ja saavutasin oma elu parima füüsilise vormi. Treener oli toetav ja aitas mul eneseusku kasvatada. Tema professionaalne ja pühendunud lähenemine motiveeris mind järjepidevusele. Olen nii tänulik!",
+      "author": "Maria"
+    },
+    "feedback2": {
+      "comment": "Treenimine Stanislaviga muutis mu elu. Kaotasin 20 kilo ja tunnen end energilisemalt kui kunagi varem. Tema personaalsed treeningu- ja toitumiskavad aitasid mul saavutada eesmärke, mida varem võimatuks pidasin.",
+      "author": "Oksana"
+    },
+    "feedback3": {
+      "comment": "Stanislav aitas mul oma keha väärtustama hakata. Tema juhendamisel oli kaalukaotus kiire ja nauditav. Julgustavad sõnad ja professionaalsed teadmised tegid imesid. Äitah treenerile. Soovitan soojalt kõigile!",
+      "author": "Katrin"
+    }
+  },
+
+  "faq": {
+    "title": "Korduma Kippuvad Küsimused",
+    "question1": {
+      "title": "Kus toimuvad treeningud?",
+      "answer": "Treeningud toimuvad 24/7 fitness-saalides."
+    },
+    "question2": {
+      "title": "Kui kiiresti ma tulemusi näen?",
+      "answer": "See sõltub sinu eesmärkidest ja pühendumusest. Arutame koos, et paika panna realistlik ajakava."
+    },
+    "question3": {
+      "title": "Kui tihti peaksin treenima?",
+      "answer": "Soovitan alustada vähemalt 2 korda nädalas. Tihedus sõltub sinu eesmärkidest ja ajaplaanist."
+    },
+    "question4": {
+      "title": "Mis kellaaegadel toimuvad treeningud?",
+      "answer": "Treeningute ajad kohandatakse sinu eelistustele — olgu hommikul, päeval või õhtul."
+    },
+    "question5": {
+      "title": "Kas treeninguid saab teha ka nädalavahetustel?",
+      "answer": "Jah, treeningud on saadaval ka nädalavahetustel."
+    },
+    "question6": {
+      "title": "Kas treenite kõiki vanuseid ja mõlemaid sugusid?",
+      "answer": "Treenin kõiki alates 15. eluaastast ja pakun individuaalset lähenemist sõltumata soost."
+    },
+    "question7": {
+      "title": "Kas toitumisnõustamine on olemas?",
+      "answer": "Pakun toitumisnõu ja kavasid, mis toetavad sinu treeningute tulemusi."
+    },
+    "question8": {
+      "title": "Kas on võimalus osaleda grupitreeningutes?",
+      "answer": "Jah, pakun grupitreeninguid 3–10 inimesele."
+    }
+  },
+
+  "personalTraining": {
+    "title": "Tule trenni",
+    "description": "Täida väljad ja leian sulle sobiva aja trenniks nii kiiresti kui võimalik.",
+    "nameLabel": "Nimi",
+    "namePlaceholder": "Kirjuta siia oma nimi",
+    "emailLabel": "E-post",
+    "emailPlaceholder": "Kirjuta siia oma e-posti aadress",
+    "phoneLabel": "Telefon",
+    "phonePlaceholder": "Sisesta oma telefoninumber",
+    "trainingTypeLabel": "Treeningu tüüp",
+    "selectTrainingType": "Vali, millist treeningut soovid",
+    "personalTraining": "Isiklik treening",
+    "monthlyPackage12": "Kuupakett (12 treeningut)",
+    "monthlyPackage8": "Kuupakett (8 treeningut)",
+    "partnerTraining": "Paaristreening",
+    "groupTraining": "Grupitreening",
+    "consultation": "Konsultatsioon (treening/toitumine)",
+    "onlinetraining": "Online-treening",
+    "locationtraining": "Treening sinu valitud saalis",
+    "personalonlinecontrol": "Treening interneti vahendusel",
+    "dateLabel": "Kuupäev",
+    "datePlaceholder": "Vali endale sobiv kuupäev",
+    "timeLabel": "Eelistatud aeg",
+    "submitButton": "Saada",
+    "successMessage": "Saadetud. Treener võtab teiega peagi ühendust",
+    "errorMessage": "Viga. Vorm ei tööta. Võtke treeneriga ühendust allolevate kontaktide kaudu",
+    "nameContainsNumbers": "Nimi ei tohi sisaldada numbreid.",
+    "phoneContainsSymbols": "Telefoninumber ei tohi sisaldada tähti.",
+    "incorrectEmail": "Sisestage korrektne e-posti aadress."
+  },
+  "footer": {
+    "contactTitle": "Kontakt",
+    "emailLabel": "Email:",
+    "email": "yagutkin@gmail.com",
+    "phoneLabel": "Telefon:",
+    "phone": "+372 55987472",
+    "copyrightText": "2025 Artjom Eller. Kõik õigused on kaitstud."
+  }
+}

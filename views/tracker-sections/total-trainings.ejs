@@ -1,0 +1,187 @@
+<div class="container trainings-section">
+    <div class="row mb-3">
+        <div class="col-6">
+            <h2><%= translations.totalTrainings.title %></h2>
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-primary" id="btn-change-training-plan" data-bs-toggle="modal" data-bs-target="#trainingPlanModal">
+                <%= translations.totalTrainings.changeTrainingPlan %>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 flex flex-column flex-center">
+            <div class="flex flex-row flex-center">
+                <h6 id="attendance-streak"></h6>
+                <img id='streak-img' src="/img/icons/calories.png" alt="fire icon">
+            </div>
+            <h6><%= translations.totalTrainings.trainingStreak %></h6>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+            <p><%= translations.totalTrainings.totalSessions %>: <span id="total-sessions">0</span></p>
+            <p><%= translations.totalTrainings.totalHours %>: <span id="total-hours">0</span></p>
+            <div id="user-weeks-buttons" class="flex flex-row gap-2 mb-3"></div>
+        </div>
+    </div>
+
+    <style>
+        #trainingPlanModal {
+            display: none;
+            color: black;
+        }
+    </style>
+    <div class="modal fade" id="trainingPlanModal" tabindex="-1" aria-labelledby="trainingPlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trainingPlanModalLabel"><%= translations.totalTrainings.setTrainingPlan %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="training-plan-form">
+                        <div class="mb-3">
+                            <label class="form-label"><%= translations.totalTrainings.chooseDaysOfWeek %>:</label>
+                            <div id="days-of-week" class="d-flex flex-wrap mb-3">
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="monday"><%= translations.daysOfWeek.monday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="tuesday"><%= translations.daysOfWeek.tuesday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="wednesday"><%= translations.daysOfWeek.wednesday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="thursday"><%= translations.daysOfWeek.thursday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="friday"><%= translations.daysOfWeek.friday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="saturday"><%= translations.daysOfWeek.saturday %></button>
+                                <button type="button" class="btn btn-outline-primary m-1" data-day="sunday"><%= translations.daysOfWeek.sunday %></button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sessionDuration" class="form-label"><%= translations.totalTrainings.durationEachTraining %></label>
+                            <input type="number" class="form-control" id="sessionDuration" placeholder="<%= translations.placeholders.enterDuration %>" min="0.5" step="0.1">
+                        </div>
+                        <div class="flex flex-row gap-2 align-items-center">
+                            <button type="submit" class="btn btn-primary"><%= translations.totalTrainings.savePlan %></button>
+                            <p id="training-plan-form-submit"></p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const email = localStorage.getItem('email');
+    const daysOfWeekButtons = document.querySelectorAll('#days-of-week button');
+    const selectedDays = new Set();
+
+    daysOfWeekButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const day = this.getAttribute('data-day');
+            if (selectedDays.has(day)) {
+                selectedDays.delete(day);
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-outline-primary');
+            } else {
+                selectedDays.add(day);
+                this.classList.remove('btn-outline-primary');
+                this.classList.add('btn-primary');
+            }
+        });
+    });
+
+    document.getElementById('training-plan-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('training-plan-form-submit')
+        submitBtn.innerText = 'Sending'
+
+        const sessionDuration = document.getElementById('sessionDuration').value;
+        const trainingDays = Array.from(selectedDays).join(', ');
+
+        const response = await fetch('/set-training-plan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, days: trainingDays, duration: sessionDuration })
+        });
+
+        if (response.ok) {
+            submitBtn.innerText = 'Sent'
+            selectedDays.clear();
+            daysOfWeekButtons.forEach(button => {
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-primary');
+            });
+            document.getElementById('sessionDuration').value = '';
+            await loadUserTrainingData();
+        } else {
+            submitBtn.innerText = 'Vabandame, error occured'
+            console.error('Error updating training plan.');
+        }
+    });
+
+    async function loadUserTrainingData() {
+        const { weekDays, totalSessionsHours, streak } = await getUserTrainingData(email);
+
+        document.getElementById('total-sessions').innerText = totalSessionsHours.sessions || '0';
+        document.getElementById('total-hours').innerText = totalSessionsHours.hours || '0';
+        document.getElementById('attendance-streak').innerText = streak || "0";
+
+        const userWeeksButtons = document.getElementById('user-weeks-buttons');
+        userWeeksButtons.innerHTML = '';
+
+        if (!weekDays || weekDays.length === 0) {
+            const message = document.createElement('p');
+            message.innerText = 'Please create a training plan to get started!';
+            message.classList.add('text-muted');
+            userWeeksButtons.append(message);
+            return;
+        }
+
+        weekDays.forEach(item => {
+            const button = document.createElement('button');
+            button.innerText = item.week_day;
+            button.classList.add('btn', 'btn-primary');
+            button.id = item.id;
+            button.disabled = item.attended || !item.to_show;
+
+            button.addEventListener('click', async () => {
+                const response = await fetch('/mark-training-attended', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, week_day: item.week_day })
+                });
+
+                if (response.ok) {
+                    console.log('Marked as attended');
+                    await loadUserTrainingData();
+                } else {
+                    console.error('Error marking training');
+                }
+            });
+
+            userWeeksButtons.append(button);
+        });
+    }
+
+    async function getUserTrainingData(email) {
+        const response = await fetch('/get-user-training-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            return data;
+        } else {
+            console.error('Error retrieving training data:', data.error);
+        }
+    }
+
+    loadUserTrainingData();
+</script>

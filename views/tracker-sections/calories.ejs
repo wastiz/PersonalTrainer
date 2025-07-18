@@ -1,0 +1,276 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-6">
+            <h2><%= translations.calories.title %></h2>
+        </div>
+        <div class="col-6 text-end">
+            <style>
+                #caloriePlanModal {
+                    display: none;
+                }
+
+                .daily-goal {
+                    color: lightgreen;
+                }
+
+                .consumed-calories {
+                    color: red;
+                }
+
+                .remained-calories {
+                    color: yellow;
+                }
+
+                #extra-calorie-text {
+                    padding-bottom: 5px;
+                }
+            </style>
+            <div class="modal fade" id="caloriePlanModal" tabindex="-1" aria-labelledby="caloriePlanModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-black">
+                            <h5 class="modal-title"
+                                id="caloriePlanModalLabel"><%= translations.calories.modalTitle %></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-black">
+                            <form id="calorie-plan-form">
+                                <div class="mb-3">
+                                    <label for="calorieGoal"
+                                           class="form-label"><%= translations.calories.dailyGoalLabel %></label>
+                                    <input type="text" class="form-control" id="calorieGoal"
+                                           placeholder="<%= translations.calories.dailyGoalPlaceholder %>"
+                                           maxlength="4">
+                                    <p id="goal-input-error"
+                                       style="color: red; display: none;"><%= translations.calories.goalError %></p>
+                                </div>
+                                <button type="submit"
+                                        class="btn btn-primary"><%= translations.calories.saveButton %></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 mb-3" style="height: 400px;">
+            <canvas id="calorie-chart"></canvas>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+            <p id="extra-calorie-text" style="font-size: 19px;"><%= translations.calories.extraCalorieText %>: <span
+                        class="daily-goal" id="daily-goal-display"></span></p>
+            <p><%= translations.calories.consumedCalories %>: <span class="consumed-calories"
+                                                                    id="consumed-calories"></span></p>
+            <p><%= translations.calories.remainedCalories %>: <span class="remained-calories"
+                                                                    id="remained-calories"></span></p>
+            <form action="" id="add-calorie-form">
+                <label><%= translations.calories.caloriesInputLabel %></label>
+                <input id="calorie-add-input" type="text"
+                       placeholder="<%= translations.calories.caloriesInputPlaceholder %>" maxlength="4"
+                       style="max-width: 180px;">
+                <button class="btn btn-primary" type="submit"><%= translations.calories.submitButton %></button>
+                <button class="btn btn-primary" id="btn-change-calorie-plan" data-bs-toggle="modal"
+                        data-bs-target="#caloriePlanModal"><%= translations.calories.changePlanButton %></button>
+                <p id="input-error" style="color: red; display: none;"><%= translations.calories.inputError %></p>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <p>
+                <span style="color: rgb(255, 0, 0); font-weight: bold;"><%= translations.calories.legendConsumed %></span>
+            </p>
+            <p>
+                <span style="color: rgb(255, 255, 0); font-weight: bold;"><%= translations.calories.legendRemained %></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function handleFormSubmission(url, data) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) throw new Error('Päring ebaõnnestus');
+            return await response.json();
+        } catch (error) {
+            console.error('Viga:', error.message);
+            alert('Tekkis viga: ' + error.message);
+            return null;
+        }
+    }
+
+    async function updateUI(data) {
+        if (!data) return;
+        const {dailyGoal, calorieData} = data;
+        document.getElementById('daily-goal-display').innerText = dailyGoal;
+        const labels = calorieData.map(entry => entry.entry_date);
+        const calories = calorieData.map(entry => entry.calories);
+        const remainingCalories = calorieData.map(entry => dailyGoal - entry.calories);
+
+        document.getElementById('consumed-calories').innerText = calories.slice(-1)[0] ?? 0;
+        document.getElementById('remained-calories').innerText = dailyGoal - (calories.slice(-1)[0] ?? 0);
+
+        const ctx = document.getElementById('calorie-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: "<%= translations.calories.consumedCalories %>",
+                    data: calories,
+                    backgroundColor: 'rgb(255, 0, 0)',
+                    borderColor: 'rgb(255, 0, 0)',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.4
+                }, {
+                    label: "<%= translations.calories.remainedCalories %>",
+                    data: remainingCalories,
+                    backgroundColor: 'rgb(255, 255, 0)',
+                    borderColor: 'rgb(255, 255, 0)',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: {
+                                size: 14
+                            },
+                            color: '#333'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderWidth: 1,
+                        borderColor: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                            },
+                            color: '#666'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                            },
+                            color: '#666',
+                            callback: function (value) {
+                                return value + " kcal";
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(200, 200, 200, 0.3)',
+                            borderDash: [5, 5]
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    document.querySelector('#add-calorie-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const calorieInput = document.getElementById('calorie-add-input');
+        const errorElement = document.getElementById('input-error');
+        const calories = parseInt(calorieInput.value, 10);
+
+        if (isNaN(calories) || calories <= 0 || calorieInput.value.length > 4) {
+            errorElement.innerText = "<%= translations.calories.caloriesInputError %>";
+            errorElement.style.display = 'block';
+            return;
+        }
+
+        errorElement.style.display = 'none';
+
+        const email = localStorage.getItem('email');
+        const data = await handleFormSubmission('/add-calories', {email, calories});
+        if (data) {
+            alert("<%= translations.calories.caloriesInputSuccess %>");
+            window.location.reload();
+        }
+    });
+
+    document.getElementById('calorie-plan-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const goalInput = document.getElementById('calorieGoal');
+        const errorElement = document.getElementById('goal-input-error');
+        const daily_calorie_goal = parseInt(goalInput.value, 10);
+
+        if (isNaN(daily_calorie_goal) || daily_calorie_goal <= 0 || goalInput.value.length > 4) {
+            errorElement.innerText = "<%= translations.calories.caloriesInputError %>";
+            errorElement.style.display = 'block';
+            return;
+        }
+
+        errorElement.style.display = 'none';
+
+        const email = localStorage.getItem('email');
+        const data = await handleFormSubmission('/set-calorie-plan', {email, daily_calorie_goal});
+        if (data) {
+            alert("<%= translations.calories.caloriesInputSuccess %>");
+            window.location.reload();
+        }
+    });
+
+    (async () => {
+        const email = localStorage.getItem('email');
+        const data = await handleFormSubmission('/get-calorie-data', {email});
+        if (data) {
+            updateUI(data);
+        }
+    })();
+
+    const calorieInput = document.getElementById('calorie-add-input');
+    calorieInput.addEventListener('input', () => {
+        const input = calorieInput.value;
+        const errorElement = document.getElementById('input-error');
+
+        if (!/^\d{0,4}$/.test(input)) {
+            calorieInput.value = input.slice(0, -1);
+            errorElement.style.display = 'block';
+        } else {
+            errorElement.style.display = 'none';
+        }
+    });
+
+    const goalInput = document.getElementById('calorieGoal');
+    goalInput.addEventListener('input', () => {
+        const input = goalInput.value;
+        const errorElement = document.getElementById('goal-input-error');
+
+        if (!/^\d{0,4}$/.test(input)) {
+            goalInput.value = input.slice(0, -1);
+            errorElement.style.display = 'block';
+        } else {
+            errorElement.style.display = 'none';
+        }
+    });
+</script>

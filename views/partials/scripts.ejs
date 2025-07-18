@@ -1,0 +1,50 @@
+<script>
+    function loadScriptsSequentially(scripts, callback) {
+        let index = 0;
+
+        function loadNextScript() {
+            if (index < scripts.length) {
+                let script = document.createElement('script');
+                script.src = scripts[index];
+                script.onload = function() {
+                    index++;
+                    loadNextScript();
+                };
+                script.onerror = function() {
+                    console.error(`Failed to load script: ${scripts[index]}`);
+                };
+                document.head.appendChild(script);
+            } else {
+                callback();
+            }
+        }
+
+        loadNextScript();
+    }
+
+    let fontAwesomeLink = document.createElement('link');
+    fontAwesomeLink.rel = 'stylesheet';
+    fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+    document.head.appendChild(fontAwesomeLink);
+
+    loadScriptsSequentially([
+        'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js',
+        'https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426',
+        'js/bootstrap.js', //Bootstrap JS
+        'https://cdn.jsdelivr.net/npm/flatpickr', //Flatpickr js
+        'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', //Particles
+        'js/air-datepicker.js', //AirDatePicker
+        'https://accounts.google.com/gsi/client',
+        'https://apis.google.com/js/api.js',
+        '/js/script.js',
+        '/js/datePicker.js',
+        '/js/particles.js',
+        '/js/languageScript.js'
+    ], function() {
+        if (typeof gapiLoaded === 'function') {
+            gapiLoaded();
+        } else {
+            console.error('gapiLoaded function is not defined');
+        }
+    });
+</script>

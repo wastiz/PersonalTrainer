@@ -1,0 +1,56 @@
+#tracker {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(67, 90, 113, 1) 100%);
+    margin-bottom: -8.7%;
+    padding: 10vh 0; /* Ensures consistency across screens */
+}
+
+#tracker img {
+    padding-top: 10%;
+    width: 100%;
+    object-fit: cover; /* Ensures image scales properly */
+}
+
+#tracker p {
+    padding: 10% 0;
+    width: 100%;
+    font-size: 1rem; /* Adjusts font size for readability */
+    text-align: center; /* Centers the text for better layout */
+    line-height: 1.5; /* Improves text spacing */
+    color: white; /* Adds clarity on darker backgrounds */
+}
+
+/* Tablet and smaller devices */
+@media (max-width: 1024px) {
+    #tracker {
+        padding: 8vh 0;
+    }
+
+    #tracker p {
+        font-size: 0.9rem; /* Reduces font size for better fit */
+        padding: 8% 0;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+    #tracker {
+        margin-bottom: -13%;
+        margin-top: -13%;
+    }
+
+    #tracker img {
+        padding-top: 5%;
+        width: 100%;
+    }
+    .nav-link {
+        text-align: center;
+    }
+    .navbar-collapse {
+        background-color: rgba(0, 0, 0, 0.5)
+    }
+    #tracker p {
+        font-size: 0.8rem;
+        padding: 6% 0;
+        line-height: 1.4; /* Adjust line height for compact screens */
+    }
+}

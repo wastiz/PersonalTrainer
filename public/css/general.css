@@ -1,0 +1,307 @@
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('../fonts/roboto-flex-regular.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url("../fonts/oswald-variable.ttf") format('truetype');
+    font-weight: 100 1000;
+    font-display: swap;
+}
+
+/*primary: yellow*/
+/*primary-dark: #cdcd2c;*/
+/*primary-dark with opacity: rgba(255, 255, 0, 0.6)*/
+/*secondary-light: rgba(67,90,113,1)
+ secondary-dark: gradient linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(67,90,113,1) 100%)*/
+
+
+body {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2.25rem; /* Размер для h1 (36px) */
+    margin-bottom: 1.25rem;
+}
+
+/* h2 */
+h2 {
+    font-size: 1.875rem; /* Размер для h2 (30px) */
+    margin-bottom: 1.125rem;
+}
+
+/* h3 */
+h3 {
+    font-size: 1.5rem; /* Размер для h3 (24px) */
+    margin-bottom: 1rem;
+}
+
+/* h4 */
+h4 {
+    font-size: 1.25rem; /* Размер для h4 (20px) */
+    margin-bottom: 0.875rem;
+}
+
+/* h5 */
+h5 {
+    font-size: 1.125rem; /* Размер для h5 (18px) */
+    margin-bottom: 0.75rem;
+}
+
+/* h6 */
+h6 {
+    font-size: 1rem; /* Размер для h6 (16px) */
+    margin-bottom: 0.625rem;
+}
+
+/* Абзацы текста */
+p {
+    font-size: 1rem; /* Размер текста (16px) */
+    margin-bottom: 0.9375rem; /* 15px */
+}
+
+
+a {
+    font-size: 1rem; /* Размер ссылки (16px) */
+    color: #007bff; /* Цвет ссылки */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+ul, ol {
+    font-size: 1rem; /* Размер списка (16px) */
+    margin-left: 1.25rem;
+}
+
+
+li {
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+
+blockquote {
+    font-size: 1.125rem; /* Размер цитаты (18px) */
+    font-style: italic;
+    margin: 1.25rem 0;
+    padding-left: 1.25rem;
+    border-left: 0.25rem solid #ccc;
+}
+
+
+input, textarea, select {
+    font-size: 1rem; /* Размер для формы (16px) */
+    padding: 0.625rem; /* 10px */
+    margin-bottom: 0.625rem; /* 10px */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 1rem; /* Размер для меток (16px) */
+    font-weight: bold;
+    margin-bottom: 0.3125rem; /* 5px */
+    display: block;
+}
+
+/*Other*/
+
+.font-oswald {
+    font-family: 'Oswald', sans-serif;
+}
+
+/*Logo*/
+.logo-container {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+
+.logo-container::before,
+.logo-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: yellow;
+}
+
+.logo-container::before {
+    top: -10px;
+}
+
+.logo-container::after {
+    bottom: -10px;
+}
+
+/*Section common styles*/
+section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -5.5%;
+}
+
+.clip-top {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 5vw));
+}
+
+.clip-left {
+    clip-path: polygon(0 0, 100% 5vw, 100% calc(100% - 5vw), 0 100%);
+}
+
+.clip-right {
+    clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 calc(100% - 5vw));
+}
+.clip-bottom {
+    clip-path: polygon(0 0, 100% 5vw, 100% 100%, 0 100%);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 32px;
+    font-family: "Oswald", sans-serif;
+}
+
+.section-title::before, .section-title::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid white;
+    margin: 0 10px;
+}
+
+.section-title-black {
+    color: black;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 32px;
+    font-family: "Oswald", sans-serif;
+}
+
+.section-title-black::before, .section-title-black::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid black;
+    margin: 0 10px;
+}
+
+/*BG Colors*/
+.bg-secondary-light {
+    background: rgba(67,90,113,1);
+}
+
+.bg-body-yellow {
+    background-color: yellow;
+}
+
+.bg-body-dark {
+    background-color: #343639;
+}
+
+/*Other*/
+label {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.display-none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-end {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.small-text {
+    font-size: 1.5rem;
+}
+
+.medium-text {
+    font-size: 2rem;
+}
+
+.large-text {
+    font-size: 3rem;
+}
+
+.text-yellow {
+    color: yellow;
+}
+
+.prefixed-text {
+    font-size: 0.8rem;
+    color: white;
+}
+
+.prefixed-text::before {
+    content: "- ";
+    color: yellow;
+    font-size: 1em;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.no-underline {
+    text-decoration: none;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+.white-text {
+    color: white;
+}
+
+
+/*Buttons*/
+.btn-primary {
+    background-color: yellow;
+    color: black;
+    border-color: rgba(255, 255, 0, 0);
+}
+
+.btn-primary:hover {
+    border-color: rgba(255, 255, 0, 0);
+    background: rgba(255, 255, 0, 0.6);
+}
+/*Margins and Paddings*/
+.ptb-10 {
+    padding-top: 10%;
+    padding-bottom: 10%;
+}

@@ -1,0 +1,67 @@
+#personal-training {
+    height: 120vh;
+    color: black;
+    padding: 12vh 0;
+    margin-bottom: 0;
+}
+
+.book-form {
+    width: 500px;
+    padding: 30px;
+    border: 2px solid yellow;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-form h2 {
+    color: yellow;
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: -16px;
+}
+
+.book-form h5 {
+    font-size: 20px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.book-form form {
+    width: 100%;
+    background: rgba(255, 255, 0, 0.6);
+    padding: 15px;
+    border-radius: 1em;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 1);
+    transition: box-shadow 0.3s ease;
+}
+
+.book-form:hover {
+    box-shadow: 0 0 13px yellow, 0 0 13px yellow, 0 0 13px yellow;  /* Triple-layered bright yellow shadow for a glowing effect */
+    border: 2px solid yellow;  /* Ensure the border remains yellow on hover */
+}
+
+.book-form input, .book-form select {
+    border: 5px solid darkgrey;
+    border-radius: 1em;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.booking-form .form-control:focus {
+    border-color: black;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Slightly darker for better visibility */
+}
+
+.time-picker {
+    width: 32.3%;
+}
+@media (max-width: 1420px) {
+
+}
+
+@media (max-width: 768px) {
+
+}

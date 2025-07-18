@@ -1,0 +1,250 @@
+<% const kalkulaatorid = [
+    { id: 'bmi-calculator', name: translations.calculators.bmiCalculator.title },
+    { id: 'calorie-calculator', name: translations.calculators.calorieCalculator.title }
+]; %>
+
+<div class="container">
+    <div class="row">
+        <div class="mb-3">
+            <label for="exerciseSelect" class="form-label"><%= translations.calculators.label %></label>
+            <select class="form-select" id="exerciseSelect">
+                <% kalkulaatorid.forEach((kalkulaator, index) => { %>
+                    <option value="<%= kalkulaator.id %>" <%= index === 0 ? 'selected' : '' %>>
+                        <%= kalkulaator.name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="tab-content mt-3">
+            <!-- BMI Calculator -->
+            <div class="tab-pane fade show active" id="bmi-calculator" role="tabpanel">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-5">
+                        <div class="flex flex-column flex-center">
+                            <h1><%= translations.calculators.bmiCalculator.title %></h1>
+                            <div class="row">
+                                <div>
+                                    <label for="bmi-weight"><%= translations.calculators.bmiCalculator.weightLabel %></label>
+                                    <input type="text" id="bmi-weight" name="weight" required pattern="[0-9]*" title="" oninput="validateInput(this)">
+                                </div>
+                                <div>
+                                    <label for="bmi-height"><%= translations.calculators.bmiCalculator.heightLabel %></label>
+                                    <input type="text" id="bmi-height" name="height" required pattern="[0-9]*" title="" oninput="validateInput(this)">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="calculateBMI()"><%= translations.calculators.bmiCalculator.calculateButton %></button>
+                            <div id="bmi-result"></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <table border="1" cellspacing="0" cellpadding="10" style="border-collapse: collapse; width: 100%; text-align: center;">
+                            <thead>
+                            <tr style="background-color: #f2f2f2;">
+                                <th><%= translations.calculators.bmiCalculator.category %></th>
+                                <th><%= translations.calculators.bmiCalculator.description %></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="background-color: #ff9999;">
+                                <td>&lt; 16</td>
+                                <td><%= translations.calculators.bmiCalculator.veryLowWeight %></td>
+                            </tr>
+                            <tr style="background-color: #ffcc99;">
+                                <td>16 – 18.5</td>
+                                <td><%= translations.calculators.bmiCalculator.lowWeight %></td>
+                            </tr>
+                            <tr style="background-color: #c6efce;">
+                                <td>18.5 – 24.9</td>
+                                <td><%= translations.calculators.bmiCalculator.normalWeight %></td>
+                            </tr>
+                            <tr style="background-color: #ffcc99;">
+                                <td>25 – 29.9</td>
+                                <td><%= translations.calculators.bmiCalculator.overWeight %></td>
+                            </tr>
+                            <tr style="background-color: #ff9999;">
+                                <td>30 – 34.9</td>
+                                <td><%= translations.calculators.bmiCalculator.obesity1 %></td>
+                            </tr>
+                            <tr style="background-color: #ff6666;">
+                                <td>35 – 39.9</td>
+                                <td><%= translations.calculators.bmiCalculator.obesity2 %></td>
+                            </tr>
+                            <tr style="background-color: #ff3333; color: white;">
+                                <td>&ge; 40</td>
+                                <td><%= translations.calculators.bmiCalculator.obesity3 %></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calorie Calculator -->
+            <div class="tab-pane fade" id="calorie-calculator" role="tabpanel">
+                <div class="flex flex-column flex-center">
+                    <h1><%= translations.calculators.calorieCalculator.title %></h1>
+                    <label for="gender"><%= translations.calculators.calorieCalculator.genderLabel %></label>
+                    <select id="gender">
+                        <option value="male"><%= translations.calculators.options.gender.male %></option>
+                        <option value="female"><%= translations.calculators.options.gender.female %></option>
+                    </select>
+
+                    <label for="age"><%= translations.calculators.calorieCalculator.ageLabel %></label>
+                    <input type="number" id="age" required>
+
+                    <label for="calorie-weight"><%= translations.calculators.calorieCalculator.weightLabel %></label>
+                    <input type="number" id="calorie-weight" required>
+
+                    <label for="calorie-height"><%= translations.calculators.calorieCalculator.heightLabel %></label>
+                    <input type="number" id="calorie-height" required>
+
+                    <label for="goal"><%= translations.calculators.calorieCalculator.goalLabel %></label>
+                    <select id="goal">
+                        <option value="maintain"><%= translations.calculators.options.maintain %></option>
+                        <option value="lose"><%= translations.calculators.options.lose %></option>
+                        <option value="gain"><%= translations.calculators.options.gain %></option>
+                    </select>
+
+                    <label for="activity"><%= translations.calculators.calorieCalculator.activityLabel %></label>
+                    <select id="activity">
+                        <% Object.entries(translations.calculators.options.activityLevels).forEach(([key, value]) => { %>
+                            <option value="<%= key %>"><%= value %></option>
+                        <% }); %>
+                    </select>
+
+                    <button class="btn btn-primary" onclick="calculateCalories()"><%= translations.calculators.calorieCalculator.calculateButton %></button>
+                    <div id="calorie-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const exerciseSelect = document.getElementById("exerciseSelect");
+        const tabPanes = document.querySelectorAll(".tab-pane");
+
+        exerciseSelect.addEventListener("change", function () {
+            const selectedId = exerciseSelect.value;
+
+            tabPanes.forEach(tabPane => {
+                tabPane.classList.remove("show", "active");
+            });
+
+            const selectedTab = document.getElementById(selectedId);
+            if (selectedTab) {
+                selectedTab.classList.add("show", "active");
+            }
+        });
+    });
+    async function calculateBMI() {
+        var weight = document.getElementById('bmi-weight').value;
+        var height = document.getElementById('bmi-height').value;
+        let weightError = !weight || weight < 30 || weight > 200 || weight.length > 3;
+        let heightError = !height || height < 100 || height > 230 || height.length > 3;
+
+        if (weightError && heightError) {
+            document.getElementById('result').innerHTML = `<p style="color: red;">Palun sisesta kaal vahemikus 30kg - 200 kg ja pikkus vahemikus 100cm - 230 cm.</p>`;
+            return;
+        } else if (weightError) {
+            document.getElementById('result').innerHTML = `<p style="color: red;">Palun sisesta kaal vahemikus 30kg - 200 kg.</p>`;
+            return;
+        } else if (heightError) {
+            document.getElementById('result').innerHTML = `<p style="color: red;">Palun sisesta pikkus vahemikus 100cm - 230 cm.</p>`;
+            return;
+        }
+
+        var finalBmi = weight / (height / 100 * height / 100);
+        var category = getBmiCategory(finalBmi);
+        document.getElementById('bmiResult').innerHTML = `${finalBmi.toFixed(2)} (${category})`;
+
+        const email = localStorage.getItem('email');
+        await submitCalculations(email, finalBmi.toFixed(2), category);
+    }
+
+    function getBmiCategory(bmi) {
+        if (bmi < 16)
+            return `<span style="color: rgba(255, 150, 150, 1);">Tervisele ohtlik alakaal</span>`;
+        else if (bmi >= 16 && bmi <= 18.5)
+            return `<span style="color: rgba(255, 150, 150, 1);">Alakaal</span>`;
+        else if (bmi > 18.5 && bmi <= 25)
+            return `<span style="color: orange;">Normaalkaal</span>`;
+        else if (bmi > 25 && bmi <= 30)
+            return `<span style="color: rgba(255, 0, 0, 1);">Ülekaal</span>`;
+        else if (bmi > 30 && bmi <= 35)
+            return `<span style="color: rgba(255, 0, 0, 1);">Rasvumine</span>`;
+        else if (bmi > 35 && bmi <= 40)
+            return `<span style="color: rgba(139, 0, 0, 1);">Tugev rasvumine</span>`;
+        else
+            return `<span style="color: rgba(139, 0, 0, 1);">Tervisele ohtlik rasvumine</span>`;
+    }
+
+    function validateInput(inputElement) {
+        inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+        if (inputElement.value.length > 3) {
+            inputElement.value = inputElement.value.slice(0, 3);
+        }
+    }
+
+    async function calculateCalories() {
+        var gender = document.getElementById('gender').value;
+        var age = parseInt(document.getElementById('age').value);
+        var weight = parseFloat(document.getElementById('calorie-weight').value);
+        var height = parseFloat(document.getElementById('calorie-height').value);
+        var goal = document.getElementById('goal').value;
+        var activity = parseFloat(document.getElementById('activity').value);
+
+        var bmr;
+        if (gender === 'male') {
+            bmr = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+        } else {
+            bmr = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+        }
+
+        var dailyCalories = bmr * activity;
+
+        if (goal === 'lose') {
+            dailyCalories -= 500;
+        } else if (goal === 'gain') {
+            dailyCalories += 500;
+        }
+
+        const calorieResult = document.querySelector('#calorie-result');
+        calorieResult.textContent = dailyCalories.toFixed(2);
+
+        const email = localStorage.getItem('email');
+        await submitCalculations(email, null, null, dailyCalories.toFixed(2));
+    }
+
+    async function submitCalculations(email, bmi = null, bmiCategory = null, calories = null) {
+        try {
+            const data = {
+                email: email,
+                bmi: bmi,
+                bmiCategory: bmiCategory,
+                calories: calories
+            };
+
+            const response = await fetch('/submit-calculations', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                alert('Ошибка при отправке данных.');
+            } else {
+                console.log('Данные успешно отправлены.');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Тekkis viga: ' + error.message);
+        }
+    }
+</script>
+
+
