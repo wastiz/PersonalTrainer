@@ -1,5 +1,10 @@
-# Node.js
-node_modules/
-mysql-queries
 .idea
+.vscode
+node_modules
 .env
+.env.development
+.env.dev
+.env.production
+.env.prod
+
+

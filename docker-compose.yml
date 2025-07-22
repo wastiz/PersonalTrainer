@@ -1,0 +1,27 @@
+services:
+    app:
+        build: .
+        container_name: airsoft_narva
+        expose:
+            - "3003"
+        depends_on:
+            - shared-postgres
+        environment:
+            - SERVER_PORT=3002
+            - DB_HOST=shared-postgres
+            - DB_PORT=5432
+            - DB_USER=postgres
+            - DB_PASSWORD=PGtitan4321
+            - DB_NAME=airsoft_narva
+        volumes:
+            - .:/usr/src/app
+        restart: always
+        networks:
+            - proxy_net
+            - db_net
+
+networks:
+    proxy_net:
+        external: true
+    db_net:
+        external: true

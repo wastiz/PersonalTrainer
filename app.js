@@ -8,7 +8,7 @@ const app = express();
 require('dotenv').config();
 const expressLayouts = require('express-ejs-layouts');
 const {trackingFunction} = require('./trackingScript');
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 3003;
 const jwt = require('jsonwebtoken');
 const {schedule} = require("node-cron");
 const landingController = require('./controllers/landingController');
