@@ -16,19 +16,22 @@
     "mysql2": "^3.11.3",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.14",
-    "pg": "^8.13.0"
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   },
   "engines": {
     "node": "20.12.2"
   },
   "devDependencies": {
+    "cross-env": "^10.0.0",
     "nodemon": "^3.1.4",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.1"
   },
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "build-css": "sass public/css:public/css"
-  }
+    "scripts": {
+        "start": "cross-env NODE_ENV=production node app.js",
+        "dev": "cross-env NODE_ENV=development nodemon app.js",
+        "build-css": "sass public/css:public/css"
+    }
 }

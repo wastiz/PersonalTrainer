@@ -1,18 +1,20 @@
+version: '3.8'
+
 services:
     app:
         build: .
-        container_name: airsoft_narva
+        container_name: personal_trainer
         expose:
-            - "3003"
+            - "${SERVER_PORT}"
         depends_on:
             - shared-postgres
         environment:
-            - SERVER_PORT=3002
-            - DB_HOST=shared-postgres
-            - DB_PORT=5432
-            - DB_USER=postgres
-            - DB_PASSWORD=PGtitan4321
-            - DB_NAME=airsoft_narva
+            - SERVER_PORT=${SERVER_PORT}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_NAME=${DB_NAME}
         volumes:
             - .:/usr/src/app
         restart: always

@@ -1,18 +1,16 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
-const ejs = require('ejs');
-const fs = require('fs');
-const {urlencoded, json} = require("express");
 const bodyParser = require('body-parser');
 const app = express();
-require('dotenv').config();
 const expressLayouts = require('express-ejs-layouts');
 const {trackingFunction} = require('./trackingScript');
-const port = process.env.SERVER_PORT || 3003;
-const jwt = require('jsonwebtoken');
+const port = process.env.SERVER_PORT;
 const {schedule} = require("node-cron");
+const landingRoutes = require('./routes/landingRoutes')
+const trackerRoutes = require('./routes/trackerRoutes');
 const landingController = require('./controllers/landingController');
-const trackerRoutesController = require('./controllers/trackerRoutesController');
 const trackerLoginController = require('./controllers/trackerLoginController');
 const trackerDataController = require('./controllers/trackerDataController');
 
@@ -43,18 +41,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 // Маршруты для лендинга
-app.use('/', landingController);
+app.use('/', landingRoutes);
 app.use('/book-form-send', landingController);
 
 // Маршруты для трекера
-app.use('/fitness-tracker', trackerRoutesController);
-app.use('/fitness-tracker/:section', trackerRoutesController);
+app.use('/fitness-tracker', trackerRoutes);
+app.use('/fitness-tracker/:section', trackerRoutes);
 
 // Маршрут для логина
 app.use('/login', trackerLoginController);
 
 //Марщрут для данных
-app.use('/', trackerDataController);
+app.use('/tracker-data', trackerDataController);
 
 
 
