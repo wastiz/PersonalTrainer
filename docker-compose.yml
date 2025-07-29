@@ -6,8 +6,6 @@ services:
         container_name: personal_trainer
         expose:
             - "${SERVER_PORT}"
-        depends_on:
-            - shared-postgres
         environment:
             - SERVER_PORT=${SERVER_PORT}
             - DB_HOST=${DB_HOST}
@@ -15,8 +13,6 @@ services:
             - DB_USER=${DB_USER}
             - DB_PASSWORD=${DB_PASSWORD}
             - DB_NAME=${DB_NAME}
-        volumes:
-            - .:/usr/src/app
         restart: always
         networks:
             - proxy_net
