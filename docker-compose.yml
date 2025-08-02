@@ -1,11 +1,11 @@
-version: '3.8'
+version: '3.9'
 
 services:
     app:
         build: .
         container_name: personal_trainer
         ports:
-            - "${SERVER_PORT}"
+            - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             - SERVER_PORT=${SERVER_PORT}
             - DB_HOST=${DB_HOST}
@@ -15,11 +15,8 @@ services:
             - DB_NAME=${DB_NAME}
         restart: always
         networks:
-            - proxy_net
             - db_net
 
 networks:
-    proxy_net:
-        external: true
     db_net:
         external: true
