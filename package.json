@@ -29,9 +29,9 @@
     "sass": "^1.77.8",
     "sass-loader": "^16.0.1"
   },
-    "scripts": {
-        "start": "cross-env NODE_ENV=production node app.js",
-        "dev": "cross-env NODE_ENV=development nodemon app.js",
-        "build-css": "sass public/css:public/css"
-    }
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "build-css": "sass public/css:public/css"
+  }
 }

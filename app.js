@@ -42,7 +42,7 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 // Маршруты для лендинга
 app.use('/', landingRoutes);
-app.use('/book-form-send', landingController);
+app.use('/', landingController);
 
 // Маршруты для трекера
 app.use('/fitness-tracker', trackerRoutes);
