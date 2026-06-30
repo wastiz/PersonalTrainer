@@ -56,7 +56,7 @@ app.post('/api/contact', async (req, res) => {
 
     await transporter.sendMail({
       from: `"Yagutkin Fitness" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || 'yagutkin@gmail.com',
+      to: process.env.CONTACT_EMAIL || 'stanislavjagutkin@gmail.com',
       subject: `New booking request — ${safeName}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #f9f9f9; border-radius: 8px; padding: 32px;">
