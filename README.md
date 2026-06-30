@@ -18,7 +18,7 @@ npm run dev            # starts server with --watch on http://localhost:3000
 | `SMTP_PORT`     | SMTP port (587 for TLS, 465 for SSL)     | `587`                    |
 | `SMTP_USER`     | SMTP login / sender email address        | `you@gmail.com`          |
 | `SMTP_PASS`     | SMTP password or app-specific password   | `xxxx xxxx xxxx xxxx`    |
-| `CONTACT_EMAIL` | Email address to receive form submissions| `yagutkin@gmail.com`     |
+| `CONTACT_EMAIL` | Email address to receive form submissions| `stanislavjagutkin@gmail.com`     |
 | `PORT`          | HTTP port (Railway sets this for you)    | `3000`                   |
 
 ### Gmail app password
