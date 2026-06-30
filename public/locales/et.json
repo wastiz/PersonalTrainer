@@ -1,0 +1,98 @@
+{
+  "meta_title": "Stanislav Jagutkin — Personaaltreener | Tallinn",
+  "nav_logo": "JAGUTKIN",
+
+  "nav_about": "Minust",
+  "nav_services": "Teenused",
+  "nav_how": "Kuidas treenime",
+  "nav_results": "Tulemused",
+  "nav_contact": "Broneeri",
+
+  "hero_eyebrow": "Personaaltreener · Tallinn",
+  "hero_name1": "Stanislav",
+  "hero_name2": "Jagutkin",
+  "hero_tagline": "Kulturism · Men's Physique · Toitumisnõustamine. Treenen alates 2009. aastast.",
+  "hero_cta": "Broneeri treening",
+
+  "about_eyebrow": "Minust",
+  "about_title": "Treener, kes teab, mis on tulemus",
+  "about_bio1": "Treenen alates 2009. aastast ja tegelen professionaalselt kulturismiga. Olen mitmekordne Eesti kulturismi ja fitnessi meister ning 2 rahvusvahelise Men's Physique tiitli omanik.",
+  "about_bio2": "Sertifitseeritud treenerina alates 2017. aastast töötan klientidega igal tasemel — algajatest professionaalideni. Vanus alates 15 eluaastast, igast soost, igasuguste eesmärkidega.",
+
+  "services_eyebrow": "Teenused",
+  "services_title": "Vali oma treeningformaat",
+  "services_cta": "Broneeri",
+
+  "how_eyebrow": "Kuidas see toimib",
+  "how_title": "Treeningud sinu elurütmi järgi",
+  "how_offline_title": "Kohapealne",
+  "how_offline_text": "24/7 Fitness saalides üle Tallinna. Hommikul, päeval, õhtul ja nädalavahetustel — sinu ajakava järgi.",
+  "how_online_title": "Veebis",
+  "how_online_text": "Zoom, FaceTime või Google Meet. Treeni kõikjalt maailmast ilma saalita.",
+  "how_formats_title": "Igasugused formaadid",
+  "how_formats_text": "Individuaalselt, paarides või grupis kuni 10 inimesega. Võimalik kliendi saalis.",
+  "how_schedule_title": "Paindlik ajakava",
+  "how_schedule_text": "Hommik, päev, õhtu, nädalavahetus. Leiame just sulle sobiva aja.",
+
+  "testimonials_eyebrow": "Tagasiside",
+  "testimonials_title": "Mida ütlevad minu kliendid",
+
+  "results_eyebrow": "Tulemused",
+  "results_title": "Enne ja pärast",
+  "results_subtitle": "Reaalsed transformatsioonid. Reaalsed inimesed.",
+
+  "contact_eyebrow": "Broneeri",
+  "contact_title": "Alustame sinu teekonda tulemuste poole",
+  "contact_subtitle": "Jäta päring — võtan sinuga ühendust 24 tunni jooksul.",
+  "form_name": "Sinu nimi",
+  "form_name_ph": "Jaan Tamm",
+  "form_contact": "Email või telefon",
+  "form_contact_ph": "jaan@email.com või +372 ...",
+  "form_service": "Huvitav programm",
+  "form_service_default": "Pole kindel — räägi lähemalt",
+  "form_message": "Sõnum (valikuline)",
+  "form_message_ph": "Räägi oma eesmärkidest ja ootustest...",
+  "form_submit": "Saada päring",
+  "form_success": "Päring saadetud! Võtan sinuga peatselt ühendust.",
+  "form_error": "Midagi läks valesti. Proovi uuesti või kirjuta otse.",
+
+  "footer_tagline": "Personaaltreener · Tallinn, Eesti",
+  "footer_gyms": "24/7 Fitness saalid, Tallinn",
+  "footer_rights": "Kõik õigused kaitstud",
+
+  "stats": [
+    { "num": "16", "suffix": " a.",  "label": "jõusaalis" },
+    { "num": "9",  "suffix": " a.",  "label": "fitnessiindustrias" },
+    { "num": "2",  "suffix": "",     "label": "Eesti meistrivõistluste tiitlit" },
+    { "num": "10", "suffix": " a.",  "label": "tippfüüsilises vormis" },
+    { "num": "1000", "suffix": "+",  "label": "rahulolev klient" },
+    { "num": "7",  "suffix": " a.",  "label": "klientide treenimise kogemus" }
+  ],
+
+  "services": [
+    { "name": "Personaaltreening",         "desc": "Individuaalne sessioon, kohandatud sinu eesmärkidele",                                    "price": "€30 / tund" },
+    { "name": "12 treeningu pakett",       "desc": "Isiklik toitumisplaan ja pidev kontakt treeneriga",                                        "price": "€300 / kuu" },
+    { "name": "8 treeningu pakett",        "desc": "Personaaltreeningud + toitumise kohandamine",                                              "price": "€220 / kuu" },
+    { "name": "Treeningud paarides",       "desc": "Sessioon sõbra või partneriga",                                                            "price": "€40 / tund" },
+    { "name": "Grupi treening",            "desc": "3–10 inimese gruppidele, võib olla kliendi saalis",                                        "price": "€100 / tund" },
+    { "name": "Konsultatsioon",            "desc": "Professionaalne nõustamine treeningu ja toitumise osas",                                   "price": "€50" },
+    { "name": "Veebis treenimine",         "desc": "Zoom, FaceTime või Google Meet — treeni kõikjalt",                                        "price": "€30 / tund" },
+    { "name": "Treening kliendi saalis",   "desc": "Sessioon sinu valitud treeningukohas",                                                     "price": "€40 / tund" },
+    { "name": "Veebis juhendamine",        "desc": "Isiklik treening- ja toitumisplaan, edusammude jälgimine, tugi 24/7",                     "price": "€150 / kuu" }
+  ],
+
+  "testimonials": [
+    {
+      "name": "Maria",
+      "text": "Kaotas üle 20 kg ja naasis oma parima füüsilise vormi juurde. Stanislav pole ainult treener — ta on motivatsiooni- ja toetuseallika igal sammul. Soovitan kõigile!"
+    },
+    {
+      "name": "Oksana",
+      "text": "Miinus 20+ kg ja mu elu muutus. Individuaalne lähenemine treeningule ja toitumisele — see on see, mis päriselt töötab. Ma ei uskunud, et see võimalik on, kuid Stanislav tõestas vastupidist."
+    },
+    {
+      "name": "Andrei",
+      "text": "Õppisin uuesti oma keha armastama. Transformatsioon toimus kiiresti ja mugavalt. Soovitan tungivalt kõigile, kes soovivad reaalseid tulemusi ilma tarbetute kannatusteta."
+    }
+  ]
+}
